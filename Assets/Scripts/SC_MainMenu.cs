@@ -8,6 +8,7 @@ public class SC_MainMenu : MonoBehaviour
 
     public GameObject MainMenu;
     public GameObject OptionsMenu;
+    public GameObject CustomizationMenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,11 +33,20 @@ public class SC_MainMenu : MonoBehaviour
     {
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(true);
+        CustomizationMenu.SetActive(false);
     }
 
     public void MainMenuButton()
     {
         MainMenu.SetActive(true);
         OptionsMenu.SetActive(false);
+        CustomizationMenu.SetActive(false);
+    }
+
+    public void CustomizationButton()
+    {
+        MainMenu.SetActive(false);
+        OptionsMenu.SetActive(false);
+        CustomizationMenu.SetActive(true);
     }
 }
