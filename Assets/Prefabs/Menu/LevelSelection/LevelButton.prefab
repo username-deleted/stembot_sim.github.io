@@ -134,10 +134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 300
-  m_PreferredHeight: 300
+  m_MinWidth: 100
+  m_MinHeight: 100
+  m_PreferredWidth: 275
+  m_PreferredHeight: 275
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -155,6 +155,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelButton: {fileID: 0}
   levelNumber: 0
-  spriteSize: 250
-  textYOffset: 50
-  levelManager: {fileID: 0}
+  spriteSize: 225
+  textYOffset: 160

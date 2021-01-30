@@ -59,11 +59,29 @@ public class LevelButton : MonoBehaviour
     {
         //create the text for the button
         GameObject textObject = new GameObject();
-        textObject.AddComponent<RectTransform>();
-        textObject.AddComponent<Text>().text = levelNumber.ToString();
+
+        //set the position
+        textObject.AddComponent<RectTransform>().SetPositionAndRotation(new Vector3(0, textYOffset, 1), Quaternion.identity);
+
+        RectTransform rt = textObject.GetComponent<RectTransform>();
+        rt.sizeDelta = new Vector2(200, 100);
+
+        //set the text
+        textObject.AddComponent<Text>().text = "Level " + levelNumber.ToString();
+
+        //get the text component
+        var text = textObject.GetComponent<Text>();
+
+        //set the font/material
+        Font ArialFont = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        text.font = ArialFont;
+        text.fontSize = 36;
+        text.material = ArialFont.material;
+        text.alignment = TextAnchor.MiddleCenter;
 
         //set the parent
         textObject.transform.SetParent(gameObject.transform);
+
         //name it
         textObject.name = "Level " + levelNumber.ToString() + " Text";
 
