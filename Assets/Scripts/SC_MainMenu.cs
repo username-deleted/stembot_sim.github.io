@@ -9,6 +9,8 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject MainMenu;
     public GameObject OptionsMenu;
     public GameObject CustomizationMenu;
+
+    public GameObject SIMBot;
     // Start is called before the first frame update
     void Start()
     {
