@@ -27,13 +27,9 @@ public class SC_MainMenu : MonoBehaviour
         
     }
 
+    //update the attachment number display
     public void UpdateAttachmentNumber()
     {
-        Debug.Log("UPDATE!!!");
-        if (attachmentNumberText)
-        {
-            Debug.Log("I exist...");
-        }
         attachmentNumberText.text = SIMbotScript.attachmentNumber.ToString();
     }
 
