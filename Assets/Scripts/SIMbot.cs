@@ -5,6 +5,7 @@ using UnityEngine;
 public class SIMbot : MonoBehaviour
 {
     public GameObject[] attachments;
+    public SIMbotObject SIMbotData;
     public int attachmentNumber = 0;
     private int MAX_ATTACHMENT_INDEX;
 
@@ -24,6 +25,7 @@ public class SIMbot : MonoBehaviour
         {
             attachmentNumber++;
         }
+        SIMbotData.attachmentNumber = attachmentNumber;
     }
 
     public void PreviousAttachment()
@@ -36,5 +38,6 @@ public class SIMbot : MonoBehaviour
         {
             attachmentNumber--;
         }
+        SIMbotData.attachmentNumber = attachmentNumber;
     }
 }

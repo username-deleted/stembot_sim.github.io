@@ -1251,6 +1251,7 @@ GameObject:
   - component: {fileID: 5511758453499155587}
   - component: {fileID: 5511758453499155589}
   - component: {fileID: 5511758453499155588}
+  - component: {fileID: 612945894}
   m_Layer: 0
   m_Name: SIMbot
   m_TagString: Player
@@ -1330,6 +1331,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   botScript: botObj.py
   motors: {fileID: 5511758452115118202}
+--- !u!114 &612945894
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5511758453499155584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: deb0c8526c864a84b8a713917f1326e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attachments:
+  - {fileID: 0}
+  - {fileID: 347848130177779865, guid: 4cecea9ff1fc3a942a97c781622f5268, type: 3}
+  - {fileID: 6159842104770947724, guid: 707607ddc5e4f0c41a3e68e76ad4a412, type: 3}
+  - {fileID: 7742316568743868577, guid: 49731136cbaae874da8d1ad45acebc59, type: 3}
+  - {fileID: 2237034101418351470, guid: 2f3418ee3670c774ca28834a048b06de, type: 3}
+  - {fileID: 7742316568743868577, guid: f4256347ecbbd334d87025535d844340, type: 3}
+  SIMbotData: {fileID: 11400000, guid: 0896ff5e45e47b147a18d6fc01fea426, type: 2}
+  attachmentNumber: 0
 --- !u!1 &8391083492450833736
 GameObject:
   m_ObjectHideFlags: 0

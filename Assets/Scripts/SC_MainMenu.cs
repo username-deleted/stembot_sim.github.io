@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SC_MainMenu : MonoBehaviour
 {
@@ -10,17 +11,30 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject OptionsMenu;
     public GameObject CustomizationMenu;
 
-    public GameObject SIMBot;
+    public Text attachmentNumberText;
+
+    public GameObject SIMbot;
+    private SIMbot SIMbotScript;
     // Start is called before the first frame update
     void Start()
     {
-        
+        SIMbotScript = SIMbot.GetComponent<SIMbot>();
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void UpdateAttachmentNumber()
+    {
+        Debug.Log("UPDATE!!!");
+        if (attachmentNumberText)
+        {
+            Debug.Log("I exist...");
+        }
+        attachmentNumberText.text = SIMbotScript.attachmentNumber.ToString();
     }
 
     public void ExitButton()
