@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Goal
   - AttachmentNumberText
+  - LevelButtons
+  - MainMenu
   layers:
   - Default
   - TransparentFX
