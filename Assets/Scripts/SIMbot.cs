@@ -25,7 +25,7 @@ public class SIMbot : MonoBehaviour
         {
             attachmentNumber++;
         }
-        SIMbotData.attachmentNumber = attachmentNumber;
+        SIMbotData.SetAttachmentNumber(attachmentNumber);
     }
 
     public void PreviousAttachment()
@@ -38,6 +38,6 @@ public class SIMbot : MonoBehaviour
         {
             attachmentNumber--;
         }
-        SIMbotData.attachmentNumber = attachmentNumber;
+        SIMbotData.SetAttachmentNumber(attachmentNumber);
     }
 }
