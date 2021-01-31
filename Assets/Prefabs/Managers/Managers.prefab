@@ -58,3 +58,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentlySelectedLevel: 1
+  sceneNames:
+  - Level1-Maze
+  - Level2-BallCollect

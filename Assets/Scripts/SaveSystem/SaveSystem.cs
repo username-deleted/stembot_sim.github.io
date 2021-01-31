@@ -5,7 +5,8 @@ using UnityEngine;
 
 public static class SaveSystem
 {
-    public static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/";
+    private const string filename = "/data.txt"; //where to save and load the data from
+    public static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/"; //the folder to save/load from
 
     //save the saveString data
     public static void Save(string saveString)
@@ -20,15 +21,15 @@ public static class SaveSystem
         {
             //Debug.Log("Directory: \'" + SAVE_FOLDER + "\' Exists.");
         }
-        File.WriteAllText(SAVE_FOLDER + "/data.txt", saveString);
+        File.WriteAllText(SAVE_FOLDER + filename, saveString);
     }
 
     //load the data
     public static string Load()
     {
-        if(File.Exists(SAVE_FOLDER + "/data.txt"))
+        if(File.Exists(SAVE_FOLDER + filename))
         {
-            string saveString = File.ReadAllText(SAVE_FOLDER + "/data.txt");
+            string saveString = File.ReadAllText(SAVE_FOLDER + filename);
             return saveString;
         }
         else
@@ -41,13 +42,13 @@ public static class SaveSystem
     //delete all the data
     public static void DeleteData()
     {
-        if (File.Exists(SAVE_FOLDER + "/data.txt"))
+        if (File.Exists(SAVE_FOLDER + filename))
         {
-            File.Delete(SAVE_FOLDER + "/data.txt");
+            File.Delete(SAVE_FOLDER + filename);
             //delete the metadata for unity's editor system
             if (Application.isEditor)
             {
-                File.Delete(SAVE_FOLDER + "/data.txt.meta");
+                File.Delete(SAVE_FOLDER + filename + ".meta");
             }
             Debug.Log("Data deleted!");
         }

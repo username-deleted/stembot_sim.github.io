@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SC_MainMenu : MonoBehaviour
@@ -20,11 +19,14 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject SIMbot;
     private SIMbot SIMbotScript;
 
+    private LevelManager levelManager;
+
     public int currentlySelectedLevel = 1;
     // Start is called before the first frame update
     void Start()
     {
         SIMbotScript = SIMbot.GetComponent<SIMbot>();
+        levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
 
         //create a button for each of our levels
         foreach (LevelButtonObject levelButton in levelButtons)
@@ -81,13 +83,24 @@ public class SC_MainMenu : MonoBehaviour
         LevelSelectionMenu.SetActive(true);
     }
 
+    public void PlayButton()
+    {
+        MainMenu.SetActive(false);
+        OptionsMenu.SetActive(false);
+        CustomizationMenu.SetActive(false);
+        LevelSelectionMenu.SetActive(false);
+
+        //load the currently selected level
+        levelManager.LoadLevel();
+    }
+
     //update the attachment number display
     public void UpdateAttachmentNumber()
     {
         attachmentNumberText.text = SIMbotScript.attachmentNumber.ToString();
     }
 
-    //set the currently selected level
+    //set the currently selected level, called by the LevelButton script
     public void SetSelectedLevel(int levelNumber)
     {
         currentlySelectedLevel = levelNumber;

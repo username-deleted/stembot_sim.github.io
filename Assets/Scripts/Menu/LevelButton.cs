@@ -11,12 +11,13 @@ public class LevelButton : MonoBehaviour
     public int levelNumber;
 
     //size in pixels
-    public int spriteSize = 150;
+    public int spriteSize = 225;
 
     //text Y offset
-    public int textYOffset = 50;
+    public int textYOffset = 160;
 
     private LevelManager levelManager;
+    private SC_MainMenu mainMenuScript;
 
     private Sprite levelSprite;
     // Start is called before the first frame update
@@ -24,6 +25,9 @@ public class LevelButton : MonoBehaviour
     {
         //get the level manager
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
+
+        //get the mainMenuScript
+        mainMenuScript = GameObject.FindGameObjectWithTag("MainMenu").GetComponent<SC_MainMenu>();
 
         //set the level number
         levelNumber = levelButton.levelNumber;
@@ -47,12 +51,12 @@ public class LevelButton : MonoBehaviour
         imageObject.AddComponent<Image>().sprite = levelSprite;
 
         //set the parent
-        imageObject.transform.SetParent(gameObject.transform);
+        imageObject.transform.SetParent(gameObject.transform, false);
         //name it
         imageObject.name = "Level " + levelNumber.ToString() + " Image";
 
         //instantiate the image
-        Instantiate(imageObject, Vector3.zero, Quaternion.identity);
+        GameObject obj = Instantiate(imageObject, Vector3.zero, Quaternion.identity);
     }
 
     private void CreateTextObject()
@@ -80,7 +84,7 @@ public class LevelButton : MonoBehaviour
         text.alignment = TextAnchor.MiddleCenter;
 
         //set the parent
-        textObject.transform.SetParent(gameObject.transform);
+        textObject.transform.SetParent(gameObject.transform, false);
 
         //name it
         textObject.name = "Level " + levelNumber.ToString() + " Text";
@@ -92,6 +96,7 @@ public class LevelButton : MonoBehaviour
     //set the levelManager to the correct level
     public void SetCurrentlySelectedLevel()
     {
+        mainMenuScript.SetSelectedLevel(levelNumber);
         levelManager.SetSelectedLevel(levelNumber);
     }
 }
