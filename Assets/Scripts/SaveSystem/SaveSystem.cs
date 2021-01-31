@@ -24,7 +24,10 @@ public static class SaveSystem
         File.WriteAllText(SAVE_FOLDER + filename, saveString);
     }
 
-    //load the data
+    /// <summary>This method loads previously saved data from </summary>
+    /// <returns>The data string</returns>
+    /// <see cref="filename"/>
+    /// <see cref="SAVE_FOLDER"/>
     public static string Load()
     {
         if(File.Exists(SAVE_FOLDER + filename))
