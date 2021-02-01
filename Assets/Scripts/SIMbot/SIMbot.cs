@@ -46,24 +46,6 @@ public class SIMbot : MonoBehaviour
         }
     }
 
-    //initialize the attachment on the SIMbot
-    private void spawnAttachment()
-    {
-        if (attachments[attachmentNumber] != null) {
-            GameObject attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
-            GameObject currentAttachment = Instantiate(attachments[attachmentNumber], attachmentSlot.transform.position, attachmentSlot.transform.rotation);
-            currentAttachment.transform.parent = attachmentSlot.transform;
-        }
-    }
-
-    private void clearAttachments() {
-        foreach (Transform child in GameObject.FindGameObjectWithTag("AttachmentSlot").transform)
-        {
-            GameObject.Destroy(child.gameObject);
-        }
-    }
-
-
     private SIMbotData GetSBDataFromFile()
     {
         return JsonUtility.FromJson<SIMbotData>(SaveSystem.Load());
@@ -108,6 +90,26 @@ public class SIMbot : MonoBehaviour
         SBData.attachmentNumber = attachmentNumber;
         clearAttachments();
         spawnAttachment();
+    }
+
+    //initialize the attachment on the SIMbot
+    private void spawnAttachment()
+    {
+        if (attachments[attachmentNumber] != null)
+        {
+            GameObject attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
+            GameObject currentAttachment = Instantiate(attachments[attachmentNumber], attachmentSlot.transform.position, attachmentSlot.transform.rotation);
+            currentAttachment.transform.parent = attachmentSlot.transform;
+        }
+    }
+
+    //clear the current attchments on the SIMbot
+    private void clearAttachments()
+    {
+        foreach (Transform child in GameObject.FindGameObjectWithTag("AttachmentSlot").transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     public void TogglePythonBot()
