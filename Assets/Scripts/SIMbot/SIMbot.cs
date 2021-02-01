@@ -18,7 +18,7 @@ public class SIMbot : MonoBehaviour
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
         //initialize bot data
         InitSBData();
-        InitAttachment();
+        spawnAttachment();
     }
 
     //initializes the data for the SIMbot
@@ -47,7 +47,7 @@ public class SIMbot : MonoBehaviour
     }
 
     //initialize the attachment on the SIMbot
-    private void InitAttachment()
+    private void spawnAttachment()
     {
         if (attachments[attachmentNumber] != null) {
             GameObject attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
@@ -55,6 +55,14 @@ public class SIMbot : MonoBehaviour
             currentAttachment.transform.parent = attachmentSlot.transform;
         }
     }
+
+    private void clearAttachments() {
+        foreach (Transform child in GameObject.FindGameObjectWithTag("AttachmentSlot").transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+    }
+
 
     private SIMbotData GetSBDataFromFile()
     {
@@ -82,6 +90,8 @@ public class SIMbot : MonoBehaviour
         }
         //Save it in SBData to persist between scenes.
         SBData.attachmentNumber = attachmentNumber;
+        clearAttachments();
+        spawnAttachment();
     }
 
     public void PreviousAttachment()
@@ -96,6 +106,8 @@ public class SIMbot : MonoBehaviour
         }
         //Save it in SBData to persist between scenes.
         SBData.attachmentNumber = attachmentNumber;
+        clearAttachments();
+        spawnAttachment();
     }
 
     public void TogglePythonBot()
