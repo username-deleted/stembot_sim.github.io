@@ -8,6 +8,8 @@ TagManager:
   - AttachmentNumberText
   - LevelButtons
   - MainMenu
+  - Managers
+  - AttachmentSlot
   layers:
   - Default
   - TransparentFX

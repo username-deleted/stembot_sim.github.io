@@ -1350,8 +1350,10 @@ MonoBehaviour:
   - {fileID: 7742316568743868577, guid: 49731136cbaae874da8d1ad45acebc59, type: 3}
   - {fileID: 2237034101418351470, guid: 2f3418ee3670c774ca28834a048b06de, type: 3}
   - {fileID: 7742316568743868577, guid: f4256347ecbbd334d87025535d844340, type: 3}
-  SIMbotData: {fileID: 11400000, guid: 0896ff5e45e47b147a18d6fc01fea426, type: 2}
   attachmentNumber: 0
+  pythonBot: 0
+  tankControls: 1
+  LEDOn: 1
 --- !u!1 &8391083492450833736
 GameObject:
   m_ObjectHideFlags: 0
@@ -1459,7 +1461,7 @@ GameObject:
   - component: {fileID: 2232947443149883814}
   m_Layer: 0
   m_Name: Attachments
-  m_TagString: Untagged
+  m_TagString: AttachmentSlot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

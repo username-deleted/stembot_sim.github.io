@@ -3382,7 +3382,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &589559226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4943,7 +4943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &809066843
 Transform:
   m_ObjectHideFlags: 0
@@ -6138,6 +6138,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f3610b13a377e8479a426bdbaeab6f0, type: 3}
+--- !u!1 &950942509 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5511758453499155584, guid: 0f3610b13a377e8479a426bdbaeab6f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 950942508}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &959125236
 GameObject:
   m_ObjectHideFlags: 0
@@ -10626,6 +10632,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 2950472624392197373, guid: 2710c0fd333c4324fb482c7f956e5591,
+        type: 3}
+      propertyPath: SIMbot
+      value: 
+      objectReference: {fileID: 950942509}
     - target: {fileID: 4055535744612020238, guid: 2710c0fd333c4324fb482c7f956e5591,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14923,7 +14934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2042914671
 MonoBehaviour:
   m_ObjectHideFlags: 0

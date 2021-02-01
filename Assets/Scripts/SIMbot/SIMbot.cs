@@ -5,7 +5,7 @@ public class SIMbot : MonoBehaviour
 {
     private const string filename = "/data.txt"; //where the data is saved
     public GameObject[] attachments;
-    public int attachmentNumber = 0;
+    public int attachmentNumber = 1;
     public bool pythonBot = false;
     public bool tankControls = true;
     public bool LEDOn = true;
@@ -18,6 +18,7 @@ public class SIMbot : MonoBehaviour
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
         //initialize bot data
         InitSBData();
+        InitAttachment();
     }
 
     //initializes the data for the SIMbot
@@ -31,9 +32,9 @@ public class SIMbot : MonoBehaviour
             Debug.Log("Got Data!");
             SIMbotData data = GetSBDataFromFile();
             Debug.Log(data.attachmentNumber);
-            Debug.Log(data.pythonBot);
-            Debug.Log(data.tankControls);
-            Debug.Log(data.LEDOn);
+            //Debug.Log(data.pythonBot);
+            //Debug.Log(data.tankControls);
+            //Debug.Log(data.LEDOn);
             //update the bot's copy of the data (if we want to save it later)
             UpdateSBData(data);
             //update the bot's variables (for use within the game). this relies on SBData, so always run UpdateSBData beforehand
@@ -42,6 +43,16 @@ public class SIMbot : MonoBehaviour
         else
         {
             SBData = new SIMbotData(attachmentNumber, pythonBot, tankControls, LEDOn);
+        }
+    }
+
+    //initialize the attachment on the SIMbot
+    private void InitAttachment()
+    {
+        if (attachments[attachmentNumber] != null) {
+            GameObject attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
+            GameObject currentAttachment = Instantiate(attachments[attachmentNumber], attachmentSlot.transform.position, attachmentSlot.transform.rotation);
+            currentAttachment.transform.parent = attachmentSlot.transform;
         }
     }
 

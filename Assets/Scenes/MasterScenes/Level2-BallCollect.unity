@@ -5600,6 +5600,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.7, z: 0.7}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &500451964 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5511758453499155584, guid: 0f3610b13a377e8479a426bdbaeab6f0,
+    type: 3}
+  m_PrefabInstance: {fileID: 500451961}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &502601209
 GameObject:
   m_ObjectHideFlags: 0
@@ -7998,6 +8004,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Managers
       objectReference: {fileID: 0}
+    - target: {fileID: 2950472624392197373, guid: 2710c0fd333c4324fb482c7f956e5591,
+        type: 3}
+      propertyPath: SIMbot
+      value: 
+      objectReference: {fileID: 500451964}
     - target: {fileID: 4055535744612020238, guid: 2710c0fd333c4324fb482c7f956e5591,
         type: 3}
       propertyPath: m_LocalPosition.x
