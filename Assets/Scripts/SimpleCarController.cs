@@ -19,7 +19,13 @@ public class SimpleCarController : MonoBehaviour {
     public float maxMotorTorque;
     public float maxSteeringAngle;
     public bool tankControls = true;
-     
+
+    private void Start()
+    {
+        //set the tank controls from the simbot script that has loaded the data previously
+        tankControls = gameObject.GetComponent<SIMbot>().tankControls;
+    }
+
     // finds the corresponding visual wheel
     // correctly applies the transform
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
