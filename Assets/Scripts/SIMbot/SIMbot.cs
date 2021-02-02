@@ -6,9 +6,11 @@ public class SIMbot : MonoBehaviour
     private const string filename = "/data.txt"; //where the data is saved
     public GameObject[] attachments;
     public int attachmentNumber = 1;
+    public GameObject attachmentSlot;
     public bool pythonBot = false;
     public bool tankControls = true;
-    public bool LEDOn = true;
+    public bool LEDOn = false;
+    private Light LED;
     public SIMbotData SBData;
     private int MAX_ATTACHMENT_INDEX;
 
@@ -16,9 +18,12 @@ public class SIMbot : MonoBehaviour
     private void Start()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
+        LED = GameObject.FindGameObjectWithTag("LEDLight").GetComponent<Light>();
+        attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         //initialize bot data
         InitSBData();
         spawnAttachment();
+        updateLED();
     }
 
     //initializes the data for the SIMbot
@@ -60,6 +65,20 @@ public class SIMbot : MonoBehaviour
         LEDOn = SBData.LEDOn;
     }
 
+    private void updateLED() {
+        //Debug.Log(LEDOn);
+        if (LEDOn)
+        {
+            LED.enabled = true;
+            //Debug.Log("LED should be on");
+        }
+        else
+        {
+            LED.enabled = false;
+            //Debug.Log("LED should be off");
+        }
+    }
+
     public void NextAttachment()
     {
         if(attachmentNumber == MAX_ATTACHMENT_INDEX)
@@ -97,7 +116,6 @@ public class SIMbot : MonoBehaviour
     {
         if (attachments[attachmentNumber] != null)
         {
-            GameObject attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
             GameObject currentAttachment = Instantiate(attachments[attachmentNumber], attachmentSlot.transform.position, attachmentSlot.transform.rotation);
             currentAttachment.transform.parent = attachmentSlot.transform;
         }
@@ -106,7 +124,7 @@ public class SIMbot : MonoBehaviour
     //clear the current attchments on the SIMbot
     private void clearAttachments()
     {
-        foreach (Transform child in GameObject.FindGameObjectWithTag("AttachmentSlot").transform)
+        foreach (Transform child in attachmentSlot.transform)
         {
             Destroy(child.gameObject);
         }
@@ -129,6 +147,7 @@ public class SIMbot : MonoBehaviour
     public void ToggleLED()
     {
         LEDOn = !LEDOn;
+        updateLED();
         //Save it in SBData to persist between scenes.
         SBData.LEDOn = LEDOn;
     }

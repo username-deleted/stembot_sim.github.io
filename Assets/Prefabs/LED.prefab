@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6389142255537809861}
   m_Layer: 0
   m_Name: LED
-  m_TagString: Untagged
+  m_TagString: LEDLight
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
