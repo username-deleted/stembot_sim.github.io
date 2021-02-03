@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Goal
+  - AttachmentNumberText
+  - LevelButtons
+  - MainMenu
+  - Managers
+  - AttachmentSlot
+  - LEDLight
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a575c14e94dbb46a310a1778a0d094, type: 3}
+  m_Name: LevelButton2
+  m_EditorClassIdentifier: 
+  levelImage: {fileID: 21300000, guid: ce5d05a63f1e89041ad06b4226f483ba, type: 3}
+  levelNumber: 2
+  buttonPrefab: {fileID: 4698950688581467081, guid: 721563e981925e54ea6ede3a198bdfbe,
+    type: 3}
