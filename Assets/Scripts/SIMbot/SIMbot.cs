@@ -4,16 +4,21 @@ using UnityEngine;
 public class SIMbot : MonoBehaviour
 {
     private const string filename = "/data.txt"; //where the data is saved
+
     public GameObject[] attachments;
     public int attachmentNumber = 1;
     public GameObject attachmentSlot;
+
     public bool pythonBot = false;
     public bool tankControls = true;
+
     public bool LEDOn = false;
     private Light LED;
+
     public SIMbotData SBData;
     private int MAX_ATTACHMENT_INDEX;
 
+    public SimpleCarController carControllerScript;
 
     private void Awake()
     {
@@ -27,6 +32,9 @@ public class SIMbot : MonoBehaviour
         InitSBData();
         spawnAttachment();
         updateLED();
+
+        //set the controller controls
+        carControllerScript.tankControls = tankControls;
     }
 
     //initializes the data for the SIMbot

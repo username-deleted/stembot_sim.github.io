@@ -1351,9 +1351,11 @@ MonoBehaviour:
   - {fileID: 2237034101418351470, guid: 2f3418ee3670c774ca28834a048b06de, type: 3}
   - {fileID: 7742316568743868577, guid: f4256347ecbbd334d87025535d844340, type: 3}
   attachmentNumber: 0
+  attachmentSlot: {fileID: 0}
   pythonBot: 0
   tankControls: 1
   LEDOn: 1
+  carControllerScript: {fileID: 5511758453499155589}
 --- !u!1 &8391083492450833736
 GameObject:
   m_ObjectHideFlags: 0
