@@ -7,5 +7,4 @@ public class LevelButtonObject : ScriptableObject
 {
     public Sprite levelImage;
     public int levelNumber;
-    public GameObject buttonPrefab;
 }

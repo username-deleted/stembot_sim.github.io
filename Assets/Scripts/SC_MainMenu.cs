@@ -14,7 +14,6 @@ public class SC_MainMenu : MonoBehaviour
     public Text attachmentNumberText;
 
     public GameObject levelButtonsContainer;
-    public LevelButtonObject[] levelButtons;
 
     public GameObject SIMbot;
     private SIMbot SIMbotScript;
@@ -27,22 +26,6 @@ public class SC_MainMenu : MonoBehaviour
     {
         SIMbotScript = SIMbot.GetComponent<SIMbot>();
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
-
-        //create a button for each of our levels
-        foreach (LevelButtonObject levelButton in levelButtons)
-        {
-            //get the UI prefab
-            GameObject buttonPrefab = levelButton.buttonPrefab;
-
-            //create it
-            GameObject button = Instantiate(buttonPrefab, Vector3.zero, Quaternion.identity);
-
-            //set the information of the button on the button
-            button.GetComponent<LevelButton>().levelButton = levelButton;
-
-            //set the parent, in this case, the level buttons grid container
-            button.transform.SetParent(levelButtonsContainer.transform);
-        }
     }
 
     public void ExitButton()
