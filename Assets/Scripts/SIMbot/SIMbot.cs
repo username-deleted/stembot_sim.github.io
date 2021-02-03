@@ -15,9 +15,12 @@ public class SIMbot : MonoBehaviour
     private int MAX_ATTACHMENT_INDEX;
 
 
-    private void Start()
+    private void Awake()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
+    }
+    private void Start()
+    {
         LED = GameObject.FindGameObjectWithTag("LEDLight").GetComponent<Light>();
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         //initialize bot data
@@ -29,26 +32,27 @@ public class SIMbot : MonoBehaviour
     //initializes the data for the SIMbot
     private void InitSBData()
     {
-
         //if there exists saved data for our bot, load it, otherwise make a default instance
         string path = SaveSystem.SAVE_FOLDER + filename;
         if (File.Exists(path))
         {
             Debug.Log("Got Data!");
             SIMbotData data = GetSBDataFromFile();
-            Debug.Log(data.attachmentNumber);
+
+            //Debug.Log(data.attachmentNumber);
             //Debug.Log(data.pythonBot);
             //Debug.Log(data.tankControls);
             //Debug.Log(data.LEDOn);
+
             //update the bot's copy of the data (if we want to save it later)
             UpdateSBData(data);
-            //update the bot's variables (for use within the game). this relies on SBData, so always run UpdateSBData beforehand
-            LoadSIMbotOptions();
         }
         else
         {
             SBData = new SIMbotData(attachmentNumber, pythonBot, tankControls, LEDOn);
         }
+        //update the bot's variables (for use within the game). this relies on SBData, so always run UpdateSBData beforehand
+        LoadSIMbotOptions();
     }
 
     private SIMbotData GetSBDataFromFile()
