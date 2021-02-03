@@ -16,6 +16,7 @@ public class SIMbot : MonoBehaviour
     private Light LED;
 
     public SIMbotData SBData;
+    private SaveManager saveManager;
     private int MAX_ATTACHMENT_INDEX;
 
     public SimpleCarController carControllerScript;
@@ -28,6 +29,8 @@ public class SIMbot : MonoBehaviour
     {
         LED = GameObject.FindGameObjectWithTag("LEDLight").GetComponent<Light>();
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
+        saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
+
         //initialize bot data
         InitSBData();
         spawnAttachment();
@@ -45,7 +48,7 @@ public class SIMbot : MonoBehaviour
         if (File.Exists(path))
         {
             Debug.Log("Got Data!");
-            SIMbotData data = GetSBDataFromFile();
+            SIMbotData data = LoadSIMbotDataFromFile();
 
             //Debug.Log(data.attachmentNumber);
             //Debug.Log(data.pythonBot);
@@ -61,20 +64,6 @@ public class SIMbot : MonoBehaviour
         }
         //update the bot's variables (for use within the game). this relies on SBData, so always run UpdateSBData beforehand
         LoadSIMbotOptions();
-    }
-
-    private SIMbotData GetSBDataFromFile()
-    {
-        return JsonUtility.FromJson<SIMbotData>(SaveSystem.Load());
-    }
-
-    //updates the variables to the saved data in the SBData variable
-    private void LoadSIMbotOptions()
-    {
-        attachmentNumber = SBData.attachmentNumber;
-        pythonBot = SBData.pythonBot;
-        tankControls = SBData.tankControls;
-        LEDOn = SBData.LEDOn;
     }
 
     private void updateLED() {
@@ -152,6 +141,10 @@ public class SIMbot : MonoBehaviour
     public void ToggleTankControls()
     {
         tankControls = !tankControls;
+
+        //update the car controller's controls
+        carControllerScript.tankControls = tankControls;
+
         //Save it in SBData to persist between scenes.
         SBData.tankControls = tankControls;
     }
@@ -162,6 +155,36 @@ public class SIMbot : MonoBehaviour
         updateLED();
         //Save it in SBData to persist between scenes.
         SBData.LEDOn = LEDOn;
+    }
+
+    //set the current simbot variables to the data, this does not pull from the file
+    private void LoadSIMbotOptions()
+    {
+        attachmentNumber = SBData.attachmentNumber;
+        pythonBot = SBData.pythonBot;
+        tankControls = SBData.tankControls;
+        LEDOn = SBData.LEDOn;
+    }
+
+    //stores the current simbot variables to the data, this does not push to the file
+    public void SaveSIMbotOptions()
+    {
+        SBData.attachmentNumber = attachmentNumber;
+        SBData.pythonBot = pythonBot;
+        SBData.tankControls = tankControls;
+        SBData.LEDOn = LEDOn;
+    }
+
+    //save the sbdata to a file
+    public void SaveSIMbotDataToFile()
+    {
+        saveManager.SaveSBData();
+    }
+
+    //load the sbdata from a file
+    public SIMbotData LoadSIMbotDataFromFile()
+    {
+        return JsonUtility.FromJson<SIMbotData>(saveManager.LoadSBData());
     }
 
     //changes the data saved to the newly given data

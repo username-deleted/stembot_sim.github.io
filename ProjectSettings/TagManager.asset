@@ -13,6 +13,9 @@ TagManager:
   - LEDLight
   - SIMBotCollider
   - Coin
+  - PauseMenu
+  - PythonTogglePause
+  - TankControlsTogglePause
   layers:
   - Default
   - TransparentFX

@@ -17,10 +17,17 @@ public class LevelManager : MonoBehaviour
         string scene = "";
         switch (currentlySelectedLevel)
         {
+            //load the main menu
+            case 0:
+                scene = "FinalMainMenu";
+                break;
+
+            //load level 1
             case 1:
                 scene = sceneNames[0];
                 break;
 
+            //load level 2
             case 2:
                 scene = sceneNames[1];
                 break;
@@ -30,5 +37,17 @@ public class LevelManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(scene);
+    }
+
+
+    //pause the level
+    public void PauseLevel()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void ResumeLevel()
+    {
+        Time.timeScale = 1;
     }
 }
