@@ -11,6 +11,8 @@ TagManager:
   - Managers
   - AttachmentSlot
   - LEDLight
+  - SIMBotCollider
+  - Coin
   layers:
   - Default
   - TransparentFX
