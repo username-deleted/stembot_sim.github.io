@@ -10,12 +10,12 @@ public class SC_MainMenu : MonoBehaviour
     public GameObject OptionsMenu;
     public GameObject CustomizationMenu;
     public GameObject LevelSelectionMenu;
+    public Toggle pythonToggle;
+    public Toggle tankControlsToggle;
 
     public Text attachmentNumberText;
 
-    public GameObject levelButtonsContainer;
-
-    public GameObject SIMbot;
+    private GameObject SIMbot;
     private SIMbot SIMbotScript;
 
     private LevelManager levelManager;
@@ -24,13 +24,22 @@ public class SC_MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SIMbotScript = SIMbot.GetComponent<SIMbot>();
-        levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
+        SIMbot = GameObject.FindGameObjectWithTag("Player"); //get the SIMbot
+        SIMbotScript = SIMbot.GetComponent<SIMbot>(); //get the SIMbot script
+        levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>(); //get the level manager
+
+        //determines whether or not the toggles are on by default according to what was selected on the bot before
+        //useful for when the user backs out of the game, but does not quit
+        pythonToggle.isOn = SIMbotScript.pythonBot;
+        tankControlsToggle.isOn = SIMbotScript.tankControls;
+
+        //update the attachment number at start
+        //used mainly for when the player comes back from a level
+        UpdateAttachmentNumber();
     }
 
     public void ExitButton()
     {
-        // Debug.Log("Quit!!!");
         // Quit the game
         Application.Quit();
         UnityEditor.EditorApplication.isPlaying = false;
@@ -87,5 +96,17 @@ public class SC_MainMenu : MonoBehaviour
     public void SetSelectedLevel(int levelNumber)
     {
         currentlySelectedLevel = levelNumber;
+    }
+
+    //set the controls dependent on the toggle
+    public void SetBotTankControls()
+    {
+        SIMbotScript.SetTankControls(tankControlsToggle.isOn);
+    }
+
+    //set whether to use th python script or not dependent on the toggle
+    public void SetPythonBot()
+    {
+        SIMbotScript.SetPythonBot(pythonToggle.isOn);
     }
 }

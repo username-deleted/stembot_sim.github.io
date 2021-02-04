@@ -19,6 +19,11 @@ public class SaveManager : MonoBehaviour
         SaveSystem.Save(saveString);
     }
 
+    public string LoadSBData()
+    {
+        return SaveSystem.Load();
+    }
+
     private void OnApplicationQuit()
     {
         //we are not doing a persistent save system, delete the data so the app is fresh on start
