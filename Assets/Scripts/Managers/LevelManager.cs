@@ -92,4 +92,11 @@ public class LevelManager : MonoBehaviour
             return false;
         }
     }
+
+    public void RestartLevel()
+    {
+        string nameOfCurrentScene = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(nameOfCurrentScene);
+        Time.timeScale = 1;
+    }
 }

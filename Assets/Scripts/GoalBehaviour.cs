@@ -13,7 +13,7 @@ public class GoalBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sceneManager = GameObject.Find("GameManager").GetComponent<GameManagerBehaviour>();
+        //sceneManager = GameObject.Find("GameManager").GetComponent<GameManagerBehaviour>();
     }
 
     // Update is called once per frame
