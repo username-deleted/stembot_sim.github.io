@@ -71,15 +71,29 @@ public class SC_PauseMenu : MonoBehaviour
         else
         //if the game isn't paused, pause it
         {
-            levelManager.PauseLevel();
-            PauseMenuButton();
+            PauseGame();
         }
+    }
+
+    private void PauseGame()
+    {
+        //pause the level
+        levelManager.PauseLevel();
+
+        //turn off the orbit script
+        SIMbotScript.DisableCameraOrbit();
+
+        //turn on the pause menu
+        PauseMenuButton();
     }
 
     public void ResumeGame()
     {
         //resume the level
         levelManager.ResumeLevel();
+
+        //turn on the orbit script
+        SIMbotScript.EnableCameraOrbit();
 
         //turn off the menus
         PauseMenu.SetActive(false);
