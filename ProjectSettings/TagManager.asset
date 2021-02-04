@@ -16,6 +16,8 @@ TagManager:
   - PauseMenu
   - PythonTogglePause
   - TankControlsTogglePause
+  - ScoreValue
+  - TimeValue
   layers:
   - Default
   - TransparentFX
