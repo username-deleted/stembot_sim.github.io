@@ -73,7 +73,7 @@ public class SIMbot : MonoBehaviour
         string path = SaveSystem.SAVE_FOLDER + filename;
         if (File.Exists(path))
         {
-            Debug.Log("Got Data!");
+            //Debug.Log("Got Data!");
             SIMbotData data = LoadSIMbotDataFromFile();
 
             //Debug.Log(data.attachmentNumber);

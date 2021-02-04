@@ -53,7 +53,7 @@ public static class SaveSystem
             {
                 File.Delete(SAVE_FOLDER + filename + ".meta");
             }
-            Debug.Log("Data deleted!");
+            //Debug.Log("Data deleted!");
         }
     }
 }

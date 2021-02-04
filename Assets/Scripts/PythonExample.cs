@@ -27,7 +27,7 @@ public class PythonExample : MonoBehaviour {
         //This code was pointing to specific python code but after published, it was pointing outside the directory, adding "/Scripts/" to point back to the right place
         dynamic botObj = engine.ExecuteFile(Application.dataPath + @"/Scripts/" +botScript);
         dynamic STEMBot = botObj.botObj(motors);
-        Debug.Log(STEMBot.hello());
+        //Debug.Log(STEMBot.hello());
         //Debug.Log(greeter.random_number(1,5));
     }
 
