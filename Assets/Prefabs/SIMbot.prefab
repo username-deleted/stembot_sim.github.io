@@ -1264,7 +1264,6 @@ GameObject:
   - component: {fileID: 5511758453499155586}
   - component: {fileID: 5511758453499155587}
   - component: {fileID: 5511758453499155589}
-  - component: {fileID: 5511758453499155588}
   - component: {fileID: 612945894}
   - component: {fileID: 950942511}
   m_Layer: 0
@@ -1332,20 +1331,6 @@ MonoBehaviour:
   maxMotorTorque: 300
   maxSteeringAngle: 30
   tankControls: 1
---- !u!114 &5511758453499155588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5511758453499155584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e794a39caf7224699fd5a4cda1795c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  botScript: botObj.py
-  motors: {fileID: 5511758452115118202}
 --- !u!114 &612945894
 MonoBehaviour:
   m_ObjectHideFlags: 0

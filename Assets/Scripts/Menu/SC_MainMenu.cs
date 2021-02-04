@@ -42,7 +42,7 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Quit the game
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 
     public void OptionsButton()
