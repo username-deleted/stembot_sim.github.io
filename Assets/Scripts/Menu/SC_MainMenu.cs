@@ -65,6 +65,7 @@ public class SC_MainMenu : MonoBehaviour
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(false);
         CustomizationMenu.SetActive(true);
+        UpdateAttachmentNumber();
     }
 
     public void LevelSelectButton()
