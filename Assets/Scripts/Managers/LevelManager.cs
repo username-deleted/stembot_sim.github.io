@@ -4,8 +4,25 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
 
-    public int currentlySelectedLevel = 1;
-    public string[] sceneNames;
+    public int currentlySelectedLevel = 1; //the currently selected level
+    public string[] sceneNames; //the list of scene names
+    public bool isPaused; //whether the game is paused or not
+    private readonly string MAIN_MENU_SCENE_NAME = "FinalMainMenu"; //the scene name of our main menu scene
+
+    private void Start()
+    {
+        //if we're not in the main menu, start with the cursor locked
+        if(SceneManager.GetActiveScene().name != MAIN_MENU_SCENE_NAME)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+
     public void SetSelectedLevel(int levelNumber)
     {
         currentlySelectedLevel = levelNumber;
@@ -19,7 +36,7 @@ public class LevelManager : MonoBehaviour
         {
             //load the main menu
             case 0:
-                scene = "FinalMainMenu";
+                scene = MAIN_MENU_SCENE_NAME;
                 break;
 
             //load level 1
@@ -37,17 +54,42 @@ public class LevelManager : MonoBehaviour
         }
 
         SceneManager.LoadScene(scene);
+        Time.timeScale = 1;
     }
 
 
     //pause the level
     public void PauseLevel()
     {
+        isPaused = true;
         Time.timeScale = 0;
+        Cursor.lockState = CursorLockMode.None;
     }
 
+    //resume the level
     public void ResumeLevel()
     {
+        isPaused = false;
         Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    //return the current scene's level name
+    public string GetLevelName()
+    {
+        return SceneManager.GetActiveScene().name;
+    }
+
+    //return whether or not we are in the main menu scene
+    public bool InMainMenuScene()
+    {
+        if(SceneManager.GetActiveScene().name == MAIN_MENU_SCENE_NAME)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -1,25 +1,32 @@
 ﻿using System.IO;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SIMbot : MonoBehaviour
 {
     private const string filename = "/data.txt"; //where the data is saved
 
-    public GameObject[] attachments;
-    public int attachmentNumber = 1;
-    public GameObject attachmentSlot;
+    public GameObject[] attachments; //a list of attachments
+    public int attachmentNumber = 1; //the current attachment
+    private int MAX_ATTACHMENT_INDEX; //the maximum allowed attachments, set on awake
+    public GameObject attachmentSlot; //the location of the attachment
 
-    public bool pythonBot = false;
-    public bool tankControls = true;
+    public bool pythonBot = false; //whether the bot is using python or not
+    public bool tankControls = true; //whether the bot is using tank controls or not
+    public bool LEDOn = false; //whether the led is on or not
+    private Light LED; //the led
 
-    public bool LEDOn = false;
-    private Light LED;
+    public SIMbotData SBData; //the data on the bot to be saved
 
-    public SIMbotData SBData;
-    private SaveManager saveManager;
-    private int MAX_ATTACHMENT_INDEX;
+    private PlayerInput playerInputComponent;
+
+    private SaveManager saveManager; //the save manager
+    private LevelManager levelManager; //the level manager
 
     public SimpleCarController carControllerScript;
+
+    public Camera mainBotCamera; //the camera that follows the bot
+    public OrbitCamBehaviour orbitCameraScript; //the script that controls the camera
 
     private void Awake()
     {
@@ -30,11 +37,30 @@ public class SIMbot : MonoBehaviour
         LED = GameObject.FindGameObjectWithTag("LEDLight").GetComponent<Light>();
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
+        levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
+        playerInputComponent = gameObject.GetComponent<PlayerInput>();
 
         //initialize bot data
         InitSBData();
+        //spawn the correct attachment
         spawnAttachment();
+        //correctly set the led on or off
         updateLED();
+
+        //if we're in the main menu scene, disable the bot camera, orbiting script, and player input
+        if (levelManager.InMainMenuScene())
+        {
+            DisableCamera();
+            DisableCameraOrbit();
+            DisablePlayerInputComponent();
+        }
+        else
+        //if we aren't in the main menu scene, enable the bot camera, orbiting script, and player input
+        {
+            EnableCamera();
+            EnableCameraOrbit();
+            EnablePlayerInputComponent();
+        }
 
         //set the controller controls
         carControllerScript.tankControls = tankControls;
@@ -60,9 +86,11 @@ public class SIMbot : MonoBehaviour
         }
         else
         {
-            SBData = new SIMbotData(attachmentNumber, pythonBot, tankControls, LEDOn);
+            //there was no data, use defaults
+            SBData = new SIMbotData();
         }
         //update the bot's variables (for use within the game). this relies on SBData, so always run UpdateSBData beforehand
+        //or instantiate a default object of SBData, in other words, make sure SBData is not null before calling LoadSIMBotOptions
         LoadSIMbotOptions();
     }
 
@@ -131,16 +159,19 @@ public class SIMbot : MonoBehaviour
         }
     }
 
-    public void TogglePythonBot()
+    //set the python bot to true or false
+    public void SetPythonBot(bool value)
     {
-        pythonBot = !pythonBot;
+        pythonBot = value;
+
         //Save it in SBData to persist between scenes.
         SBData.pythonBot = pythonBot;
     }
 
-    public void ToggleTankControls()
+    //set tank controls to true or false
+    public void SetTankControls(bool value)
     {
-        tankControls = !tankControls;
+        tankControls = value;
 
         //update the car controller's controls
         carControllerScript.tankControls = tankControls;
@@ -155,6 +186,48 @@ public class SIMbot : MonoBehaviour
         updateLED();
         //Save it in SBData to persist between scenes.
         SBData.LEDOn = LEDOn;
+    }
+
+    //toggle the main camera orbit script on and off
+    public void ToggleCameraOrbit()
+    {
+        orbitCameraScript.enabled = !orbitCameraScript.enabled;
+    }
+
+    //enable the main camera orbit script
+    public void EnableCameraOrbit()
+    {
+        orbitCameraScript.enabled = true;
+    }
+
+    //disable the main camera orbit script
+    public void DisableCameraOrbit()
+    {
+        orbitCameraScript.enabled = false;
+    }
+
+    //enable the camera
+    private void EnableCamera()
+    {
+        mainBotCamera.enabled = true;
+    }
+
+    //disable the camera
+    private void DisableCamera()
+    {
+        mainBotCamera.enabled = false;
+    }
+
+    //enable player input component
+    private void EnablePlayerInputComponent()
+    {
+        playerInputComponent.enabled = true;
+    }
+
+    //disable player input component, renders player unable to do any input through the bot
+    private void DisablePlayerInputComponent()
+    {
+        playerInputComponent.enabled = false;
     }
 
     //set the current simbot variables to the data, this does not pull from the file
