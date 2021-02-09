@@ -42,7 +42,7 @@ public class SC_MainMenu : MonoBehaviour
     {
         // Quit the game
         Application.Quit();
-        UnityEditor.EditorApplication.isPlaying = false;
+        //UnityEditor.EditorApplication.isPlaying = false;
     }
 
     public void OptionsButton()
@@ -65,6 +65,7 @@ public class SC_MainMenu : MonoBehaviour
         MainMenu.SetActive(false);
         OptionsMenu.SetActive(false);
         CustomizationMenu.SetActive(true);
+        UpdateAttachmentNumber();
     }
 
     public void LevelSelectButton()

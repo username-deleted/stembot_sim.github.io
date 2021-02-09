@@ -25,7 +25,7 @@ public class GameManagerBehaviour : MonoBehaviour
 
     private bool LEDon = false;
     private bool tankControls = true;
-    private bool scriptControls = false;
+    //private bool scriptControls = false;
     private bool pythonControls = false;
     private bool InGameplay = false;
 
