@@ -305,7 +305,7 @@ public class GameManagerBehaviour : MonoBehaviour
         multiple methods as needed.
     Parameters: string, functionName to be called by menu button click.
     Return: None*/
-    public void Do(string functionName) {
+    /*public void Do(string functionName) {
         if (functionName == "LoadPlayScene") {
             LoadPlayScene();
         } else if (functionName == "LoadMenuScene") {
@@ -331,7 +331,7 @@ public class GameManagerBehaviour : MonoBehaviour
         } else if (IsDigitsOnly(functionName) == true) {    //If functionName is a number only
             SelectLevel((int.Parse(functionName)));
         }
-    }
+    }*/
 
     /*IsDigitsOnly(string)
     Desc: Helper function to see if Do(string functinName) is passed a string with only digits. Used to load levels.
