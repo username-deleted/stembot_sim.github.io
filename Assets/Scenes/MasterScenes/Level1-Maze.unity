@@ -4643,7 +4643,7 @@ PrefabInstance:
     - target: {fileID: 5511758453499155586, guid: 0f3610b13a377e8479a426bdbaeab6f0,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.5
       objectReference: {fileID: 0}
     - target: {fileID: 5511758453499155586, guid: 0f3610b13a377e8479a426bdbaeab6f0,
         type: 3}
@@ -4699,6 +4699,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Mass
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511758453499155589, guid: 0f3610b13a377e8479a426bdbaeab6f0,
+        type: 3}
+      propertyPath: maxMotorTorque
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5511758453499155588, guid: 0f3610b13a377e8479a426bdbaeab6f0, type: 3}
