@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DevScenes/FinalMainMenu.unity
+    path: Assets/Scenes/MasterScenes/FinalMainMenu.unity
     guid: aac8cf807ebf11745adda7b31e38b93b
   - enabled: 1
     path: Assets/Scenes/MasterScenes/Level1-Maze.unity
@@ -15,12 +15,12 @@ EditorBuildSettings:
     path: Assets/Scenes/MasterScenes/Level2-BallCollect.unity
     guid: 6dbe4446692773245876086c710faebf
   - enabled: 0
-    path: Assets/Scenes/MasterScenes/GameManager.unity
+    path: Assets/Scenes/DeprecatedScenes/GameManager.unity
     guid: 7f78ae606bba7dc4692fdd4b73fe0091
   - enabled: 0
-    path: Assets/Scenes/MasterScenes/MainMenu.unity
+    path: Assets/Scenes/DeprecatedScenes/MainMenu.unity
     guid: cf4105268748fb0419cf7e2fdc7fc8a3
   - enabled: 0
-    path: Assets/Scenes/DevScenes/Level3.unity
+    path: Assets/Scenes/DeprecatedScenes/Level3.unity
     guid: 9254654907b8199408df05c6def4fc45
   m_configObjects: {}
