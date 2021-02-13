@@ -23,10 +23,6 @@ public class GameManagerBehaviour : MonoBehaviour
     private SimpleCarController CarScript;
     private Light LED;
 
-    private bool LEDon = false;
-    private bool tankControls = true;
-    //private bool scriptControls = false;
-    private bool pythonControls = false;
     private bool InGameplay = false;
 
     private GameObject AttachmentSlot;
@@ -66,7 +62,7 @@ public class GameManagerBehaviour : MonoBehaviour
         //Find SIMbot & related gameObjects
         if (CarScript == null) {
             FindSIMbot();
-            CheckLED();
+            //CheckLED();
         }
 
         //When customizing at main menu, find & update custmization menu
@@ -192,39 +188,6 @@ public class GameManagerBehaviour : MonoBehaviour
         }
     }
 
-    /*CheckLED()
-    Desc: Checks LEDon variable and turns it on or off accordingly.
-    Parameters: None
-    Return: None*/
-    private void CheckLED() {
-        if (LEDon) {
-            LED.enabled = true;
-        } else {
-            LED.enabled = false;
-        }
-    }
-
-    /*GetTankControls()
-    Desc: Returns the tankControls variable. True meaning each wheel has a forwards and backwards button (W/S & I/K).
-    Parameters: None
-    Return: Bool, tankControls value if tankControls are turned on or off*/
-    public bool GetTankControls() {
-        return tankControls;
-    }
-
-    /*TogglePythonontrols()
-    Desc: Toggles the use of the Python scripts to control the SIMbot as opposed to user input via the keyboard.
-        If pythonControls are set to true/on, then this overrides user controls (Keyboard input doesn't drive SIMbot).
-    Parameters: None
-    Return: None*/
-    public void TogglePythonControls() {
-        if (pythonControls) {
-            pythonControls = false;
-        } else {
-            pythonControls = true;
-        }
-    }
-
     /*UnloadAllScenes()
     Desc: Unloads all scenes except the GameManager. This is called everytime before another level is loaded.
     Parameters: None
@@ -266,23 +229,6 @@ public class GameManagerBehaviour : MonoBehaviour
     private void DeleteAllAttachments() {
         foreach (Transform child in AttachmentSlot.transform) {
             GameObject.Destroy(child.gameObject);
-        }
-    }
-
-    /*SpawnSIMbot()
-    Desc: Spawns the SIMbot. Depending if python controls are enabled, will spawn the SIMbot with
-        keyboard controls or python controls.
-    Parameters: None
-    Return: None*/
-    private void SpawnSIMbot() {
-        if (pythonControls) {
-            //Spawn SIMbotPython
-            Instantiate(SIMbotPythonPrefab, gameObject.transform.position, gameObject.transform.rotation);
-            FindSIMbot();
-        } else {
-            //Spawn SIMbot that uses keyboard input
-            Instantiate(SIMbotPrefab, gameObject.transform.position, gameObject.transform.rotation);
-            FindSIMbot();
         }
     }
 
