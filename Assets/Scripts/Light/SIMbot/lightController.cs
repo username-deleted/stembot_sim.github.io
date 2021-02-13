@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//This controls the LED light on the SIMbot.
 public class lightController : MonoBehaviour
 {
     float duration = 1.0f; //how long the transition will take
