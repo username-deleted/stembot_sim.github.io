@@ -66,7 +66,6 @@ public class GameManagerBehaviour : MonoBehaviour
         //Find SIMbot & related gameObjects
         if (CarScript == null) {
             FindSIMbot();
-            AddSelectedAttachment();
             CheckLED();
         }
 
@@ -167,15 +166,6 @@ public class GameManagerBehaviour : MonoBehaviour
         InCustomization = value;
     }
 
-    /*ResumeGame()
-    Desc: Resumes the game by deactivating the pauseMenu and unfreezing time.
-    Parameters: None
-    Return: None*/
-    public void ResumeGame() {
-        Time.timeScale = 1.0f;
-        pauseMenu.SetActive(false);
-    }
-
     /*FindSIMbot()
     Desc: Finds the SIMbot or SIMbotPython and it's attachmentSlot
     Parameters: None
@@ -202,21 +192,6 @@ public class GameManagerBehaviour : MonoBehaviour
         }
     }
 
-    /*ToggleLED()
-    Desc: Toggles the LED light on the SIMbot on or off.
-    Parameters: None
-    Return: None*/
-    public void ToggleLED() {
-        if (LEDon) {
-            LEDon = false;
-        } else {
-            LEDon = true;
-        }
-
-        //Check and update LED to be on or off accordingly
-        CheckLED();
-    }
-
     /*CheckLED()
     Desc: Checks LEDon variable and turns it on or off accordingly.
     Parameters: None
@@ -237,24 +212,6 @@ public class GameManagerBehaviour : MonoBehaviour
         return tankControls;
     }
 
-    /*ToggleTankControls()
-    Desc: Toggles the controls for the SIMbot. Tank controls use the W/S & I/K keys for each wheal track. 
-        If tankControls are off/false, then player dries with the AWSD or arrow keys.
-    Parameters: None
-    Return: None*/
-    public void ToggleTankControls() {
-        if (tankControls) {
-            tankControls = false;
-        } else {
-            tankControls = true;
-        }
-
-        //Update the SIMbots tankControls bool on its script
-        if(CarScript != null) {
-            CarScript.tankControls = tankControls;
-        }
-    }
-
     /*TogglePythonontrols()
     Desc: Toggles the use of the Python scripts to control the SIMbot as opposed to user input via the keyboard.
         If pythonControls are set to true/on, then this overrides user controls (Keyboard input doesn't drive SIMbot).
@@ -268,14 +225,6 @@ public class GameManagerBehaviour : MonoBehaviour
         }
     }
 
-    /*QuitGame()
-    Desc: Quits the games application. (Only works when running the standalone executable)
-    Parameters: None
-    Return: None*/
-    public void QuitGame() {
-        Application.Quit();
-    }
-    
     /*UnloadAllScenes()
     Desc: Unloads all scenes except the GameManager. This is called everytime before another level is loaded.
     Parameters: None
@@ -297,42 +246,6 @@ public class GameManagerBehaviour : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-
-    /*Do(string)
-    Desc: This method is called from menu buttons. Onbutton clicks, it passes a string and if
-        that matches a specific string like below, it will call the respective methods.
-        This method could be optimized but for not it works and allows a button to call
-        multiple methods as needed.
-    Parameters: string, functionName to be called by menu button click.
-    Return: None*/
-    /*public void Do(string functionName) {
-        if (functionName == "LoadPlayScene") {
-            LoadPlayScene();
-        } else if (functionName == "LoadMenuScene") {
-            LoadMenuScene();
-        } else if (functionName == "QuitGame") {
-            QuitGame();
-        } else if (functionName == "RestartScene") {
-            RestartScene();
-        }  else if (functionName == "ResumeGame") {
-            ResumeGame();
-        } else if (functionName == "SetAttachmentNext") {
-            SetAttachment(1);
-            AddSelectedAttachment();
-        } else if (functionName == "SetAttachmentPrev") {
-            SetAttachment(-1);
-            AddSelectedAttachment();
-        }   else if (functionName == "ToggleTankControls") {
-            ToggleTankControls();
-        } else if (functionName == "TogglePythonControls") {
-            TogglePythonControls();
-        } else if (functionName == "ToggleLED") {
-            ToggleLED();
-        } else if (IsDigitsOnly(functionName) == true) {    //If functionName is a number only
-            SelectLevel((int.Parse(functionName)));
-        }
-    }*/
-
     /*IsDigitsOnly(string)
     Desc: Helper function to see if Do(string functinName) is passed a string with only digits. Used to load levels.
     Parameters: string, to check if it consists only of digits.
@@ -346,38 +259,6 @@ public class GameManagerBehaviour : MonoBehaviour
         return true;
     }
 
-    /*LoadMenuScene()
-    Desc: Loads the menu scene.
-    Parameters: None
-    Return: None*/
-    public void LoadMenuScene() {
-        UnloadAllScenes();
-        SceneManager.LoadScene(menuScene, LoadSceneMode.Additive);
-
-        //reset variables
-        InGameplay = false;
-        pythonControls = false;
-        
-        //Make sure time isn't frozen
-        Time.timeScale = 1.0f;
-    }
-
-    /*SetAttachment()
-    Desc: Increses or decreases the selectedAttachment based on the value sent in. Depending on
-        the size of the attachmentsPrefabs list, this will rotate through each of the attachments
-        in that list.
-    Parameters: int, value to increase or decrease the selectedAttachment value by.
-    Return: None*/
-    public void SetAttachment(int SetAttachment) {
-        if (SetAttachment >= 0) {
-            selectedAttachment += SetAttachment;
-            if (selectedAttachment > attachmentPrefabs.Length-1) {selectedAttachment = 0;}
-        } else if(SetAttachment < 0) {
-            selectedAttachment += SetAttachment;
-            if (selectedAttachment < 0) {selectedAttachment = attachmentPrefabs.Length-1;}
-        }
-    }
-
     /*DeleteAllAttachments()
     Desc: Deletes all currently attached SIMbot attachments.
     Parameters: None
@@ -387,24 +268,6 @@ public class GameManagerBehaviour : MonoBehaviour
             GameObject.Destroy(child.gameObject);
         }
     }
-
-    /*AddSelectedAttachment()
-    Desc: Adds the currently selected attachment to the SIMbot.
-    Parameters: None
-    Return: None*/
-    public void AddSelectedAttachment() {
-            //Remove all attachments so there are no duplicates
-            DeleteAllAttachments();
-
-            if(attachmentPrefabs[selectedAttachment] != null) {
-                //Create attachment prefab at attachment slot position and rotation
-                GameObject newAttachment = Instantiate(attachmentPrefabs[selectedAttachment], AttachmentSlot.transform.position, AttachmentSlot.transform.rotation);
-
-                //Make newAttachment a child of the attachmentSlot
-                newAttachment.transform.parent = AttachmentSlot.transform;
-            }
-    }
-
 
     /*SpawnSIMbot()
     Desc: Spawns the SIMbot. Depending if python controls are enabled, will spawn the SIMbot with
@@ -429,65 +292,5 @@ public class GameManagerBehaviour : MonoBehaviour
     Return: None*/
     private void DeleteSIMbot() {
         GameObject.Destroy(SIMbot.gameObject);
-    }
-
-    /*LoadPlayScene()
-    Desc: Loads a certain level based on the selectedLevel variable. Also sets score limmit and other values depending on the level.
-    Parameters: None
-    Return: None*/
-    public void LoadPlayScene() {
-        UnloadAllScenes();
-        SetScore(0);
-        ResetTimer();
-        switch (selectedLevel) {
-            case 1: 
-                SceneManager.LoadScene(levelList[0], LoadSceneMode.Additive);
-                SetScoreLimit(12);
-                //StartCoroutine (LoadLevel(levelList[0]));
-                //SceneManager.SetActiveScene(SceneManager.GetSceneByName(levelList[0]));
-                break;
-            case 2:
-                SceneManager.LoadScene(levelList[1], LoadSceneMode.Additive);
-                SetScoreLimit(5);
-                break;
-            case 3:
-                SceneManager.LoadScene(levelList[2], LoadSceneMode.Additive);
-                break;
-            default:
-                Debug.Log("No Level Selected.");
-                break;
-
-        }
-
-        InGameplay = true;
-
-        SpawnSIMbot();
-
-        //Make sure time isn't frozen
-        Time.timeScale = 1.0f;
-    }
-
-
-    /*RestartScene()
-    Desc: Finds the current scene/level. Unloads all scenes except the gameManager scene, and then reloads the current scene.
-    Parameters: None
-    Return: None*/
-    public void RestartScene() {
-        int countLoaded = SceneManager.sceneCount;
-        string levelName = "";
- 
-        for (int i = 0; i < countLoaded; i++)
-        {
-            if (SceneManager.GetSceneAt(i).name != "GameManager") { levelName = SceneManager.GetSceneAt(i).name; }
-        }
-        UnloadAllScenes();
-        SetScore(0);
-        ResetTimer();
-        SceneManager.LoadScene(levelName, LoadSceneMode.Additive);
-
-        SpawnSIMbot();
-
-        //Make sure time isn't frozen
-        Time.timeScale = 1.0f;
     }
 }
