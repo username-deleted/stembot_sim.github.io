@@ -841,7 +841,7 @@ WheelCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5511758452487428189}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
     spring: 35000
@@ -1044,7 +1044,7 @@ WheelCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5511758453013390240}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
     spring: 35000
@@ -1314,7 +1314,7 @@ MonoBehaviour:
     rightWheel: {fileID: 5511758452628484600}
     motor: 0
     steering: 0
-  maxMotorTorque: 250
+  maxMotorTorque: 500
   maxSteeringAngle: 30
   tankControls: 1
 --- !u!114 &612945894
