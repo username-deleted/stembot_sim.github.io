@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/DeprecatedScenes/Level3.unity
     guid: 9254654907b8199408df05c6def4fc45
+  - enabled: 0
+    path: Assets/Scenes/DevScenes/DevScene_Mason.unity
+    guid: 4c0b672d667aade48bc6f279609afc86
   m_configObjects: {}
