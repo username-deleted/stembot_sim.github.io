@@ -810,7 +810,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5511758452487428188}
   - component: {fileID: 5511758452487428191}
-  - component: {fileID: 4915359432733036532}
   m_Layer: 0
   m_Name: FrontLeft
   m_TagString: Untagged
@@ -864,19 +863,6 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 0.75
   m_Enabled: 1
---- !u!65 &4915359432733036532
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5511758452487428189}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.7, z: 0.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5511758452610969821
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,7 +999,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5511758453013390243}
   - component: {fileID: 5511758453013390242}
-  - component: {fileID: 2530731380604167439}
   m_Layer: 0
   m_Name: FrontRight
   m_TagString: Untagged
@@ -1067,19 +1052,6 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 0.75
   m_Enabled: 1
---- !u!65 &2530731380604167439
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5511758453013390240}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.7, z: 0.7}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5511758453311204248
 GameObject:
   m_ObjectHideFlags: 0
