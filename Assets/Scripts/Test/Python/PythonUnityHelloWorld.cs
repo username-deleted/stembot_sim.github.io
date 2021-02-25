@@ -11,7 +11,6 @@ public class PythonUnityHelloWorld : MonoBehaviour
 
 		string code = "import UnityEngine\n";
 		code += "UnityEngine.Debug.Log('Hello world!')";
-
 		var source = engine.CreateScriptSourceFromString(code);
 		source.Execute(scope);
 	}

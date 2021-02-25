@@ -15,7 +15,6 @@ public class PythonExample : MonoBehaviour
     void Start()
     {
         var engine = Python.CreateEngine();
-
         ICollection<string> searchPaths = engine.GetSearchPaths();
 
         //Path to the folder of greeter.py
