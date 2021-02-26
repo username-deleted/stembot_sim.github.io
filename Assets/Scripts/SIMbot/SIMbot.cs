@@ -39,7 +39,7 @@ public class SIMbot : MonoBehaviour
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
         playerInputComponent = gameObject.GetComponent<PlayerInput>();
-
+        
         //initialize bot data
         InitSBData();
         //spawn the correct attachment
@@ -264,6 +264,11 @@ public class SIMbot : MonoBehaviour
     public void UpdateSBData(SIMbotData data)
     {
         SBData = new SIMbotData(data.attachmentNumber, data.pythonBot, data.tankControls, data.LEDOn);
+    }
+
+    public void SayHi()
+    {
+        Debug.Log("Hi!");
     }
 
     public class SIMbotData

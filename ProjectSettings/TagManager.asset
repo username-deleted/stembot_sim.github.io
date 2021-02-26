@@ -18,6 +18,14 @@ TagManager:
   - TankControlsTogglePause
   - ScoreValue
   - TimeValue
+  - FrontRightW
+  - FrontRightT
+  - FrontLeftW
+  - FrontLeftT
+  - BackRightW
+  - BackRightT
+  - BackLeftW
+  - BackLeftT
   layers:
   - Default
   - TransparentFX
