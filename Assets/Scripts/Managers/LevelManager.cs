@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
 
-    public int currentlySelectedLevel = 1; //the currently selected level
+    public int selectedLevel = 1; //the currently selected level
     public string[] sceneNames; //the list of scene names
     public bool isPaused; //whether the game is paused or not
     private readonly string MAIN_MENU_SCENE_NAME = "FinalMainMenu"; //the scene name of our main menu scene
@@ -25,32 +25,42 @@ public class LevelManager : MonoBehaviour
 
     public void SetSelectedLevel(int levelNumber)
     {
-        currentlySelectedLevel = levelNumber;
+        selectedLevel = levelNumber;
     }
 
-    //load a scene with the given level number
+    public int GetSelectedLevel()
+    {
+        return selectedLevel;
+    }
+
+    //load a level with the passed in level number
+    public void LoadLevel(int levelNumber)
+    {
+        SetSelectedLevel(levelNumber);
+        LoadLevel();
+    }
+
+    //load a scene with the current level number
     public void LoadLevel()
     {
-        string scene = "";
-        switch (currentlySelectedLevel)
+        //a scene number cannot be less than 0, or higher than the amount of levels we have
+        if(selectedLevel > sceneNames.Length || selectedLevel < 0)
         {
-            //load the main menu
-            case 0:
-                scene = MAIN_MENU_SCENE_NAME;
-                break;
+            Debug.LogError("Selected level out of bounds");
+            Debug.LogError("Trying to load Scene Number: " + selectedLevel + " but only have " + sceneNames.Length + " scenes...");
+            return;
+        }
 
-            //load level 1
-            case 1:
-                scene = sceneNames[0];
-                break;
-
-            //load level 2
-            case 2:
-                scene = sceneNames[1];
-                break;
-            default:
-                Debug.LogError("Level " + currentlySelectedLevel.ToString() + " does not exist.");
-                break;
+        string scene;
+        //if 0, set scene to main menu
+        if(selectedLevel == 0)
+        {
+            scene = MAIN_MENU_SCENE_NAME;
+        }
+        //else set scene to corresponding name in array
+        else
+        {
+            scene = sceneNames[selectedLevel - 1];
         }
 
         SceneManager.LoadScene(scene);
