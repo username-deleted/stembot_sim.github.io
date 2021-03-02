@@ -59,10 +59,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05319bc1c753aed42b80caa9196c32d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentlySelectedLevel: 1
+  selectedLevel: 1
   sceneNames:
   - Level1-Maze
   - Level2-BallCollect
+  - DevScene_Cassie
   isPaused: 0
 --- !u!114 &2107552442
 MonoBehaviour:
