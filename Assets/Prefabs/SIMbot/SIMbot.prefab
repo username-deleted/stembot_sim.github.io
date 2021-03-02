@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camSensitivity: 4
-  pviotPoint: {fileID: 2808832169234746221}
+  pivotPoint: {fileID: 2808832169234746221}
 --- !u!1 &5511758453499155584
 GameObject:
   m_ObjectHideFlags: 0
