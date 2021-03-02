@@ -49,6 +49,9 @@ public class SimpleCarController : MonoBehaviour {
         //Speed of motors
         float speed = 2 * maxMotorTorque;
 
+        //Break Speed
+        float maxBreakTorque = speed;
+
         if (tankControls)
         {
             //Get Left Wheel Input W/S
