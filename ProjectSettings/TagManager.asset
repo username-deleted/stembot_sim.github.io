@@ -26,6 +26,7 @@ TagManager:
   - BackRightT
   - BackLeftW
   - BackLeftT
+  - Wheels
   layers:
   - Default
   - TransparentFX

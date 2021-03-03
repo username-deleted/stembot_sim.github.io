@@ -10,10 +10,8 @@ from System.Collections.Generic import *
 
 
 class SB:
-    def __init__(self, motorObj, _cScript):
-        global motors
+    def __init__(self, _cScript):
         global cScript
-        motors = motorObj
         cScript = _cScript
 
     class Motor:
@@ -22,7 +20,7 @@ class SB:
             self.sleeping = False
             self.brakeMode = True
             self.motorSpeed = 0
-            self.motor = motors.transform.GetChild(id - 1).gameObject
+            self.motor = cScript.CreateMotor(self.id)
             # if id == 1:
             #     self.motor_1 = self.motors.transform.GetChild(id - 1).gameObject
             #     return self.motor_1
@@ -35,11 +33,11 @@ class SB:
 
         def sleep(self, sleeping=None):
             if sleeping == None:
-                return cScript.sleep()
+                return self.motor.sleep()
             else:
                 self.sleeping = sleeping
                 # do Unity code setting the motor to sleep in unity
-                cScript.sleep(sleeping)
+                self.motor.sleep(sleeping)
 
         def brake_mode(self, brakeMode=None):
             if brakeMode == None:
