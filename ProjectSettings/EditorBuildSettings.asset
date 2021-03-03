@@ -14,14 +14,17 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MasterScenes/Level2-BallCollect.unity
     guid: 6dbe4446692773245876086c710faebf
+  - enabled: 1
+    path: Assets/Scenes/DevScenes/DevScene_Cassie.unity
+    guid: 34100ce7525f3cd4cbfa4860c593fc28
   - enabled: 0
-    path: Assets/Scenes/DeprecatedScenes/GameManager.unity
+    path: Assets/z_DeprecatedScenes/GameManager.unity
     guid: 7f78ae606bba7dc4692fdd4b73fe0091
   - enabled: 0
-    path: Assets/Scenes/DeprecatedScenes/MainMenu.unity
+    path: Assets/z_DeprecatedScenes/MainMenu.unity
     guid: cf4105268748fb0419cf7e2fdc7fc8a3
   - enabled: 0
-    path: Assets/Scenes/DeprecatedScenes/Level3.unity
+    path: Assets/z_DeprecatedScenes/Level3.unity
     guid: 9254654907b8199408df05c6def4fc45
   - enabled: 0
     path: Assets/Scenes/DevScenes/DevScene_Mason.unity

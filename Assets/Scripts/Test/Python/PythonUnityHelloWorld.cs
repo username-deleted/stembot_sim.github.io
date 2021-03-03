@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PythonUnityHelloWorld : MonoBehaviour
 {
-	void Start()
+	private void Start()
 	{
 		var engine = global::UnityPython.CreateEngine();
 		var scope = engine.CreateScope();
