@@ -10,40 +10,54 @@ from System.Collections.Generic import *
 
 
 class SB:
-    def __init__(self, motorObj):
-        self.motor = motorObj
-        self.sleeping = False
-        self.brakeMode = True
-        self.motorSpeed = 0
+    def __init__(self, motorObj, _cScript):
+        global motors
+        global cScript
+        motors = motorObj
+        cScript = _cScript
 
-    def Motor(self, id):
-        wheel = self.motor.transform.GetChild(id - 1).gameObject
-        return self
+    class Motor:
+        def __init__(self, id):
+            self.id = id
+            self.sleeping = False
+            self.brakeMode = True
+            self.motorSpeed = 0
+            self.motor = motors.transform.GetChild(id - 1).gameObject
+            # if id == 1:
+            #     self.motor_1 = self.motors.transform.GetChild(id - 1).gameObject
+            #     return self.motor_1
+            # elif id == 2:
+            #     self.motor_2 = self.motors.transform.GetChild(id - 1).gameObject
+            #     return self.motor_2
+            # else:
+            #     print("no such motor")
+            #     return self
 
-    def sleep(self, sleeping=None):
-        if sleeping == None:
-            return self.sleeping
-        else:
-            self.sleeping = sleeping
-            # do Unity code setting the motor to sleep in unity
+        def sleep(self, sleeping=None):
+            if sleeping == None:
+                return cScript.sleep()
+            else:
+                self.sleeping = sleeping
+                # do Unity code setting the motor to sleep in unity
+                cScript.sleep(sleeping)
 
-    def brake_mode(self, brakeMode=None):
-        if brakeMode == None:
-            return self.brakeMode
-        else:
-            self.brakeMode = brakeMode
-            # do Unity code setting the brake mode
+        def brake_mode(self, brakeMode=None):
+            if brakeMode == None:
+                return self.brakeMode
+            else:
+                self.brakeMode = brakeMode
+                # do Unity code setting the brake mode
 
-    def speed(self, motorSpeed=None):
-        if motorSpeed == None:
-            return self.motorSpeed
-        else:
-            self.motorSpeed = motorSpeed
-            # do Unity code setting the speed of the motor
+        def speed(self, motorSpeed=None):
+            if motorSpeed == None:
+                return self.motorSpeed
+            else:
+                self.motorSpeed = motorSpeed
+                # do Unity code setting the speed of the motor
 
-    def distance(self, steps, motorSpeed, acceleration, blocking):
-        print("nothing")
-        # do Unity code that moves the bot the necessary distance
+        def distance(self, steps, motorSpeed, acceleration, blocking):
+            print("nothing")
+            # do Unity code that moves the bot the necessary distance
 
-    def helloWorld(self):
-        return "Hello Unity!"
+        def helloWorld(self):
+            return "Hello Unity!"
