@@ -225,11 +225,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5511758452115118202, guid: 0f3610b13a377e8479a426bdbaeab6f0,
-        type: 3}
-      propertyPath: m_TagString
-      value: Wheels
-      objectReference: {fileID: 0}
     - target: {fileID: 5511758453499155584, guid: 0f3610b13a377e8479a426bdbaeab6f0,
         type: 3}
       propertyPath: m_Name
@@ -576,7 +571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2710f17b7916dcb4d857e2238cb7532e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motors: {fileID: 1606626219}
 --- !u!1 &1442065094
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,12 +663,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!1 &1606626219 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5511758452115118202, guid: 0f3610b13a377e8479a426bdbaeab6f0,
-    type: 3}
-  m_PrefabInstance: {fileID: 768069968}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1671196100
 GameObject:
   m_ObjectHideFlags: 0
