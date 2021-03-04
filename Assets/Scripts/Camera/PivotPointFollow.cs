@@ -12,11 +12,13 @@ public class PivotPointFollow : MonoBehaviour
     public double time;
 
     private Vector3 previousPosition;
+    private Quaternion previousRotation;
     //private bool isMoving = false; Events can set this to true or false later.
 
     private void Start()
     {
         Vector3 previousPosition = SIMbot.transform.position;
+        Quaternion previousRotation = SIMbot.transform.rotation;
         moving = false;
         
     }
@@ -31,12 +33,12 @@ public class PivotPointFollow : MonoBehaviour
         //if the SIMbot is moving any movement keys are being held, disable the OrbitCamBehavior Script and follow the SIMbot's rotation, otherwise, enable the OrbitCamBehavior.
         if (isMoving())
         {
-            OCBScript.enabled = true;
-        }
-        else {
             OCBScript.enabled = false;
             //Euler angles must be used when trying to set the rotation of one object to the rotation of another. Setting specific quaternion values to another quaternion value can lead to odd behaviors if you don't know what a Quaternion is.
             gameObject.transform.rotation = Quaternion.Euler(new Vector3(gameObject.transform.rotation.eulerAngles.x, SIMbot.transform.rotation.eulerAngles.y, gameObject.transform.rotation.eulerAngles.z));
+        }
+        else {
+            OCBScript.enabled = true;
         }
     }
     private bool isMoving() {
@@ -44,20 +46,26 @@ public class PivotPointFollow : MonoBehaviour
         time = time + Time.deltaTime;
         
         //If there has been significant movement over the last .5 seconds, then the SIMbot is considered moving.
-        if (time > 2) {
+        if (time > .05) {
             time = time - .1;
             if (
-                (gameObject.transform.position.x - .2 < previousPosition.x && previousPosition.x < gameObject.transform.position.x + .2) &&
-                (gameObject.transform.position.y - .2 < previousPosition.y && previousPosition.y < gameObject.transform.position.y + .2) &&
-                (gameObject.transform.position.z - .2 < previousPosition.z && previousPosition.z < gameObject.transform.position.z + .2)){
+                (SIMbot.transform.position.x - .005 < previousPosition.x && previousPosition.x < SIMbot.transform.position.x + .005) &&
+                (SIMbot.transform.position.y - .005 < previousPosition.y && previousPosition.y < SIMbot.transform.position.y + .005) &&
+                (SIMbot.transform.position.z - .005 < previousPosition.z && previousPosition.z < SIMbot.transform.position.z + .005) &&
+                (SIMbot.transform.rotation.eulerAngles.x - .5 < previousRotation.eulerAngles.x && previousRotation.eulerAngles.x < SIMbot.transform.rotation.eulerAngles.x + .5) &&
+                (SIMbot.transform.rotation.eulerAngles.y - .5 < previousRotation.eulerAngles.y && previousRotation.eulerAngles.y < SIMbot.transform.rotation.eulerAngles.y + .5) &&
+                (SIMbot.transform.rotation.eulerAngles.z - .5 < previousRotation.eulerAngles.z && previousRotation.eulerAngles.z < SIMbot.transform.rotation.eulerAngles.z + .5))
+            {
                 //reset the position
                 previousPosition = SIMbot.transform.position;
-                moving = true;
+                previousRotation = SIMbot.transform.rotation;
+                moving = false;
             }
             else {
                 //reset the position
                 previousPosition = SIMbot.transform.position;
-                moving = false; 
+                previousRotation = SIMbot.transform.rotation;
+                moving = true; 
             }
         }
         return moving;
