@@ -49,14 +49,14 @@ public class PivotPointFollow : MonoBehaviour
         
         //If there has been significant movement over the last .5 seconds, then the SIMbot is considered moving.
         if (time > .05) {
-            time = time - .1;
+            time = time - .05;
             if (
                 (SIMbot.transform.position.x - .005 < previousPosition.x && previousPosition.x < SIMbot.transform.position.x + .005) &&
                 (SIMbot.transform.position.y - .005 < previousPosition.y && previousPosition.y < SIMbot.transform.position.y + .005) &&
                 (SIMbot.transform.position.z - .005 < previousPosition.z && previousPosition.z < SIMbot.transform.position.z + .005) &&
-                (SIMbot.transform.rotation.eulerAngles.x - .5 < previousRotation.eulerAngles.x && previousRotation.eulerAngles.x < SIMbot.transform.rotation.eulerAngles.x + .5) &&
-                (SIMbot.transform.rotation.eulerAngles.y - .5 < previousRotation.eulerAngles.y && previousRotation.eulerAngles.y < SIMbot.transform.rotation.eulerAngles.y + .5) &&
-                (SIMbot.transform.rotation.eulerAngles.z - .5 < previousRotation.eulerAngles.z && previousRotation.eulerAngles.z < SIMbot.transform.rotation.eulerAngles.z + .5))
+                (SIMbot.transform.rotation.eulerAngles.x - .1 < previousRotation.eulerAngles.x && previousRotation.eulerAngles.x < SIMbot.transform.rotation.eulerAngles.x + .1) &&
+                (SIMbot.transform.rotation.eulerAngles.y - .1 < previousRotation.eulerAngles.y && previousRotation.eulerAngles.y < SIMbot.transform.rotation.eulerAngles.y + .1) &&
+                (SIMbot.transform.rotation.eulerAngles.z - .1 < previousRotation.eulerAngles.z && previousRotation.eulerAngles.z < SIMbot.transform.rotation.eulerAngles.z + .1))
             {
                 //reset the position
                 previousPosition = SIMbot.transform.position;
