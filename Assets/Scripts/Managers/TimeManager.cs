@@ -10,14 +10,14 @@ public class TimeManager : MonoBehaviour
     private Text timeDisplay;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         timeDisplay = GameObject.FindGameObjectWithTag("TimeValue").GetComponent<Text>();
         timeDisplay.text = currentTime.ToString();
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         currentTime = currentTime + Time.deltaTime;
         timeDisplay.text = currentTime.ToString("F2");

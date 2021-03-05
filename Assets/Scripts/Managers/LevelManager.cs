@@ -51,17 +51,8 @@ public class LevelManager : MonoBehaviour
             return;
         }
 
-        string scene;
         //if 0, set scene to main menu
-        if(selectedLevel == 0)
-        {
-            scene = MAIN_MENU_SCENE_NAME;
-        }
-        //else set scene to corresponding name in array
-        else
-        {
-            scene = sceneNames[selectedLevel - 1];
-        }
+        var scene = selectedLevel == 0 ? MAIN_MENU_SCENE_NAME : sceneNames[selectedLevel - 1];
 
         SceneManager.LoadScene(scene);
         Time.timeScale = 1;
@@ -93,14 +84,7 @@ public class LevelManager : MonoBehaviour
     //return whether or not we are in the main menu scene
     public bool InMainMenuScene()
     {
-        if(SceneManager.GetActiveScene().name == MAIN_MENU_SCENE_NAME)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return SceneManager.GetActiveScene().name == MAIN_MENU_SCENE_NAME;
     }
 
     public void RestartLevel()
