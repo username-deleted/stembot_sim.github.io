@@ -5,11 +5,11 @@ using UnityEngine;
 //This class tells the pivot point for the camera to follow the SIMbot and takes the SIMbot's y rotation to rotation the camera.
 public class PivotPointFollow : MonoBehaviour
 {
-    public GameObject SIMbot;
-    public OrbitCamBehaviour OCBScript;
+    private GameObject SIMbot;
+    private OrbitCamBehaviour OCBScript;
 
-    public bool moving;
-    public double time;
+    private bool moving;
+    private double time;
 
     private Vector3 previousPosition;
     private Quaternion previousRotation;
@@ -17,6 +17,8 @@ public class PivotPointFollow : MonoBehaviour
 
     private void Start()
     {
+        SIMbot = GameObject.FindGameObjectWithTag("Player");
+        OCBScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamBehaviour>();
         Vector3 previousPosition = SIMbot.transform.position;
         Quaternion previousRotation = SIMbot.transform.rotation;
         moving = false;

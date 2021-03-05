@@ -38,6 +38,12 @@ public class SIMbot : MonoBehaviour
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
+        if (mainBotCamera == null) {
+            mainBotCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        }
+        if (orbitCameraScript == null) {
+            orbitCameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamBehaviour>();
+        }
         playerInputComponent = gameObject.GetComponent<PlayerInput>();
         
         //initialize bot data
