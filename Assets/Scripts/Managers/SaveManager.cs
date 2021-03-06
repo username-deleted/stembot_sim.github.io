@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    public GameObject SIMbot;
+    private GameObject SIMbot;
     private SIMbot SIMbotScript;
 
     private void Start()
     {
+        SIMbot = GameObject.FindGameObjectWithTag("Player");
         SIMbotScript = SIMbot.GetComponent<SIMbot>();
     }
 
