@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a575c14e94dbb46a310a1778a0d094, type: 3}
   m_Name: LevelButton4
   m_EditorClassIdentifier: 
-  levelImage: {fileID: 0}
+  levelImage: {fileID: 21300000, guid: 30c12c4925bfa044299cf086152a6e65, type: 3}
   levelNumber: 4

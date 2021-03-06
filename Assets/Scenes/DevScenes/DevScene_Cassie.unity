@@ -518,11 +518,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenuCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 26721479753690204, guid: b140d774f4cf58748bba85ac80c59c03,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b140d774f4cf58748bba85ac80c59c03, type: 3}
 --- !u!1 &1056030119
