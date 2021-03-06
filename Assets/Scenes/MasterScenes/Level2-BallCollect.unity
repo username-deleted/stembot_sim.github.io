@@ -4468,7 +4468,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_concrete_barrier (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1362621753249555456, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
 --- !u!4 &471886531 stripped
 Transform:
@@ -9045,7 +9046,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_concrete_barrier (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1362621753249555456, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
 --- !u!4 &894695608 stripped
 Transform:
@@ -13665,7 +13667,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_concrete_barrier (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1362621753249555456, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
 --- !u!4 &1483946482 stripped
 Transform:
@@ -15483,7 +15486,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_concrete_barrier (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1362621753249555456, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
 --- !u!4 &1757299806 stripped
 Transform:
@@ -18286,7 +18290,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: prefab_concrete_barrier
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1362621753249555456, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 047b262591b78cc4b97472aaeedeb38b, type: 3}
 --- !u!4 &2001796905 stripped
 Transform:
