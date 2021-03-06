@@ -19,6 +19,7 @@ public class SC_MainMenu : MonoBehaviour
     private SIMbot SIMbotScript;
 
     private LevelManager levelManager;
+    private SaveManager saveManager;
 
     public int currentlySelectedLevel = 1;
     // Start is called before the first frame update
@@ -27,6 +28,8 @@ public class SC_MainMenu : MonoBehaviour
         SIMbot = GameObject.FindGameObjectWithTag("Player"); //get the SIMbot
         SIMbotScript = SIMbot.GetComponent<SIMbot>(); //get the SIMbot script
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>(); //get the level manager
+        saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>(); //get the save manager
+
 
         //determines whether or not the toggles are on by default according to what was selected on the bot before
         //useful for when the user backs out of the game, but does not quit
@@ -93,10 +96,33 @@ public class SC_MainMenu : MonoBehaviour
         attachmentNumberText.text = SIMbotScript.attachmentNumber.ToString();
     }
 
+    public void NextAttachment()
+    {
+        SIMbotScript.NextAttachment();
+        UpdateAttachmentNumber();
+    }
+
+    public void PreviousAttachment()
+    {
+        SIMbotScript.PreviousAttachment();
+        UpdateAttachmentNumber();
+    }
+
+    public void ToggleLED()
+    {
+        SIMbotScript.ToggleLED();
+    }
+
     //set the currently selected level, called by the LevelButton script
     public void SetSelectedLevel(int levelNumber)
     {
         currentlySelectedLevel = levelNumber;
+    }
+
+    //called on the play and back buttons on the level select menu
+    public void SaveSBData()
+    {
+        saveManager.SaveSBData();
     }
 
     //set the controls dependent on the toggle
