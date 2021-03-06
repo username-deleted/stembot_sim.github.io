@@ -1846,8 +1846,8 @@ MonoBehaviour:
   tankControls: 1
   LEDOn: 1
   carControllerScript: {fileID: 6372516774563795061}
-  mainBotCamera: {fileID: 0}
-  orbitCameraScript: {fileID: 0}
+  mainBotCamera: {fileID: 1446228472094749142}
+  orbitCameraScript: {fileID: 1446228472094749147}
 --- !u!114 &6372516774563795057
 MonoBehaviour:
   m_ObjectHideFlags: 0
