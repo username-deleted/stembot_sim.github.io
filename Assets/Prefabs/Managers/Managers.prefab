@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c632c32c112b71a4598bde62072609ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SIMbot: {fileID: 0}
 --- !u!114 &7170594331986556295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,6 +63,7 @@ MonoBehaviour:
   - Level1-Maze
   - Level2-BallCollect
   - DevScene_Cassie
+  - Level4-Open
   isPaused: 0
 --- !u!114 &2107552442
 MonoBehaviour:
