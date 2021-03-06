@@ -23,7 +23,7 @@ public class SIMbot : MonoBehaviour
     private SaveManager saveManager; //the save manager
     private LevelManager levelManager; //the level manager
 
-    public SimpleCarController carControllerScript;
+    private SimpleCarController carControllerScript;
 
     public Camera mainBotCamera; //the camera that follows the bot
     public OrbitCamBehaviour orbitCameraScript; //the script that controls the camera
@@ -31,6 +31,9 @@ public class SIMbot : MonoBehaviour
     private void Awake()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
+        carControllerScript = GetComponent<SimpleCarController>();
+        playerInputComponent = GetComponent<PlayerInput>();
+
     }
     private void Start()
     {
@@ -46,7 +49,6 @@ public class SIMbot : MonoBehaviour
             orbitCameraScript = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<OrbitCamBehaviour>();
         }
 
-        playerInputComponent = gameObject.GetComponent<PlayerInput>();
         
         //initialize bot data
         InitSBData();
