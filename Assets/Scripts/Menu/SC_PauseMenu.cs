@@ -100,6 +100,12 @@ public class SC_PauseMenu : MonoBehaviour
         OptionsMenu.SetActive(false);
     }
 
+    //called on clicking the restart level button in the pause menu
+    public void RestartLevel()
+    {
+        levelManager.RestartLevel();
+    }
+
     public void SaveBotData()
     {
         //update the SBdata on the bot with its current configuration
