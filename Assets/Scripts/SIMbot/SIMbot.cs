@@ -17,6 +17,7 @@ public class SIMbot : MonoBehaviour
     private Light LED; //the led
 
     public SIMbotData SBData; //the data on the bot to be saved
+    public PivotPointFollow cameraPivotPointScript;
 
     private PlayerInput playerInputComponent;
 
@@ -202,18 +203,21 @@ public class SIMbot : MonoBehaviour
     public void ToggleCameraOrbit()
     {
         orbitCameraScript.enabled = !orbitCameraScript.enabled;
+        cameraPivotPointScript.enabled = !cameraPivotPointScript.enabled;
     }
 
     //enable the main camera orbit script
     public void EnableCameraOrbit()
     {
         orbitCameraScript.enabled = true;
+        cameraPivotPointScript.enabled = true;
     }
 
     //disable the main camera orbit script
     public void DisableCameraOrbit()
     {
         orbitCameraScript.enabled = false;
+        cameraPivotPointScript.enabled = false;
     }
 
     //enable the camera

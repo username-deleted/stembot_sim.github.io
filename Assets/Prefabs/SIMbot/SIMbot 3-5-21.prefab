@@ -1845,6 +1845,7 @@ MonoBehaviour:
   pythonBot: 0
   tankControls: 1
   LEDOn: 1
+  cameraPivotPointScript: {fileID: 1446228474079584360}
   mainBotCamera: {fileID: 1446228472094749142}
   orbitCameraScript: {fileID: 1446228472094749147}
 --- !u!114 &6372516774563795057
@@ -1889,6 +1890,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: ce06e249-ec5d-4007-9815-c811b9c87c06
     m_ActionName: Player/Pause[/Keyboard/p]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a670c191-67f1-4fa0-9ad3-a5e590fc4641
+    m_ActionName: MainMenu/Select[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 042cf3f3-a535-4887-acaf-cabb84d0bee7
+    m_ActionName: MainMenu/Up[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/dpad/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: bb93c4b2-e2fb-4afe-b1ae-b1cb30e0c3ba
+    m_ActionName: MainMenu/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/dpad/down]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
