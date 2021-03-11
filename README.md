@@ -30,7 +30,15 @@ Controls:
     W/S - Forwards and Backwards
     A/D - Turn Left and Right
     
-### What's New in Code Milestone 1?
-- Cleaned up and rearranged much of the original code base
-- Scenes were reorganized into seperate scenes
+  - Controller Scheme (Classic):
+    Left Stick - Fowards/Backwards
+    Start - Pause
+  - Controller Scheme (Tank):
+    Not yet implemented.
+    
+### What's New in Code Milestone 2?
+- Camera fixes, STEMBot physics first pass tweaks, wheel colliders now behave correctly.
+- Basic controller functionality when not using tank controls.
+- Basic controller functionality in all menus.
+- New fourth level that contains painted terrain and scenery.
 - New Dev Scenes were added for personal work on the game without harming the main scenes
