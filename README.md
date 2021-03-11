@@ -41,4 +41,3 @@ Controls:
 - Basic controller functionality when not using tank controls.
 - Basic controller functionality in all menus.
 - New fourth level that contains painted terrain and scenery.
-- New Dev Scenes were added for personal work on the game without harming the main scenes
