@@ -4276,6 +4276,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3340085607275624911, guid: c05202fe9494131429f5ca7615ee2a2d,
+        type: 3}
+      propertyPath: m_TagString
+      value: Wheels
+      objectReference: {fileID: 0}
     - target: {fileID: 7072882554743833356, guid: c05202fe9494131429f5ca7615ee2a2d,
         type: 3}
       propertyPath: m_LocalPosition.x
