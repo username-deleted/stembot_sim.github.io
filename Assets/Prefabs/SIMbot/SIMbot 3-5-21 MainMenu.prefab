@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 1446228473567749704, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
         type: 3}
       propertyPath: m_Name
-      value: SIMbot 3-5-21
+      value: SIMbot 3-5-21 MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1446228473567749705, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
         type: 3}
@@ -111,6 +111,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: -183.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516774563795061, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d707281ac3b8cd24abb0e0ec65d4b4b5, type: 3}

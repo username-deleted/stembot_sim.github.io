@@ -95,7 +95,8 @@ public class PythonBot : MonoBehaviour
         //{
             //Debug.Log(line);
             var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/Test/Python/bot_test.py");
-            Task.Run(() => ScriptSource.Execute(scope));
+            //Task.Run(() => ScriptSource.Execute(scope));
+            ScriptSource.Execute(scope);
         //}
         //dynamic leftMotor = scope.GetVariable("motor_1");
         //Debug.Log(leftMotor);

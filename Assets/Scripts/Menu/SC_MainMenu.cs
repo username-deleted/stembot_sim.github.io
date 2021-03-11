@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SC_MainMenu : MonoBehaviour
@@ -21,6 +22,8 @@ public class SC_MainMenu : MonoBehaviour
     private LevelManager levelManager;
     private SaveManager saveManager;
 
+    private EventSystem eventSystem;
+
     public int currentlySelectedLevel = 1;
     // Start is called before the first frame update
     void Start()
@@ -30,6 +33,7 @@ public class SC_MainMenu : MonoBehaviour
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>(); //get the level manager
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>(); //get the save manager
 
+        eventSystem = GameObject.FindGameObjectWithTag("EventSystem").GetComponent<EventSystem>();
 
         //determines whether or not the toggles are on by default according to what was selected on the bot before
         //useful for when the user backs out of the game, but does not quit
@@ -135,5 +139,10 @@ public class SC_MainMenu : MonoBehaviour
     public void SetPythonBot()
     {
         SIMbotScript.SetPythonBot(pythonToggle.isOn);
+    }
+
+    public void SetSelectedObject(GameObject obj)
+    {
+        eventSystem.SetSelectedGameObject(obj);
     }
 }
