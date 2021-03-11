@@ -63,7 +63,7 @@ MonoBehaviour:
   - Level1-Maze
   - Level2-BallCollect
   - DevScene_Cassie
-  - Level4-Open
+  - Level4-Fix
   isPaused: 0
 --- !u!114 &2107552442
 MonoBehaviour:
