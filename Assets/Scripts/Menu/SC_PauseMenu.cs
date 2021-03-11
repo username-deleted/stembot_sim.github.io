@@ -8,7 +8,6 @@ public class SC_PauseMenu : MonoBehaviour
 {
     public GameObject PauseMenu;
     public GameObject OptionsMenu;
-    public GameObject ResumeButton;
 
     public Toggle tankControlsToggle;
     public Toggle pythonToggle;
