@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SC_PauseMenu : MonoBehaviour
 {
     public GameObject PauseMenu;
     public GameObject OptionsMenu;
+    public GameObject ResumeButton;
 
     public Toggle tankControlsToggle;
     public Toggle pythonToggle;
@@ -16,6 +18,8 @@ public class SC_PauseMenu : MonoBehaviour
 
     private GameObject SIMbot;
     private SIMbot SIMbotScript;
+
+    private EventSystem eventSystem;
 
     //the level number of the main menu, 0
     private int MAIN_MENU_LEVEL_NUMBER = 0;
@@ -27,6 +31,9 @@ public class SC_PauseMenu : MonoBehaviour
 
         SIMbot = GameObject.FindGameObjectWithTag("Player");
         SIMbotScript = SIMbot.GetComponent<SIMbot>();
+
+        eventSystem = GameObject.FindGameObjectWithTag("EventSystem").GetComponent<EventSystem>();
+
 
         //determines whether or not the toggles are on by default according to what was selected on the bot before
         pythonToggle.isOn = SIMbotScript.pythonBot;
@@ -125,5 +132,10 @@ public class SC_PauseMenu : MonoBehaviour
     public void SetPythonBot()
     {
         SIMbotScript.SetPythonBot(pythonToggle.isOn);
+    }
+
+    public void SetSelectedObject(GameObject obj)
+    {
+        eventSystem.SetSelectedGameObject(obj);
     }
 }

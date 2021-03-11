@@ -372,6 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PauseMenu: {fileID: 26721480194986108}
   OptionsMenu: {fileID: 26721480307011184}
+  ResumeButton: {fileID: 0}
   tankControlsToggle: {fileID: 26721479212988836}
   pythonToggle: {fileID: 26721480367659447}
 --- !u!1 &26721478769969756
@@ -774,6 +775,7 @@ GameObject:
   - component: {fileID: 26721478922500704}
   - component: {fileID: 26721478922500705}
   - component: {fileID: 26721478922500710}
+  - component: {fileID: 1028663819}
   m_Layer: 5
   m_Name: ResumeButton
   m_TagString: Untagged
@@ -914,6 +916,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1028663819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26721478922500708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9a59c550004bb84c989f6f441dc7dcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &26721478960080617
 GameObject:
   m_ObjectHideFlags: 0
