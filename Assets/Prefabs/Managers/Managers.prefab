@@ -64,6 +64,7 @@ MonoBehaviour:
   - Level2-BallCollect
   - DevScene_Cassie
   - Level4-Fix
+  - DevScene_Jackson
   isPaused: 0
 --- !u!114 &2107552442
 MonoBehaviour:
