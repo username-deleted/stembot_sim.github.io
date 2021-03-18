@@ -22,7 +22,6 @@ public class PivotPointFollow : MonoBehaviour
         Vector3 previousPosition = SIMbot.transform.position;
         Quaternion previousRotation = SIMbot.transform.rotation;
         moving = false;
-        
     }
 
     // Update is called once per frame

@@ -1,6 +1,9 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections;
+using System.IO;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class SIMbot : MonoBehaviour
 {
@@ -28,6 +31,9 @@ public class SIMbot : MonoBehaviour
 
     public Camera mainBotCamera; //the camera that follows the bot
     public OrbitCamBehaviour orbitCameraScript; //the script that controls the camera
+
+    public float Speed;//speed of the SIMbot.
+    public float UpdateDelay;//How long to wait before updating the speed.
 
     private void Awake()
     {
@@ -75,6 +81,9 @@ public class SIMbot : MonoBehaviour
 
         //set the controller controls
         carControllerScript.tankControls = tankControls;
+
+        //track the speed
+        OnEnabled();
     }
 
     //initializes the data for the SIMbot
@@ -305,6 +314,41 @@ public class SIMbot : MonoBehaviour
             this.pythonBot = pythonBot;
             this.tankControls = tankControls;
             this.LEDOn = LEDOn;
+        }
+    }
+
+
+    void OnEnabled()
+    {
+        StartCoroutine(SpeedReckoner());
+    }
+
+    private IEnumerator SpeedReckoner()
+    {
+
+        YieldInstruction timedWait = new WaitForSeconds(UpdateDelay);
+        Vector3 lastPosition = transform.position;
+        float lastTimestamp = Time.time;
+
+        while (enabled)
+        {
+            yield return timedWait;
+
+            var deltaPosition = (transform.position - lastPosition).magnitude;
+            var deltaTime = Time.time - lastTimestamp;
+
+            if (Mathf.Approximately(deltaPosition, 0f)) // Clean up "near-zero" displacement
+                deltaPosition = 0f;
+
+            Speed = deltaPosition / deltaTime;
+            if (Speed != 0)
+            {
+                Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
+                scoreDisplay.text = Math.Round(Speed).ToString();
+            }
+
+            lastPosition = transform.position;
+            lastTimestamp = Time.time;
         }
     }
 }
