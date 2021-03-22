@@ -7,7 +7,6 @@ using UnityEngine;
 
 public class PythonBot : MonoBehaviour
 {
-
     private List<Motor> motors = new List<Motor>();
     private bool hasRan = false;
     public class Motor
