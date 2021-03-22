@@ -83,7 +83,10 @@ public class SIMbot : MonoBehaviour
         carControllerScript.tankControls = tankControls;
 
         //track the speed
-        OnEnabled();
+        if (GameObject.FindGameObjectWithTag("SpeedText") != null)
+        {
+            OnEnabled();
+        }
     }
 
     //initializes the data for the SIMbot
@@ -340,15 +343,20 @@ public class SIMbot : MonoBehaviour
             if (Mathf.Approximately(deltaPosition, 0f)) // Clean up "near-zero" displacement
                 deltaPosition = 0f;
 
-            Speed = deltaPosition / deltaTime;
-            if (Speed != 0)
+            if (deltaPosition / deltaTime != 0)
             {
-                Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
-                scoreDisplay.text = Math.Round(Speed).ToString();
+                Speed = deltaPosition / deltaTime;
             }
+
+            Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
+            scoreDisplay.text = Math.Round(Speed).ToString();
 
             lastPosition = transform.position;
             lastTimestamp = Time.time;
         }
+    }
+
+    public double getSpeed() {
+        return Speed;
     }
 }
