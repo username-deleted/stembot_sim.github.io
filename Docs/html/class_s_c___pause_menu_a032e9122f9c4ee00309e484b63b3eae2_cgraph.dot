@@ -1,0 +1,10 @@
+digraph "SC_PauseMenu.SetPythonBot"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="SC_PauseMenu.SetPythonBot",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="SIMbot.SetPythonBot",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_s_i_mbot.html#a138380a7f7c8c0ff6aa5c2c6fe7a5038",tooltip=" "];
+}

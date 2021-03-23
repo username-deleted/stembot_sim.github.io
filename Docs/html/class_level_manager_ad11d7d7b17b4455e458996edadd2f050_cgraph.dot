@@ -1,0 +1,12 @@
+digraph "LevelManager.LoadLevel"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="LevelManager.LoadLevel",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This method sets the selected level to the given level number."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LevelManager.LoadLevel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_level_manager.html#ab7f3deff41b4b12e1e325ef16d873e0e",tooltip="Load a scene with the current level number."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="LevelManager.SetSelected\lLevel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_level_manager.html#a82e768e05ac43cfcff7572ac42aef205",tooltip="This method changes the point's location to the given coordinates."];
+}

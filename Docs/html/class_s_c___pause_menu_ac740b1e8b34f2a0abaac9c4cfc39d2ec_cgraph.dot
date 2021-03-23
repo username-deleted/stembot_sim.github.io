@@ -1,0 +1,10 @@
+digraph "SC_PauseMenu.RestartLevel"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="SC_PauseMenu.RestartLevel",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="LevelManager.RestartLevel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_level_manager.html#a093e7358989feef6f76369f6f79f4fc6",tooltip="Restarts the level."];
+}
