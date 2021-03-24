@@ -25,7 +25,7 @@ public class PivotPointFollow : MonoBehaviour
 
         //The enabled/disabled section is unoptimized because it runs during every update. To fix this later, fire an event when the SIMbot is moving/not moving.
         //If moving, use the OCBScript.
-        if (simbotScript.getSpeed() >= .25)
+        if (simbotScript.getSpeed() >= .01)
         {
             OCBScript.enabled = false;
             //Euler angles must be used when trying to set the rotation of one object to the rotation of another. Setting specific quaternion values to another quaternion value can lead to odd behaviors if you don't know what a Quaternion is.
