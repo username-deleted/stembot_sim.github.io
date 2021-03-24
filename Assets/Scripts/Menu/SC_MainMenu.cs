@@ -15,6 +15,7 @@ public class SC_MainMenu : MonoBehaviour
     public Toggle tankControlsToggle;
 
     public Text attachmentNumberText;
+    public Text currentColorText;
 
     private GameObject SIMbot;
     private SIMbot SIMbotScript;
@@ -43,6 +44,7 @@ public class SC_MainMenu : MonoBehaviour
         //update the attachment number at start
         //used mainly for when the player comes back from a level
         UpdateAttachmentNumber();
+        UpdateColorName();
     }
 
     public void ExitButton()
@@ -110,6 +112,23 @@ public class SC_MainMenu : MonoBehaviour
     {
         SIMbotScript.PreviousAttachment();
         UpdateAttachmentNumber();
+    }
+
+    public void UpdateColorName()
+    {
+        currentColorText.text = SIMbotScript.GetColor();
+    }
+
+    public void NextColor()
+    {
+        SIMbotScript.NextColor();
+        UpdateColorName();
+    }
+
+    public void PreviousColor()
+    {
+        SIMbotScript.PreviousColor();
+        UpdateColorName();
     }
 
     public void ToggleLED()

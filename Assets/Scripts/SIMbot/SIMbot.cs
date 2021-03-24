@@ -14,6 +14,11 @@ public class SIMbot : MonoBehaviour
     private int MAX_ATTACHMENT_INDEX; //the maximum allowed attachments, set on awake
     public GameObject attachmentSlot; //the location of the attachment
 
+    public int currentColorIndex = 0;//the current color index
+    private String[] colorCommonName = { "Default Blue", "Blue", "Light Blue", "Purple", "Magenta", "Pink", "Light Pink", "Red", "Dark Red", "Brown", "Orange", "Gold", "Yellow", "Lime Green", "Forest Green", "Spring Green", "Cyan", "White", "Light Gray", "Dark Gray", "Black"};
+    private String[] colorsHexName = { "#414EBE", "#051EDB", "#006FFF", "#5906DB", "#AD00FF", "#FF1FDA", "#FF7AF2", "#FF000A", "#800300", "#522E23", "#FF3E00", "#FF9200", "#FFED00", "#14FF00", "#064D00", "#00FF6F", "#00F8FF", "#FFFFFF", "#B5B5B5", "#767676", "#161616" };
+    private int MAX_COLOR_INDEX;
+
     public bool pythonBot = false; //whether the bot is using python or not
     public bool tankControls = true; //whether the bot is using tank controls or not
     public bool LEDOn = false; //whether the led is on or not
@@ -38,6 +43,7 @@ public class SIMbot : MonoBehaviour
     private void Awake()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
+        MAX_COLOR_INDEX = colorsHexName.Length - 1;
         carControllerScript = GetComponent<SimpleCarController>();
         playerInputComponent = GetComponent<PlayerInput>();
 
@@ -61,6 +67,8 @@ public class SIMbot : MonoBehaviour
         InitSBData();
         //spawn the correct attachment
         spawnAttachment();
+        //set the SIMBot color
+        SetColor();
         //correctly set the led on or off
         updateLED();
 
@@ -182,6 +190,49 @@ public class SIMbot : MonoBehaviour
         }
     }
 
+    public void NextColor()
+    {
+        if (currentColorIndex == MAX_COLOR_INDEX)
+        {
+            currentColorIndex = 0;
+        }
+        else
+        {
+            currentColorIndex++;
+        }
+        //Save it in SBData to persist between scenes.
+        SBData.currentColor = currentColorIndex;
+        SetColor();
+    }
+
+    public void PreviousColor()
+    {
+        if (currentColorIndex == 0)
+        {
+            currentColorIndex = MAX_COLOR_INDEX;
+        }
+        else
+        {
+            currentColorIndex--;
+        }
+        //Save it in SBData to persist between scenes.
+        SBData.currentColor = currentColorIndex;
+        SetColor();
+    }
+
+    public String GetColor() {
+        return colorCommonName[currentColorIndex];
+    }
+
+    public void SetColor() {
+        Renderer chassisColor = GameObject.FindGameObjectWithTag("SIMBotCollider").GetComponent<Renderer>();
+        Color newColor;
+        //converts the hexColor into a color that we can then set at the chassis color. 
+        if (ColorUtility.TryParseHtmlString(colorsHexName[currentColorIndex], out newColor)) {
+            chassisColor.material.color = newColor;
+        }
+    }
+
     //set the python bot to true or false
     public void SetPythonBot(bool value)
     {
@@ -260,6 +311,7 @@ public class SIMbot : MonoBehaviour
     private void LoadSIMbotOptions()
     {
         attachmentNumber = SBData.attachmentNumber;
+        currentColorIndex = SBData.currentColor;
         pythonBot = SBData.pythonBot;
         tankControls = SBData.tankControls;
         LEDOn = SBData.LEDOn;
@@ -269,6 +321,7 @@ public class SIMbot : MonoBehaviour
     public void SaveSIMbotOptions()
     {
         SBData.attachmentNumber = attachmentNumber;
+        SBData.currentColor = currentColorIndex;
         SBData.pythonBot = pythonBot;
         SBData.tankControls = tankControls;
         SBData.LEDOn = LEDOn;
@@ -289,7 +342,7 @@ public class SIMbot : MonoBehaviour
     //changes the data saved to the newly given data
     public void UpdateSBData(SIMbotData data)
     {
-        SBData = new SIMbotData(data.attachmentNumber, data.pythonBot, data.tankControls, data.LEDOn);
+        SBData = new SIMbotData(data.attachmentNumber, data.currentColor, data.pythonBot, data.tankControls, data.LEDOn);
     }
 
     public void SayHi()
@@ -300,20 +353,23 @@ public class SIMbot : MonoBehaviour
     public class SIMbotData
     {
         public int attachmentNumber = 0;
+        public int currentColor = 0;
         public bool pythonBot = false;
         public bool tankControls = true;
         public bool LEDOn = true;
         public SIMbotData()
         {
             attachmentNumber = 0;
+            currentColor = 0;
             pythonBot = false;
             tankControls = true;
             LEDOn = true;
         }
 
-        public SIMbotData(int attachmentNumber, bool pythonBot, bool tankControls, bool LEDOn)
+        public SIMbotData(int attachmentNumber, int currentColor, bool pythonBot, bool tankControls, bool LEDOn)
         {
             this.attachmentNumber = attachmentNumber;
+            this.currentColor = currentColor;
             this.pythonBot = pythonBot;
             this.tankControls = tankControls;
             this.LEDOn = LEDOn;
