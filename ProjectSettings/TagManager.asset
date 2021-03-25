@@ -28,6 +28,8 @@ TagManager:
   - BackLeftT
   - Wheels
   - EventSystem
+  - SpeedText
+  - ColorNameText
   layers:
   - Default
   - TransparentFX

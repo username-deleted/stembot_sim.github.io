@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/DevScenes/DevScene_Cassie.unity
     guid: 34100ce7525f3cd4cbfa4860c593fc28
   - enabled: 1
-    path: Assets/Scenes/DevScenes/Level4-Fix.unity
+    path: Assets/Scenes/MasterScenes/Level4-Fix.unity
     guid: d8620fabbfa88da4b9b9884e223c00d6
   - enabled: 1
     path: Assets/Scenes/DevScenes/DevScene_Jackson.unity
