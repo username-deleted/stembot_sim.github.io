@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SelectableButton : MonoBehaviour
+public class SelectableButton : MonoBehaviour, ISelectHandler
 {
     // Start is called before the first frame update
     void Start()
