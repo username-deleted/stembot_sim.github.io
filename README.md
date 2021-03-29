@@ -36,8 +36,12 @@ Controls:
   - Controller Scheme (Tank):
     Not yet implemented.
     
-### What's New in Code Milestone 2?
-- Camera fixes, STEMBot physics first pass tweaks, wheel colliders now behave correctly.
-- Basic controller functionality when not using tank controls.
-- Basic controller functionality in all menus.
-- New fourth level that contains painted terrain and scenery.
+### What’s new in milestone 3:
+- Added customization for the chassis color to the main menu.
+- Fixed the camera to work in all levels.
+- Tweaked the camera mode swapping.
+- Fixed inconsistencies in the back wheels that caused the back left wheel to float, and tweaked the wheel collision in an attempt to stop the SIMbot from being a hunchback.
+- Added main menu sounds.
+- Added foliage to fourth level.
+- Added fifth level, parkour course.
+
