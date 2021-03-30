@@ -9,44 +9,69 @@ using UnityEngine.UI;
 /// <summary>Class <c>SIMbot</c> holds all information relevent to the SIMbot. How to save it, what attachment it has, whether the LED is on or off, what color it is, whether it is a Python bot or not, what camera mode it's using, and how fast the SIMbot is moving.</summary>
 public class SIMbot : MonoBehaviour
 {
-    private const string filename = "/data.txt"; //where the data is saved
+    /// <summary>Field <c>filename</c> is where the data is saved.</summary>
+    private const string filename = "/data.txt";
 
-    public GameObject[] attachments; //a list of attachments
-    public int attachmentNumber = 1; //the current attachment
-    private int MAX_ATTACHMENT_INDEX; //the maximum allowed attachments, set on awake
+    /// <summary>Property <c>attachments</c> is a list of attachments the SIMbot can have.</summary>
+    public GameObject[] attachments;
+    /// <summary>Property <c>attchmentNumber</c> is the current attachment on the SIMbot.</summary>
+    public int attachmentNumber = 1;
+    /// <summary>Field <c>MAX_ATTACHMENT_INDEX</c> is the maximum allowed attachments, set on awake.</summary>
+    private int MAX_ATTACHMENT_INDEX;
+    /// <summary>Property <c>attachmentSlot</c> is the location of the attachment.</summary>
     public GameObject attachmentSlot; //the location of the attachment
 
-    public int currentColorIndex = 0;//the current color index
+
+    //Optimization Note: A new object could be made that has both the common name and hex name. Then an array of these objects could be made. This might make the code cleaner and could make it easier to add new colors.
+    /// <summary>Property <c>currentColorIndex</c> is the current color index of the SIMbot chassis and is correlated with <c>colorCommonName</c> and <c>colorHexName</c>.</summary>
+    public int currentColorIndex = 0;
+    /// <summary>Field <c>colorCommonName</c> is an array of colors by their common name. If adding a new color, make sure to add the hex name into the same index as the common name.</summary>
     private String[] colorCommonName = { "Default Blue", "Blue", "Light Blue", "Purple", "Magenta", "Pink", "Light Pink", "Red", "Dark Red", "Brown", "Orange", "Gold", "Yellow", "Lime Green", "Forest Green", "Spring Green", "Cyan", "White", "Light Gray", "Dark Gray", "Black"};
-    private String[] colorsHexName = { "#414EBE", "#051EDB", "#006FFF", "#5906DB", "#AD00FF", "#FF1FDA", "#FF7AF2", "#FF000A", "#800300", "#522E23", "#FF3E00", "#FF9200", "#FFED00", "#14FF00", "#064D00", "#00FF6F", "#00F8FF", "#FFFFFF", "#B5B5B5", "#767676", "#161616" };
+    /// <summary>Field <c>colorHexName</c> is an array of colors by their hex name. If adding a new color, make sure to add the common name into the same index as the hex name.</summary>
+    private String[] colorHexName = { "#414EBE", "#051EDB", "#006FFF", "#5906DB", "#AD00FF", "#FF1FDA", "#FF7AF2", "#FF000A", "#800300", "#522E23", "#FF3E00", "#FF9200", "#FFED00", "#14FF00", "#064D00", "#00FF6F", "#00F8FF", "#FFFFFF", "#B5B5B5", "#767676", "#161616" };
+    /// <summary>Field <c>MAX_COLOR_INDEX</c> is the maximum allowed colors, set on awake.</summary>
     private int MAX_COLOR_INDEX;
 
-    public bool pythonBot = false; //whether the bot is using python or not
-    public bool tankControls = true; //whether the bot is using tank controls or not
-    public bool LEDOn = false; //whether the led is on or not
-    private Light LED; //the led
+    /// <summary>Property <c>pythonBot</c> is whether the bot is using python or not.</summary>
+    public bool pythonBot = false;
+    /// <summary>Property <c>tankControls</c> is whether the bot is using tank controls or not.</summary>
+    public bool tankControls = true;
+    /// <summary>Property <c>LEDOn</c> is whether the led is on or not.</summary>
+    public bool LEDOn = false;
+    /// <summary>Field <c>LED</c> is the light for the led.</summary>
+    private Light LED;
 
-    public SIMbotData SBData; //the data on the bot to be saved
-    public PivotPointFollow cameraPivotPointScript;
+    /// <summary>Property <c>SBData</c> is the data on the bot to be saved.</summary>
+    public SIMbotData SBData;
+    /// <summary>Property <c>pivotPointFollowScript</c> is the script that controls how the pivot point follows the SIMbot.</summary>
+    public PivotPointFollow pivotPointFollowScript;
 
+    /// <summary>Field <c>playerInputComponent</c> is the input from the user on the SIMbot.</summary>
     private PlayerInput playerInputComponent;
 
-    private SaveManager saveManager; //the save manager
-    private LevelManager levelManager; //the level manager
+    /// <summary>Field <c>saveManager</c> is the save manager.</summary>
+    private SaveManager saveManager;
+    /// <summary>Field <c>levelManager</c> is the level manager.</summary>
+    private LevelManager levelManager;
 
-    private SimpleCarController carControllerScript;
+    /// <summary>Field <c>simpleCarControllerScript</c> is the script on the SIMbot that controls how the SIMbot is moving.</summary>
+    private SimpleCarController simpleCarControllerScript;
 
-    public Camera mainBotCamera; //the camera that follows the bot
-    public OrbitCamBehaviour orbitCameraScript; //the script that controls the camera
+    /// <summary>Property <c>mainBotCamera</c> is the Camera that follows the bot.</summary>
+    public Camera mainBotCamera;
+    /// <summary>Property <c>orbitCameraScript</c> is the script that controls how the camera orbits around the SIMbot while the SIMbot is not moving.</summary>
+    public OrbitCamBehaviour orbitCameraScript;
 
-    public float Speed;//speed of the SIMbot.
-    public float UpdateDelay;//How long to wait before updating the speed.
+    /// <summary>Property <c>Speed</c> is the current speed of the SIMbot.</summary>
+    public float speed;
+    /// <summary>Property <c>updateDelay</c> is how long the system should wait before updating the speed of the SIMbot.</summary>
+    public float updateDelay;
 
     private void Awake()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
-        MAX_COLOR_INDEX = colorsHexName.Length - 1;
-        carControllerScript = GetComponent<SimpleCarController>();
+        MAX_COLOR_INDEX = colorHexName.Length - 1;
+        simpleCarControllerScript = GetComponent<SimpleCarController>();
         playerInputComponent = GetComponent<PlayerInput>();
 
     }
@@ -68,11 +93,11 @@ public class SIMbot : MonoBehaviour
         //initialize bot data
         InitSBData();
         //spawn the correct attachment
-        spawnAttachment();
+        SpawnAttachment();
         //set the SIMBot color
         SetColor();
         //correctly set the led on or off
-        updateLED();
+        UpdateLED();
 
         //if we're in the main menu scene, disable the bot camera, orbiting script, and player input
         if (levelManager.InMainMenuScene())
@@ -90,13 +115,13 @@ public class SIMbot : MonoBehaviour
         }
 
         //set the controller controls
-        carControllerScript.tankControls = tankControls;
+        simpleCarControllerScript.tankControls = tankControls;
 
         //track the speed
         OnEnabled();
     }
 
-    //initializes the data for the SIMbot
+    /// <summary>Method <c>InitSBData</c> initializes the data for the SIMbot.</summary>
     private void InitSBData()
     {
         //if there exists saved data for our bot, load it, otherwise make a default instance
@@ -124,7 +149,8 @@ public class SIMbot : MonoBehaviour
         LoadSIMbotOptions();
     }
 
-    private void updateLED() {
+    /// <summary>Method <c>updateLED</c> updates the light of the LED based on if LEDOn is true or false.</summary>
+    private void UpdateLED() {
         //Debug.Log(LEDOn);
         if (LEDOn)
         {
@@ -138,6 +164,7 @@ public class SIMbot : MonoBehaviour
         }
     }
 
+    /// <summary>Method <c>NextAttachment</c> sets the SIMbot's attachment to the next attachment in the <c>attachments</c> array.</summary>
     public void NextAttachment()
     {
         if(attachmentNumber == MAX_ATTACHMENT_INDEX)
@@ -150,10 +177,11 @@ public class SIMbot : MonoBehaviour
         }
         //Save it in SBData to persist between scenes.
         SBData.attachmentNumber = attachmentNumber;
-        clearAttachments();
-        spawnAttachment();
+        ClearAttachments();
+        SpawnAttachment();
     }
 
+    /// <summary>Method <c>PreviousAttachment</c> sets the SIMbot's attachment to the previous attachment in the <c>attachments</c> array.</summary>
     public void PreviousAttachment()
     {
         if(attachmentNumber == 0)
@@ -166,12 +194,12 @@ public class SIMbot : MonoBehaviour
         }
         //Save it in SBData to persist between scenes.
         SBData.attachmentNumber = attachmentNumber;
-        clearAttachments();
-        spawnAttachment();
+        ClearAttachments();
+        SpawnAttachment();
     }
 
-    //initialize the attachment on the SIMbot
-    private void spawnAttachment()
+    /// <summary>Method <c>spawnAttachment</c> initializes the attachment on the SIMbot.</summary>
+    private void SpawnAttachment()
     {
         if (attachments[attachmentNumber] != null)
         {
@@ -180,8 +208,8 @@ public class SIMbot : MonoBehaviour
         }
     }
 
-    //clear the current attchments on the SIMbot
-    private void clearAttachments()
+    /// <summary>Method <c>ClearAttachments</c> clears the current attachments on the SIMbot.</summary>
+    private void ClearAttachments()
     {
         foreach (Transform child in attachmentSlot.transform)
         {
@@ -189,6 +217,7 @@ public class SIMbot : MonoBehaviour
         }
     }
 
+    /// <summary>Method <c>NextColor</c> sets the SIMbot's color to the next color in the <c>colorHexName</c> array by increasing the index.</summary>
     public void NextColor()
     {
         if (currentColorIndex == MAX_COLOR_INDEX)
@@ -204,6 +233,7 @@ public class SIMbot : MonoBehaviour
         SetColor();
     }
 
+    /// <summary>Method <c>PreviousColor</c> sets the SIMbot's color to the previous color in the <c>colorHexName</c> array by decreasing the index.</summary>
     public void PreviousColor()
     {
         if (currentColorIndex == 0)
@@ -219,6 +249,8 @@ public class SIMbot : MonoBehaviour
         SetColor();
     }
 
+    /// <summary>Method <c>GetColor</c> gets the SIMbot's current color by common name.</summary>
+    /// <returns>A string representing the SIMbot's current color by common name.</returns>
     public String GetColor() {
         return colorCommonName[currentColorIndex];
     }
@@ -227,7 +259,7 @@ public class SIMbot : MonoBehaviour
         Renderer chassisColor = GameObject.FindGameObjectWithTag("SIMBotCollider").GetComponent<Renderer>();
         Color newColor;
         //converts the hexColor into a color that we can then set at the chassis color. 
-        if (ColorUtility.TryParseHtmlString(colorsHexName[currentColorIndex], out newColor)) {
+        if (ColorUtility.TryParseHtmlString(colorHexName[currentColorIndex], out newColor)) {
             chassisColor.material.color = newColor;
         }
     }
@@ -247,7 +279,7 @@ public class SIMbot : MonoBehaviour
         tankControls = value;
 
         //update the car controller's controls
-        carControllerScript.tankControls = tankControls;
+        simpleCarControllerScript.tankControls = tankControls;
 
         //Save it in SBData to persist between scenes.
         SBData.tankControls = tankControls;
@@ -256,7 +288,7 @@ public class SIMbot : MonoBehaviour
     public void ToggleLED()
     {
         LEDOn = !LEDOn;
-        updateLED();
+        UpdateLED();
         //Save it in SBData to persist between scenes.
         SBData.LEDOn = LEDOn;
     }
@@ -265,21 +297,21 @@ public class SIMbot : MonoBehaviour
     public void ToggleCameraOrbit()
     {
         orbitCameraScript.enabled = !orbitCameraScript.enabled;
-        cameraPivotPointScript.enabled = !cameraPivotPointScript.enabled;
+        pivotPointFollowScript.enabled = !pivotPointFollowScript.enabled;
     }
 
     //enable the main camera orbit script
     public void EnableCameraOrbit()
     {
         orbitCameraScript.enabled = true;
-        cameraPivotPointScript.enabled = true;
+        pivotPointFollowScript.enabled = true;
     }
 
     //disable the main camera orbit script
     public void DisableCameraOrbit()
     {
         orbitCameraScript.enabled = false;
-        cameraPivotPointScript.enabled = false;
+        pivotPointFollowScript.enabled = false;
     }
 
     //enable the camera
@@ -315,7 +347,7 @@ public class SIMbot : MonoBehaviour
     private IEnumerator SpeedReckoner()
     {
 
-        YieldInstruction timedWait = new WaitForSeconds(UpdateDelay);
+        YieldInstruction timedWait = new WaitForSeconds(updateDelay);
         Vector3 lastPosition = transform.position;
         float lastTimestamp = Time.time;
 
@@ -331,13 +363,13 @@ public class SIMbot : MonoBehaviour
 
             if (deltaPosition / deltaTime != 0)
             {
-                Speed = deltaPosition / deltaTime;
+                speed = deltaPosition / deltaTime;
             }
 
             if (GameObject.FindGameObjectWithTag("SpeedText") != null)
             {
                 Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
-                scoreDisplay.text = Math.Round(Speed).ToString();
+                scoreDisplay.text = Math.Round(speed).ToString();
             }
 
             lastPosition = transform.position;
@@ -347,7 +379,7 @@ public class SIMbot : MonoBehaviour
 
     public double getSpeed()
     {
-        return Speed;
+        return speed;
     }
 
     //set the current simbot variables to the data, this does not pull from the file
