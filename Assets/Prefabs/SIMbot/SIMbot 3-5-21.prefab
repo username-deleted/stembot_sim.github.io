@@ -27,13 +27,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1446228472094749145}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: 0, y: 5, z: -6}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 4, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1446228474079584367}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!20 &1446228472094749142
 Camera:
   m_ObjectHideFlags: 0
@@ -1812,12 +1812,8 @@ MonoBehaviour:
   axleInfos:
   - leftWheel: {fileID: 6372516773702409391}
     rightWheel: {fileID: 6372516775117694802}
-    motor: 1
-    steering: 0
   - leftWheel: {fileID: 6372516773642056751}
     rightWheel: {fileID: 6372516773289817352}
-    motor: 0
-    steering: 0
   maxMotorTorque: 500
   maxSteeringAngle: 30
   tankControls: 1
@@ -1846,11 +1842,11 @@ MonoBehaviour:
   pythonBot: 0
   tankControls: 1
   LEDOn: 1
-  cameraPivotPointScript: {fileID: 1446228474079584360}
+  pivotPointFollowScript: {fileID: 1446228474079584360}
   mainBotCamera: {fileID: 1446228472094749142}
   orbitCameraScript: {fileID: 1446228472094749147}
-  Speed: 0
-  UpdateDelay: 0
+  speed: 0
+  updateDelay: 0
 --- !u!114 &6372516774563795057
 MonoBehaviour:
   m_ObjectHideFlags: 0

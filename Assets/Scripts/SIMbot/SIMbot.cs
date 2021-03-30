@@ -44,6 +44,7 @@ public class SIMbot : MonoBehaviour
     /// <summary>Property <c>SBData</c> is the data on the bot to be saved.</summary>
     public SIMbotData SBData;
     /// <summary>Property <c>pivotPointFollowScript</c> is the script that controls how the pivot point follows the SIMbot.</summary>
+
     public PivotPointFollow pivotPointFollowScript;
 
     /// <summary>Field <c>playerInputComponent</c> is the input from the user on the SIMbot.</summary>

@@ -5482,26 +5482,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1446228472094749146, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1446228472094749146, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.17364816
-      objectReference: {fileID: 0}
-    - target: {fileID: 1446228472094749146, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9848078
-      objectReference: {fileID: 0}
-    - target: {fileID: 1446228472094749146, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 1446228473567749704, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
         type: 3}
       propertyPath: m_Name
@@ -5567,11 +5547,6 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 838251825}
-    - target: {fileID: 6372516774563795057, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: PauseGameToggle
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d707281ac3b8cd24abb0e0ec65d4b4b5, type: 3}
 --- !u!1001 &453028106

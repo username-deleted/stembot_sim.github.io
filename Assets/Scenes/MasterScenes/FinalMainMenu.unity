@@ -1671,6 +1671,18 @@ Transform:
   m_Father: {fileID: 1643270080}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: -37.365, z: 0}
+--- !u!114 &897681552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7072882554231997741, guid: c05202fe9494131429f5ca7615ee2a2d,
+    type: 3}
+  m_PrefabInstance: {fileID: 8517965060342734617}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 811fd4020f8a2344186cda0a21395b01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &904291351
 GameObject:
   m_ObjectHideFlags: 0
@@ -3833,5 +3845,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SIMbot 3-5-21 MainMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 7072882555918364243, guid: c05202fe9494131429f5ca7615ee2a2d,
+        type: 3}
+      propertyPath: pivotPointFollowScript
+      value: 
+      objectReference: {fileID: 897681552}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c05202fe9494131429f5ca7615ee2a2d, type: 3}
