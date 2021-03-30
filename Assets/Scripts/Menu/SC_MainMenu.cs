@@ -80,7 +80,7 @@ public class SC_MainMenu : MonoBehaviour
         UpdateColorName();
     }
 
-    /// <summary>This method fires when the exit button is clicked on the main menu.
+    /// <summary>Method <c>ExitButton</c> fires when the exit button is clicked on the main menu.
     /// It exits the application.</summary>
     public void ExitButton()
     {
@@ -89,7 +89,7 @@ public class SC_MainMenu : MonoBehaviour
         //UnityEditor.EditorApplication.isPlaying = false;
     }
 
-    /// <summary>This method fires when the options button is clicked.
+    /// <summary>Method <c>OptionsButton</c> fires when the options button is clicked.
     /// It enables the options menu and disables all others.</summary>
     public void OptionsButton()
     {
@@ -98,7 +98,7 @@ public class SC_MainMenu : MonoBehaviour
         CustomizationMenu.SetActive(false);
     }
 
-    /// <summary>This method fires when the user navigates back from a submenu.
+    /// <summary>Method <c>MainMenuButton</c> fires when the user navigates back from a submenu.
     /// It enables the main menu and disables all others.</summary>
     public void MainMenuButton()
     {
@@ -108,7 +108,7 @@ public class SC_MainMenu : MonoBehaviour
         LevelSelectionMenu.SetActive(false);
     }
 
-    /// <summary>This method fires when the customize button is clicked.
+    /// <summary>Method <c>CustomizationButton</c> fires when the customize button is clicked.
     /// It enables the customization menu and disables all others.</summary>
     public void CustomizationButton()
     {
@@ -118,7 +118,7 @@ public class SC_MainMenu : MonoBehaviour
         UpdateAttachmentNumber();
     }
 
-    /// <summary>This method fires when the play button is clicked.
+    /// <summary>Method <c>LevelSelectButton</c> fires when the play button is clicked.
     /// It enables the level select menu and disables all others.</summary>
     public void LevelSelectButton()
     {
@@ -128,7 +128,7 @@ public class SC_MainMenu : MonoBehaviour
         LevelSelectionMenu.SetActive(true);
     }
 
-    /// <summary>This method fires when the play button is clicked within the level select submenu.
+    /// <summary>Method <c>PlayButton</c> fires when the play button is clicked within the level select submenu.
     /// It disables all objects associated with the main menu and loads the currently selected level.</summary>
     public void PlayButton()
     {
@@ -141,14 +141,14 @@ public class SC_MainMenu : MonoBehaviour
         levelManager.LoadLevel();
     }
 
-    /// <summary>This method updates the <c>attachmentNumberText</c> to the current <c>attachmentNumber</c>
+    /// <summary>Method <c>UpdateAttachmentNumber</c> updates the <c>attachmentNumberText</c> to the current <c>attachmentNumber</c>
     /// on the SIMbot.</summary>
     public void UpdateAttachmentNumber()
     {
         attachmentNumberText.text = SIMbotScript.attachmentNumber.ToString();
     }
 
-    /// <summary>This method calls the <c>NextAttachment()</c> method to
+    /// <summary>Method <c>NextAttachment</c> calls the <c>NextAttachment()</c> method to
     /// go to the next attachment on the <c>SIMbotScript</c>.</summary>
     public void NextAttachment()
     {
@@ -156,7 +156,7 @@ public class SC_MainMenu : MonoBehaviour
         UpdateAttachmentNumber();
     }
 
-    /// <summary>This method calls the <c>PreviousAttachment()</c> method to
+    /// <summary>Method <c>PreviousAttachment</c> calls the <c>PreviousAttachment()</c> method to
     /// go to the previous attachment on the <c>SIMbotScript</c>.</summary>
     public void PreviousAttachment()
     {
@@ -164,14 +164,14 @@ public class SC_MainMenu : MonoBehaviour
         UpdateAttachmentNumber();
     }
 
-    /// <summary>This method updates the <c>currentColorText</c> to the current color
+    /// <summary>Method <c>UpdateColorName</c> updates the <c>currentColorText</c> to the current color
     /// on the <c>SIMbotScript</c>.</summary>
     public void UpdateColorName()
     {
         currentColorText.text = SIMbotScript.GetColor();
     }
 
-    /// <summary>This method calls the <c>NextColor()</c> method to
+    /// <summary>Method <c>NextColor</c> calls the <c>NextColor()</c> method to
     /// go to the next color on the <c>SIMbotScript</c>.</summary>
     public void NextColor()
     {
@@ -179,7 +179,7 @@ public class SC_MainMenu : MonoBehaviour
         UpdateColorName();
     }
 
-    /// <summary>This method calls the <c>PreviousColor()</c> method to
+    /// <summary>Method <c>PreviousColor</c> calls the <c>PreviousColor()</c> method to
     /// go to the previous color on the <c>SIMbotScript</c>.</summary>
     public void PreviousColor()
     {
@@ -187,14 +187,14 @@ public class SC_MainMenu : MonoBehaviour
         UpdateColorName();
     }
 
-    /// <summary>This method calls the <c>ToggleLED()</c> method to
+    /// <summary>Method <c>ToggleLED</c> calls the <c>ToggleLED()</c> method to
     /// toggle the LED on or off on the <c>SIMbotScript</c>.</summary>
     public void ToggleLED()
     {
         SIMbotScript.ToggleLED();
     }
 
-    /// <summary>This method sets the currently selected level,
+    /// <summary>Method <c>SetSelectedLevel</c> sets the currently selected level,
     /// called by the LevelButton script.</summary>
     /// <param><c>levelNumber</c> is the new level number.</param>
     public void SetSelectedLevel(int levelNumber)
@@ -202,26 +202,26 @@ public class SC_MainMenu : MonoBehaviour
         currentlySelectedLevel = levelNumber;
     }
 
-    /// <summary>This method calls <c>SaveSBData()</c> on <c>SIMbotScript</c> to save data
+    /// <summary>Method <c>SaveSBData</c> calls <c>SaveSBData()</c> on <c>SIMbotScript</c> to save data
     /// to a file.</summary>
     public void SaveSBData()
     {
         saveManager.SaveSBData();
     }
 
-    /// <summary>This method set the tank controls dependent on the toggle.</summary>
+    /// <summary>Method <c>SetBotTankControls</c> set the tank controls dependent on the toggle.</summary>
     public void SetBotTankControls()
     {
         SIMbotScript.SetTankControls(tankControlsToggle.isOn);
     }
 
-    /// <summary>This method sets whether to use the python script or not dependent on the toggle.</summary>
+    /// <summary>Method <c>SetPythonBot</c> sets whether to use the python script or not dependent on the toggle.</summary>
     public void SetPythonBot()
     {
         SIMbotScript.SetPythonBot(pythonToggle.isOn);
     }
 
-    /// <summary>This method sets the selected object in the <c>eventSystem</c>
+    /// <summary>Method <c>SetSelectedObject</c> sets the selected object in the <c>eventSystem</c>
     /// to the given object <c>obj</c>.</summary>
     /// <param><c>obj</c> is the object to be selected.</param>
     public void SetSelectedObject(GameObject obj)
