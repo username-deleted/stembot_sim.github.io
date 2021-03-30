@@ -9,6 +9,8 @@ public static class SaveSystem
     public static readonly string SAVE_FOLDER = Application.dataPath + "/Saves/"; //the folder to save/load from
 
     //save the saveString data
+    /// <summary>This method saves the given string to a file</summary>
+    /// <param><c>saveString</c> is the string to save.</param>
     public static void Save(string saveString)
     {
         //directory does not exist?
@@ -24,7 +26,7 @@ public static class SaveSystem
         File.WriteAllText(SAVE_FOLDER + filename, saveString);
     }
 
-    /// <summary>This method loads previously saved data from </summary>
+    /// <summary>This method loads previously saved data from the file. </summary>
     /// <returns>The data string</returns>
     /// <see cref="filename"/>
     /// <see cref="SAVE_FOLDER"/>
@@ -42,7 +44,7 @@ public static class SaveSystem
         }
     }
 
-    //delete all the data
+    /// <summary>This method deletes all saved data</summary>
     public static void DeleteData()
     {
         if (File.Exists(SAVE_FOLDER + filename))
