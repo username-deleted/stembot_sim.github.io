@@ -7,41 +7,31 @@ using System.Collections.Generic;
 //WHeel Collider Tutorial Reference: https://docs.unity3d.com/Manual/WheelColliderTutorial.html
 
 [System.Serializable]
+
+/// <summary>Class <c>AxleInfo</c> holds a set of wheels, either the front wheels or the back wheels.</summary>
 public class AxleInfo {
+    /// <summary>Field <c>leftWheel</c> is the left wheel of the set.</summary>
     public WheelCollider leftWheel;
+    /// <summary>Field <c>rightWheel</c> is the right wheel of the set.</summary>
     public WheelCollider rightWheel;
-    public bool motor;
-    public bool steering;
 }
-     
+
+
+/// <summary>Class <c>SimpleCarController</c> controls which wheels are moving based on the user input, how the wheels are graphically changing, and how fast the wheels are rotating.</summary>
 public class SimpleCarController : MonoBehaviour {
-    public List<AxleInfo> axleInfos; 
+    /// <summary>Property <c>axleInfos</c> is a list of wheel pairs. The entire list consists of the pair of front wheels, and the pair of back wheels. This was written by the group before ours and could be cleaned up.</summary>
+    public List<AxleInfo> axleInfos;
+    /// <summary>Property <c>maxMotorTorque</c> is how fast the wheels turn. In other words, how fast the SIMbot is moving.</summary>
     public float maxMotorTorque;
+    /// <summary>Property <c>maxSteeringAngle</c> is whether the SIMbot is turning left or right.</summary>
     public float maxSteeringAngle;
+    /// <summary>Property <c>tankControls</c> is which SIMbot controls are being used.</summary>
     public bool tankControls = true;
 
     private void Start()
     {
         //set the tank controls from the simbot script that has loaded the data previously
         tankControls = gameObject.GetComponent<SIMbot>().tankControls;
-    }
-
-    // finds the corresponding visual wheel
-    // correctly applies the transform
-    public void ApplyLocalPositionToVisuals(WheelCollider collider)
-    {
-        if (collider.transform.childCount == 0) {
-            return;
-        }
-     
-        Transform visualWheel = collider.transform.GetChild(0);
-     
-        Vector3 position;
-        Quaternion rotation;
-        collider.GetWorldPose(out position, out rotation);
-     
-        visualWheel.transform.position = position;
-        visualWheel.transform.rotation = rotation;
     }
 
     public void FixedUpdate()
@@ -148,5 +138,24 @@ public class SimpleCarController : MonoBehaviour {
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
         }
+    }
+
+    /// <summary>Method <c>ApplyLocalPositionToVisuals</c> finds the corresponding visual wheel and correctly applies the transform to it.</summary>
+    /// <param><c>collider</c> is the wheel collider to apply the transform to.</param>
+    public void ApplyLocalPositionToVisuals(WheelCollider collider)
+    {
+        if (collider.transform.childCount == 0)
+        {
+            return;
+        }
+
+        Transform visualWheel = collider.transform.GetChild(0);
+
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
     }
 }

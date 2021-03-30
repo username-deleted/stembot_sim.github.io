@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+
+/// <summary>Class <c>SIMbot</c> holds all information relevent to the SIMbot. How to save it, what attachment it has, whether the LED is on or off, what color it is, whether it is a Python bot or not, what camera mode it's using, and how fast the SIMbot is moving.</summary>
 public class SIMbot : MonoBehaviour
 {
     private const string filename = "/data.txt"; //where the data is saved
@@ -304,6 +306,50 @@ public class SIMbot : MonoBehaviour
         playerInputComponent.enabled = false;
     }
 
+
+    void OnEnabled()
+    {
+        StartCoroutine(SpeedReckoner());
+    }
+
+    private IEnumerator SpeedReckoner()
+    {
+
+        YieldInstruction timedWait = new WaitForSeconds(UpdateDelay);
+        Vector3 lastPosition = transform.position;
+        float lastTimestamp = Time.time;
+
+        while (enabled)
+        {
+            yield return timedWait;
+
+            var deltaPosition = (transform.position - lastPosition).magnitude;
+            var deltaTime = Time.time - lastTimestamp;
+
+            if (Mathf.Approximately(deltaPosition, 0f)) // Clean up "near-zero" displacement
+                deltaPosition = 0f;
+
+            if (deltaPosition / deltaTime != 0)
+            {
+                Speed = deltaPosition / deltaTime;
+            }
+
+            if (GameObject.FindGameObjectWithTag("SpeedText") != null)
+            {
+                Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
+                scoreDisplay.text = Math.Round(Speed).ToString();
+            }
+
+            lastPosition = transform.position;
+            lastTimestamp = Time.time;
+        }
+    }
+
+    public double getSpeed()
+    {
+        return Speed;
+    }
+
     //set the current simbot variables to the data, this does not pull from the file
     private void LoadSIMbotOptions()
     {
@@ -371,48 +417,5 @@ public class SIMbot : MonoBehaviour
             this.tankControls = tankControls;
             this.LEDOn = LEDOn;
         }
-    }
-
-
-    void OnEnabled()
-    {
-        StartCoroutine(SpeedReckoner());
-    }
-
-    private IEnumerator SpeedReckoner()
-    {
-
-        YieldInstruction timedWait = new WaitForSeconds(UpdateDelay);
-        Vector3 lastPosition = transform.position;
-        float lastTimestamp = Time.time;
-
-        while (enabled)
-        {
-            yield return timedWait;
-
-            var deltaPosition = (transform.position - lastPosition).magnitude;
-            var deltaTime = Time.time - lastTimestamp;
-
-            if (Mathf.Approximately(deltaPosition, 0f)) // Clean up "near-zero" displacement
-                deltaPosition = 0f;
-
-            if (deltaPosition / deltaTime != 0)
-            {
-                Speed = deltaPosition / deltaTime;
-            }
-
-            if (GameObject.FindGameObjectWithTag("SpeedText") != null)
-            {
-                Text scoreDisplay = GameObject.FindGameObjectWithTag("SpeedText").GetComponent<Text>();
-                scoreDisplay.text = Math.Round(Speed).ToString();
-            }
-
-            lastPosition = transform.position;
-            lastTimestamp = Time.time;
-        }
-    }
-
-    public double getSpeed() {
-        return Speed;
     }
 }
