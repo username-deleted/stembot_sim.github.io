@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//This class tells the pivot point for the camera to follow the SIMbot and takes the SIMbot's y rotation to rotation the camera.
+/// <summary>Class <c>PivorPointFollow</c> tells the pivor point of the camera to follow the SIMbot and takes the SIMbot's y rotation to orientate which way the camera is looking.</summary>
 public class PivotPointFollow : MonoBehaviour
 {
+    /// <summary>Field <c>SIMbot</c> represents the SIMbot in the scene.</summary>
     private GameObject SIMbot;
+    /// <summary>Field <c>OrbitCamBehavior</c> represents the orbital camera script on the main camera. This script is used to rotate the camera around the SIMbot while the SIMbot is not moving.</summary>
     private OrbitCamBehaviour OCBScript;
+    /// <summary>Field <c>simbotScript</c> represents the SIMbot's script. The SIMbot's script keeps track of how fast the SIMbot is moving. This speed is used to determine which camera to use.<summary>
     private SIMbot simbotScript;
 
     private void Start()
