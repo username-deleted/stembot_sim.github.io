@@ -84,8 +84,12 @@ public class SIMbot : MonoBehaviour
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
-        simbotHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
-        simbotHealth.RemoveHealth(50);
+
+        //if the health bar exists, set the simbot health script.
+        if (GameObject.FindGameObjectWithTag("HealthBar") != null)
+        {
+            simbotHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        }
         //Can be cleaned up, this is currently necessary to keep the settings on the MainMenu SIMbot functioning.
         if (mainBotCamera == null) {
             mainBotCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
