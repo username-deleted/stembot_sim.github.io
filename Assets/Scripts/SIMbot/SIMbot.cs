@@ -68,6 +68,8 @@ public class SIMbot : MonoBehaviour
     /// <summary>Property <c>updateDelay</c> is how long the system should wait before updating the speed of the SIMbot.</summary>
     public float updateDelay;
 
+    private Health simbotHealth;
+
     private void Awake()
     {
         MAX_ATTACHMENT_INDEX = attachments.Length - 1;
@@ -82,6 +84,8 @@ public class SIMbot : MonoBehaviour
         attachmentSlot = GameObject.FindGameObjectWithTag("AttachmentSlot");
         saveManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<SaveManager>();
         levelManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<LevelManager>();
+        simbotHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<Health>();
+        simbotHealth.RemoveHealth(50);
         //Can be cleaned up, this is currently necessary to keep the settings on the MainMenu SIMbot functioning.
         if (mainBotCamera == null) {
             mainBotCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();

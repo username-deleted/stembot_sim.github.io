@@ -30,6 +30,8 @@ TagManager:
   - EventSystem
   - SpeedText
   - ColorNameText
+  - HealthBar
+  - HealthFill
   layers:
   - Default
   - TransparentFX
