@@ -1446,16 +1446,16 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 2.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 10
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 5
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &6372516773538196451
@@ -1540,16 +1540,16 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 2.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 10
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 5
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &6372516773702409389
@@ -1603,16 +1603,16 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 2.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 10
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 5
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &6372516773777445038
@@ -1957,16 +1957,16 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 1
-    m_AsymptoteSlip: 0.8
-    m_AsymptoteValue: 0.5
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 5
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 2.5
     m_Stiffness: 1
   m_SidewaysFriction:
-    m_ExtremumSlip: 0.5
-    m_ExtremumValue: 0.5
-    m_AsymptoteSlip: 0.5
-    m_AsymptoteValue: 0.75
+    m_ExtremumSlip: 5
+    m_ExtremumValue: 10
+    m_AsymptoteSlip: 10
+    m_AsymptoteValue: 5
     m_Stiffness: 0.75
   m_Enabled: 1
 --- !u!1 &6589601405670021928
