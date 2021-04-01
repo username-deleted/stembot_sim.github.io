@@ -5542,11 +5542,171 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773289817352, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteValue
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773642056751, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteValue
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516773702409391, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteValue
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6372516774563795057, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
         type: 3}
       propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 838251825}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_ExtremumValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_SidewaysFriction.m_AsymptoteValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumSlip
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_ExtremumValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteSlip
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372516775117694802, guid: d707281ac3b8cd24abb0e0ec65d4b4b5,
+        type: 3}
+      propertyPath: m_ForwardFriction.m_AsymptoteValue
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d707281ac3b8cd24abb0e0ec65d4b4b5, type: 3}
 --- !u!1 &430530158 stripped
@@ -5567,7 +5727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8818f13b33dcf5548a8e90c34726a2d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MAX_HEALTH: 100
 --- !u!1001 &453028106
 PrefabInstance:
   m_ObjectHideFlags: 0
