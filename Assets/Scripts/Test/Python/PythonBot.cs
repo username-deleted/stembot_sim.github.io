@@ -13,7 +13,11 @@ public class PythonBot : MonoBehaviour
 
     public class SIMbotEvent
     {
-        private string _action;
+        public string Action
+        {
+            get;
+            set;
+        }
 
         public ArrayList Variables
         {
@@ -23,7 +27,7 @@ public class PythonBot : MonoBehaviour
 
         public SIMbotEvent(string action)
         {
-            _action = action;
+            Action = action;
         }
 
         public void SetupVariables(ArrayList variables)
@@ -33,13 +37,13 @@ public class PythonBot : MonoBehaviour
 
         public override string ToString()
         {
-            return "Action: " + _action + "\nVariables Length: " + Variables.Count;
+            return "Action: " + Action + "\nVariables Length: " + Variables.Count;
         }
     }
 
     public class Motor
     {
-        private int _id;
+        public int Id;
         private bool _sleeping;
         private bool _brakeMode;
         private float _motorSpeed;
@@ -48,7 +52,7 @@ public class PythonBot : MonoBehaviour
 
         public Motor(int id)
         {
-            _id = id;
+            Id = id;
             _sleeping = false;
             _brakeMode = true;
             _motorSpeed = 0;
@@ -77,20 +81,15 @@ public class PythonBot : MonoBehaviour
             Debug.Log("Speed Changed to " + _motorSpeed);
             
         }
-
-        public int GetID()
-        {
-            return _id;
-        }
     }
 
     // Start is called before the first frame update
     private void Start()
     { 
         RunPythonScript();
-        Debug.Log("Event Count: " + _events.Count);
-        Debug.Log("Event at 0: " + _events[0].ToString());
-        Debug.Log("Motor ID of event 0: " + ((Motor)_events[0].Variables[0]).GetID());
+
+        //process events
+        InvokeRepeating("ProcessNextSIMbotEvent", 1, 2);
     }
 
     private void Update()
@@ -102,9 +101,31 @@ public class PythonBot : MonoBehaviour
             Invoke("RunPythonScript", 5);
             
         }*/
+
     }
 
-    
+    private void ProcessNextSIMbotEvent()
+    {
+        //break out if no events to process
+        if (_events.Count == 0)
+        {
+            return;
+        }
+
+        //get the next event
+        var nextEvent = _events[0];
+        //remove it from the list
+        _events.RemoveAt(0);
+
+        switch (nextEvent.Action)
+        {
+            case "speed": 
+                Debug.Log("-- Speed Event --");
+                Debug.Log("Motor ID: " + ((Motor)nextEvent.Variables[0]).Id);
+                Debug.Log("Speed: " + nextEvent.Variables[1]);
+                break;
+        }
+    }
 
     private void RunPythonScript()
     {
