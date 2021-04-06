@@ -79,7 +79,6 @@ public class PythonBot : MonoBehaviour
         {
             _motorSpeed = x;
             Debug.Log("Speed Changed to " + _motorSpeed);
-            
         }
     }
 
@@ -119,10 +118,14 @@ public class PythonBot : MonoBehaviour
 
         switch (nextEvent.Action)
         {
-            case "speed": 
+            //in the case of speed, variable 0 is the motor(Motor), variable 1 is the speed(float)
+            case "speed":
                 Debug.Log("-- Speed Event --");
-                Debug.Log("Motor ID: " + ((Motor)nextEvent.Variables[0]).Id);
+                Debug.Log("Motor ID: " + ((Motor) nextEvent.Variables[0]).Id);
                 Debug.Log("Speed: " + nextEvent.Variables[1]);
+
+                var motorId = ((Motor)nextEvent.Variables[0]).Id;
+                motors[motorId - 1].speed((float)nextEvent.Variables[1]);
                 break;
         }
     }
