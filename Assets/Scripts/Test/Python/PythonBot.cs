@@ -105,23 +105,22 @@ public class PythonBot : MonoBehaviour
         engine.SetSearchPaths(searchPaths);
         engine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(GameObject)));
 
-        //string[] lines = File.ReadAllLines(Application.dataPath + "/Scripts/Test/Python/bot_test.py");
+        //Create our scope.
         var scope = engine.CreateScope();
+        //Execute sb python module.
         dynamic sbLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/sb.py");
-        //Debug.Log("Hello! I am bad"); 
-
-        dynamic sb = sbLib.SB(this);
-        scope.SetVariable("sb", sb);
-        //Debug.Log("Hello! I am bad");
-
         
-        //foreach (string line in lines)
-        //{
-            //Debug.Log(line);
+        //Initialize sb python module.
+        dynamic sb = sbLib.SB(this);
+        //Set it in the scope.
+        scope.SetVariable("sb", sb);
+
+        //Create a runnable script source from user script file.
         var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/User/bot_test.py");
-            //Task.Run(() => ScriptSource.Execute(scope));
+        //Execute said file.
         ScriptSource.Execute(scope);
-        //}
+
+
         //dynamic leftMotor = scope.GetVariable("motor_1");
         //Debug.Log(leftMotor);
     }
@@ -170,5 +169,7 @@ public class PythonBot : MonoBehaviour
         AddEventToEventList(newEvent);
         return newEvent;
     }
+
+
 }
 
