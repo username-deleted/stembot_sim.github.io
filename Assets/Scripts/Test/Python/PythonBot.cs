@@ -72,24 +72,21 @@ public class PythonBot : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     { 
-        
+        RunPythonScript();
     }
 
     private void Update()
     { 
-        if (!hasRan)
+        /*if (!hasRan)
         {
             Debug.Log("Run it.");
             hasRan = true;
             Invoke("RunPythonScript", 5);
             
-        }
+        }*/
     }
 
-    private void AddEventToEventList(SIMbotEvent newEvent)
-    {
-        _events.Add(newEvent);
-    }
+    
 
     private void RunPythonScript()
     {
@@ -109,7 +106,7 @@ public class PythonBot : MonoBehaviour
         var scope = engine.CreateScope();
         //Execute sb python module.
         dynamic sbLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/sb.py");
-        
+
         //Initialize sb python module.
         dynamic sb = sbLib.SB(this);
         //Set it in the scope.
@@ -153,8 +150,7 @@ public class PythonBot : MonoBehaviour
         {
             speed
         };
-        newEvent.SetupVariables(temp);
-        AddEventToEventList(newEvent);
+        SetupVariablesAndAddToEventList(newEvent, temp);
         return newEvent;
     }
 
@@ -165,11 +161,19 @@ public class PythonBot : MonoBehaviour
         {
             duration
         };
-        newEvent.SetupVariables(temp);
-        AddEventToEventList(newEvent);
+        SetupVariablesAndAddToEventList(newEvent, temp);
         return newEvent;
     }
 
+    private void AddEventToEventList(SIMbotEvent newEvent)
+    {
+        _events.Add(newEvent);
+    }
 
+    private void SetupVariablesAndAddToEventList(SIMbotEvent newEvent, ArrayList temp)
+    {
+        newEvent.SetupVariables(temp);
+        AddEventToEventList(newEvent);
+    }
 }
 
