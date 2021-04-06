@@ -53,6 +53,7 @@ class SB:
                 self.motorSpeed = motorSpeed
                 # do Unity code setting the speed of the motor
                 self.motor.speed(motorSpeed)
+                cScript.GenerateSpeedEvent(self.motor, motorSpeed)
 
         def distance(self, steps, motorSpeed, acceleration, blocking):
             print("nothing")

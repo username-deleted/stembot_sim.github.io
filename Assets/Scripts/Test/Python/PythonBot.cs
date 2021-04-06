@@ -9,12 +9,17 @@ public class PythonBot : MonoBehaviour
 {
     private List<Motor> motors = new List<Motor>();
     private bool hasRan = false;
-    private List<SIMbotEvent> _events;
+    private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
     public class SIMbotEvent
     {
         private string _action;
-        private ArrayList _variables;
+
+        public ArrayList Variables
+        {
+            get;
+            set;
+        }
 
         public SIMbotEvent(string action)
         {
@@ -23,7 +28,12 @@ public class PythonBot : MonoBehaviour
 
         public void SetupVariables(ArrayList variables)
         {
-            _variables = variables;
+            Variables = variables;
+        }
+
+        public override string ToString()
+        {
+            return "Action: " + _action + "\nVariables Length: " + Variables.Count;
         }
     }
 
@@ -67,12 +77,20 @@ public class PythonBot : MonoBehaviour
             Debug.Log("Speed Changed to " + _motorSpeed);
             
         }
+
+        public int GetID()
+        {
+            return _id;
+        }
     }
 
     // Start is called before the first frame update
     private void Start()
     { 
         RunPythonScript();
+        Debug.Log("Event Count: " + _events.Count);
+        Debug.Log("Event at 0: " + _events[0].ToString());
+        Debug.Log("Motor ID of event 0: " + ((Motor)_events[0].Variables[0]).GetID());
     }
 
     private void Update()
@@ -143,22 +161,24 @@ public class PythonBot : MonoBehaviour
     //Due to the communication between c sharp and python, generic methods could not be made. One reason for this is
     //the fact that each method generates an event with varying amount of variables. Passing an array from python to c#
     //might cause some issues. Investigating...
-    public SIMbotEvent GenerateSpeedEvent(float speed)
+    public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
         var newEvent = new SIMbotEvent("speed");
         var temp = new ArrayList
         {
+            motor,
             speed
         };
         SetupVariablesAndAddToEventList(newEvent, temp);
         return newEvent;
     }
 
-    public SIMbotEvent GenerateSleepEvent(float duration)
+    public SIMbotEvent GenerateSleepEvent(Motor motor, float duration)
     {
         var newEvent = new SIMbotEvent("sleep");
         var temp = new ArrayList
         {
+            motor,
             duration
         };
         SetupVariablesAndAddToEventList(newEvent, temp);
