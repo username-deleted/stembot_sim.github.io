@@ -1,15 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class PythonBot : MonoBehaviour
 {
     private List<Motor> motors = new List<Motor>();
-    private bool hasRan = false;
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
+
+    public event Action<float> OnSpeedChange; 
 
     public class SIMbotEvent
     {
@@ -124,8 +125,14 @@ public class PythonBot : MonoBehaviour
                 Debug.Log("Motor ID: " + ((Motor) nextEvent.Variables[0]).Id);
                 Debug.Log("Speed: " + nextEvent.Variables[1]);
 
+                //get the motor's id
                 var motorId = ((Motor)nextEvent.Variables[0]).Id;
+
+                //change the motor's speed
                 motors[motorId - 1].speed((float)nextEvent.Variables[1]);
+
+                //throw the event to notify relevant scripts (car controller)
+                OnSpeedChange?.Invoke((float)nextEvent.Variables[1]);
                 break;
         }
     }
