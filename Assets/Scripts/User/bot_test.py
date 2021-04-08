@@ -14,14 +14,14 @@ motor_2 = sb.Motor(2)
 
 
 # sleep two seconds
-UnityEngine.Debug.Log("sleeping")
-time.sleep(1)
+#UnityEngine.Debug.Log("sleeping")
+#time.sleep(1)
 
 motor_1.speed(100)
 
-UnityEngine.Debug.Log("sleeping")
-time.sleep(1)
+#UnityEngine.Debug.Log("sleeping")
+#time.sleep(1)
 
-motor_1.speed(200)
+motor_2.speed(100)
 
 # motor_1.
