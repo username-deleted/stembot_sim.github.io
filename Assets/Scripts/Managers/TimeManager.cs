@@ -22,4 +22,8 @@ public class TimeManager : MonoBehaviour
         currentTime = currentTime + Time.deltaTime;
         timeDisplay.text = currentTime.ToString("F2");
     }
+
+    public float getTime() {
+        return currentTime;
+    }
 }

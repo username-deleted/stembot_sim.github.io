@@ -1721,7 +1721,7 @@ GameObject:
   - component: {fileID: 6372516773867101325}
   m_Layer: 0
   m_Name: Wheels
-  m_TagString: Untagged
+  m_TagString: Wheels
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

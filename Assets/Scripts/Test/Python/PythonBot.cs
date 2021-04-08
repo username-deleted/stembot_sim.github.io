@@ -1,25 +1,59 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class PythonBot : MonoBehaviour
 {
     private List<Motor> motors = new List<Motor>();
-    private bool hasRan = false;
+    private List<SIMbotEvent> _events = new List<SIMbotEvent>();
+
+    public event Action<int, float> OnSpeedChange; 
+
+    public class SIMbotEvent
+    {
+        public string Action
+        {
+            get;
+            set;
+        }
+
+        public ArrayList Variables
+        {
+            get;
+            set;
+        }
+
+        public SIMbotEvent(string action)
+        {
+            Action = action;
+        }
+
+        public void SetupVariables(ArrayList variables)
+        {
+            Variables = variables;
+        }
+
+        public override string ToString()
+        {
+            return "Action: " + Action + "\nVariables Length: " + Variables.Count;
+        }
+    }
+
     public class Motor
     {
-        private int _id;
+        public int Id;
         private bool _sleeping;
         private bool _brakeMode;
         private float _motorSpeed;
         private GameObject _motor;
+        private ArrayList _eventList;
 
         public Motor(int id)
         {
-            _id = id;
+            Id = id;
             _sleeping = false;
             _brakeMode = true;
             _motorSpeed = 0;
@@ -52,17 +86,54 @@ public class PythonBot : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     { 
-        
+        RunPythonScript();
+
+        //process events
+        InvokeRepeating("ProcessNextSIMbotEvent", 1, 2);
     }
 
     private void Update()
     { 
-        if (!hasRan)
+        /*if (!hasRan)
         {
             Debug.Log("Run it.");
             hasRan = true;
             Invoke("RunPythonScript", 5);
             
+        }*/
+
+    }
+
+    private void ProcessNextSIMbotEvent()
+    {
+        //break out if no events to process
+        if (_events.Count == 0)
+        {
+            return;
+        }
+
+        //get the next event
+        var nextEvent = _events[0];
+        //remove it from the list
+        _events.RemoveAt(0);
+
+        switch (nextEvent.Action)
+        {
+            //in the case of speed, variable 0 is the motor(Motor), variable 1 is the speed(float)
+            case "speed":
+                Debug.Log("-- Speed Event --");
+                Debug.Log("Motor ID: " + ((Motor) nextEvent.Variables[0]).Id);
+                Debug.Log("Speed: " + nextEvent.Variables[1]);
+
+                //get the motor's id
+                var motorId = ((Motor)nextEvent.Variables[0]).Id;
+
+                //change the motor's speed
+                motors[motorId - 1].speed((float)nextEvent.Variables[1]);
+
+                //throw the event to notify relevant scripts (car controller)
+                OnSpeedChange?.Invoke(motorId ,(float)nextEvent.Variables[1]);
+                break;
         }
     }
 
@@ -80,23 +151,22 @@ public class PythonBot : MonoBehaviour
         engine.SetSearchPaths(searchPaths);
         engine.Runtime.LoadAssembly(Assembly.GetAssembly(typeof(GameObject)));
 
-        //string[] lines = File.ReadAllLines(Application.dataPath + "/Scripts/Test/Python/bot_test.py");
+        //Create our scope.
         var scope = engine.CreateScope();
+        //Execute sb python module.
         dynamic sbLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/sb.py");
-        //Debug.Log("Hello! I am bad"); 
 
+        //Initialize sb python module.
         dynamic sb = sbLib.SB(this);
+        //Set it in the scope.
         scope.SetVariable("sb", sb);
-        //Debug.Log("Hello! I am bad");
 
-        
-        //foreach (string line in lines)
-        //{
-            //Debug.Log(line);
-            var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/Test/Python/bot_test.py");
-            //Task.Run(() => ScriptSource.Execute(scope));
-            ScriptSource.Execute(scope);
-        //}
+        //Create a runnable script source from user script file.
+        var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/User/bot_test.py");
+        //Execute said file.
+        ScriptSource.Execute(scope);
+
+
         //dynamic leftMotor = scope.GetVariable("motor_1");
         //Debug.Log(leftMotor);
     }
@@ -112,6 +182,49 @@ public class PythonBot : MonoBehaviour
         var newMotor = new Motor(id);
         motors.Add(newMotor);
         return newMotor;
+    }
+
+    public SIMbotEvent CreateSIMbotEvent(string action)
+    {
+        return new SIMbotEvent(action);
+    }
+
+    //Due to the communication between c sharp and python, generic methods could not be made. One reason for this is
+    //the fact that each method generates an event with varying amount of variables. Passing an array from python to c#
+    //might cause some issues. Investigating...
+    public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
+    {
+        var newEvent = new SIMbotEvent("speed");
+        var temp = new ArrayList
+        {
+            motor,
+            speed
+        };
+        SetupVariablesAndAddToEventList(newEvent, temp);
+        return newEvent;
+    }
+
+    public SIMbotEvent GenerateSleepEvent(Motor motor, float duration)
+    {
+        var newEvent = new SIMbotEvent("sleep");
+        var temp = new ArrayList
+        {
+            motor,
+            duration
+        };
+        SetupVariablesAndAddToEventList(newEvent, temp);
+        return newEvent;
+    }
+
+    private void AddEventToEventList(SIMbotEvent newEvent)
+    {
+        _events.Add(newEvent);
+    }
+
+    private void SetupVariablesAndAddToEventList(SIMbotEvent newEvent, ArrayList temp)
+    {
+        newEvent.SetupVariables(temp);
+        AddEventToEventList(newEvent);
     }
 }
 
