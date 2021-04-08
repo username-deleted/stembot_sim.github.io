@@ -46,7 +46,7 @@ public class SC_CompletionMenu : MonoBehaviour
     }
 
     //enable completion menu
-    public void ToggleCompletionMenu()
+    public void enableCompletionMenu()
     {
         //pause the level
         levelManager.PauseLevel();

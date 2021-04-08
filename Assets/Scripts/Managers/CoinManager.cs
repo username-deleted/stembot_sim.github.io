@@ -33,7 +33,7 @@ public class CoinManager : MonoBehaviour
         scoreManager.addScore(1);
 
         if (coins <= 0) {
-            completionMenu.ToggleCompletionMenu();
+            completionMenu.enableCompletionMenu();
             completionMenuTimeText.text = timeManager.getTime().ToString("F2");
         }
     }
