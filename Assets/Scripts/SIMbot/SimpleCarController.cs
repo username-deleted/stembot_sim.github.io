@@ -1,6 +1,5 @@
 ﻿
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 //Wheel Collider Reference: https://docs.unity3d.com/Manual/class-WheelCollider.html
@@ -28,10 +27,56 @@ public class SimpleCarController : MonoBehaviour {
     /// <summary>Property <c>tankControls</c> is which SIMbot controls are being used.</summary>
     public bool tankControls = true;
 
-    private void Start()
+    /// <summary>Field <c>PythonControls</c> determines whether to use Python to drive.</summary>
+    private bool _pythonControls = false;
+
+    private PythonBot _pythonBotScript;
+
+    private void Awake()
     {
+        //get the PythonBot script
+        _pythonBotScript = gameObject.GetComponent<PythonBot>();
+
         //set the tank controls from the simbot script that has loaded the data previously
         tankControls = gameObject.GetComponent<SIMbot>().tankControls;
+
+        //set whether to use python or not
+        _pythonControls = gameObject.GetComponent<SIMbot>().pythonBot;
+    }
+
+    private void Start()
+    {
+        if (_pythonControls)
+        {
+            _pythonBotScript.OnSpeedChange += HandleSpeedChange;
+        }
+    }
+
+    /// <summary>
+    /// Listens for OnSpeedChange event and changes the motor speed accordingly.
+    /// </summary>
+    /// <param name="id"><c>id</c> is the id of the motor</param>
+    /// <param name="speed"><c>speed</c> is the speed to set the motor to</param>
+    private void HandleSpeedChange(int id, float speed)
+    {
+        //go forward
+        if (speed > 0)
+        {
+            if (id == 1)
+            {
+                axleInfos[0].leftWheel.motorTorque = speed;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+            }
+            else
+            {
+                axleInfos[0].rightWheel.motorTorque = speed;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+        }
+        else
+        {
+
+        }
     }
 
     public void FixedUpdate()
@@ -42,96 +87,105 @@ public class SimpleCarController : MonoBehaviour {
         //Break Speed
         float maxBreakTorque = speed;
 
-        if (tankControls)
+        //If using python controls, look for python events, ignore input
+        if (_pythonControls)
         {
-            //Get Left Wheel Input W/S
-            if (Input.GetKey("w"))
-            {
-                //Spins Forward
-                axleInfos[0].leftWheel.motorTorque = speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-            }
-            else if (Input.GetKey("s"))
-            {
-                //Spins Backward
-                axleInfos[0].leftWheel.motorTorque = -speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-            }
-            else
-            {
-                //Stops Motor if no input
-                axleInfos[0].leftWheel.motorTorque = 0;
-                axleInfos[0].leftWheel.brakeTorque = speed;
-            }
-
-            //Get Right Wheel Input I/K
-            if (Input.GetKey("i"))
-            {
-                //Spins Forward
-                axleInfos[0].rightWheel.motorTorque = speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
-            }
-            else if (Input.GetKey("k"))
-            {
-                //Spins Backward
-                axleInfos[0].rightWheel.motorTorque = -speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
-            }
-            else
-            {
-                //Stops Motor if no input
-                axleInfos[0].rightWheel.motorTorque = 0;
-                axleInfos[0].rightWheel.brakeTorque = speed;
-            }
-
-            //Arrow & WASD Controls
         }
+        //user input controls
         else
         {
-            float motor = maxMotorTorque * Input.GetAxis("Vertical");
-            float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-            if (motor > 0)
+            if (tankControls)
             {
-                //Front Wheels spin forward
-                axleInfos[0].leftWheel.motorTorque = speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-                axleInfos[0].rightWheel.motorTorque = speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
-            }
-            else if (motor < 0)
-            {
-                //Front Wheels spin backwards
-                axleInfos[0].leftWheel.motorTorque = -speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-                axleInfos[0].rightWheel.motorTorque = -speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
+                //Get Left Wheel Input W/S
+                if (Input.GetKey("w"))
+                {
+                    //Spins Forward
+                    axleInfos[0].leftWheel.motorTorque = speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                }
+                else if (Input.GetKey("s"))
+                {
+                    //Spins Backward
+                    axleInfos[0].leftWheel.motorTorque = -speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                }
+                else
+                {
+                    //Stops Motor if no input
+                    axleInfos[0].leftWheel.motorTorque = 0;
+                    axleInfos[0].leftWheel.brakeTorque = speed;
+                }
+
+                //Get Right Wheel Input I/K
+                if (Input.GetKey("i"))
+                {
+                    //Spins Forward
+                    axleInfos[0].rightWheel.motorTorque = speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
+                else if (Input.GetKey("k"))
+                {
+                    //Spins Backward
+                    axleInfos[0].rightWheel.motorTorque = -speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
+                else
+                {
+                    //Stops Motor if no input
+                    axleInfos[0].rightWheel.motorTorque = 0;
+                    axleInfos[0].rightWheel.brakeTorque = speed;
+                }
+
+                //Arrow & WASD Controls
             }
             else
             {
-                //Stops Motor if no input
-                axleInfos[0].leftWheel.motorTorque = 0;
-                axleInfos[0].leftWheel.brakeTorque = speed;
-                axleInfos[0].rightWheel.motorTorque = 0;
-                axleInfos[0].rightWheel.brakeTorque = speed;
-            }
+                float motor = maxMotorTorque * Input.GetAxis("Vertical");
+                float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+                if (motor > 0)
+                {
+                    //Front Wheels spin forward
+                    axleInfos[0].leftWheel.motorTorque = speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                    axleInfos[0].rightWheel.motorTorque = speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
+                else if (motor < 0)
+                {
+                    //Front Wheels spin backwards
+                    axleInfos[0].leftWheel.motorTorque = -speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                    axleInfos[0].rightWheel.motorTorque = -speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
+                else
+                {
+                    //Stops Motor if no input
+                    axleInfos[0].leftWheel.motorTorque = 0;
+                    axleInfos[0].leftWheel.brakeTorque = speed;
+                    axleInfos[0].rightWheel.motorTorque = 0;
+                    axleInfos[0].rightWheel.brakeTorque = speed;
+                }
 
-            if (steering > 0)
-            {
-                //Turn Right
-                axleInfos[0].leftWheel.motorTorque = speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-                axleInfos[0].rightWheel.motorTorque = -speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
-            }
-            else if (steering < 0)
-            {
-                //Turn Left
-                axleInfos[0].leftWheel.motorTorque = -speed;
-                axleInfos[0].leftWheel.brakeTorque = 0;
-                axleInfos[0].rightWheel.motorTorque = speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
+                if (steering > 0)
+                {
+                    //Turn Right
+                    axleInfos[0].leftWheel.motorTorque = speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                    axleInfos[0].rightWheel.motorTorque = -speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
+                else if (steering < 0)
+                {
+                    //Turn Left
+                    axleInfos[0].leftWheel.motorTorque = -speed;
+                    axleInfos[0].leftWheel.brakeTorque = 0;
+                    axleInfos[0].rightWheel.motorTorque = speed;
+                    axleInfos[0].rightWheel.brakeTorque = 0;
+                }
             }
         }
+        
 
         foreach (AxleInfo axleInfo in axleInfos)
         {
