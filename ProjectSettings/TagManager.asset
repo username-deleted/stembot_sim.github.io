@@ -32,6 +32,8 @@ TagManager:
   - ColorNameText
   - HealthBar
   - HealthFill
+  - CompletionCanvas
+  - CompletionMenuTimeText
   layers:
   - Default
   - TransparentFX

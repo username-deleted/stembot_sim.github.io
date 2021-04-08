@@ -24,4 +24,8 @@ public class ScoreManager : MonoBehaviour
         currentScore += point;
         scoreDisplay.text = currentScore.ToString();
     }
+
+    public int getScore() {
+        return currentScore;
+    }
 }
