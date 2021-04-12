@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class parkourEnding : MonoBehaviour
+public class ParkourManager : MonoBehaviour
 {
     private SC_CompletionMenu completionMenu;
     private TimeManager timeManager;
@@ -14,10 +14,9 @@ public class parkourEnding : MonoBehaviour
         completionMenu = GameObject.FindGameObjectWithTag("CompletionCanvas").GetComponent<SC_CompletionMenu>();
         timeManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TimeManager>();
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.name == "SIMbot 3-5-21")
+        if(other.gameObject.tag == "SIMBotCollider")
         {
             completionMenu.enableCompletionMenu();
             completionMenuTimeText.text = timeManager.getTime().ToString("F2");
