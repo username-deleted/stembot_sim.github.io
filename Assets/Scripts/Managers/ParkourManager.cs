@@ -14,12 +14,16 @@ public class ParkourManager : MonoBehaviour
         completionMenu = GameObject.FindGameObjectWithTag("CompletionCanvas").GetComponent<SC_CompletionMenu>();
         timeManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TimeManager>();
     }
+    private void Awake()
+    {
+        completionMenuTimeText = GameObject.FindGameObjectWithTag("CompletionMenuTimeText").GetComponent<Text>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "SIMBotCollider")
         {
             completionMenu.enableCompletionMenu();
-            completionMenuTimeText.text = timeManager.getTime().ToString("F2");
+            completionMenuTimeText.text = "Time: " + timeManager.getTime().ToString("F2");
         }
     }
 }
