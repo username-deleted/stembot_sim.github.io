@@ -11,6 +11,10 @@ public class CoinManager : MonoBehaviour
     private TimeManager timeManager;
     private Text completionMenuTimeText;
 
+    void Awake()
+    {
+        completionMenuTimeText = GameObject.FindGameObjectWithTag("CompletionMenuTimeText").GetComponent<Text>();
+    }
 
     void Start()
     {
@@ -18,8 +22,7 @@ public class CoinManager : MonoBehaviour
         completionMenu = GameObject.FindGameObjectWithTag("CompletionCanvas").GetComponent<SC_CompletionMenu>();
         timeManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<TimeManager>();
         scoreManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<ScoreManager>();
-        completionMenuTimeText = GameObject.FindGameObjectWithTag("CompletionMenuTimeText").GetComponent<Text>();
-
+        //completionMenuTimeText = GameObject.FindGameObjectWithTag("CompletionMenuTimeText").GetComponent<Text>();
     }
 
     public void removeCoin(GameObject coin) {

@@ -36,12 +36,21 @@ Controls:
   - Controller Scheme (Tank):
     Not yet implemented.
     
-### What’s new in milestone 3:
-- Added customization for the chassis color to the main menu.
-- Fixed the camera to work in all levels.
-- Tweaked the camera mode swapping.
-- Fixed inconsistencies in the back wheels that caused the back left wheel to float, and tweaked the wheel collision in an attempt to stop the SIMbot from being a hunchback.
-- Added main menu sounds.
-- Added foliage to fourth level.
-- Added fifth level, parkour course.
+### What’s new in milestone 4:
+
+- Added a health bar, HealthBar script, Health script, and updated the SIMbot script to store the health. The health script keeps track of health while the HealthBar script manages the UI health bar component. Also added the STEMBoT logo to the health bar.
+
+- Updates to Level 5
+  - Obstacle Updates
+  - Scenery Updates
+- Fixes/Tweaks
+  - Found and fixed wheel inconsistencies leading to graphical issues. This may have been causing some driving issues as well.
+- First pass wheel physics tweak on SIMbot in Level 4.
+  - Things should feel less slippery when driving.
+- More camera tweaks.
+
+- Level 1 will now end when all 12 coins are collected, displaying the user's time taken and giving the user an option to go back to the main menu, restart the level, or quit.
+- Level 4 will now end when the user reaches the finish line of the parkour course.
+- SIMbot is now responding to events thrown by PythonBot in a test level, this is not publicly available yet.
+
 

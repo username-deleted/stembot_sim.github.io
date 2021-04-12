@@ -10,7 +10,7 @@ public class PythonBot : MonoBehaviour
     private List<Motor> motors = new List<Motor>();
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
-    public event Action<float> OnSpeedChange; 
+    public event Action<int, float> OnSpeedChange; 
 
     public class SIMbotEvent
     {
@@ -132,7 +132,7 @@ public class PythonBot : MonoBehaviour
                 motors[motorId - 1].speed((float)nextEvent.Variables[1]);
 
                 //throw the event to notify relevant scripts (car controller)
-                OnSpeedChange?.Invoke((float)nextEvent.Variables[1]);
+                OnSpeedChange?.Invoke(motorId ,(float)nextEvent.Variables[1]);
                 break;
         }
     }
