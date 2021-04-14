@@ -49,9 +49,26 @@ public class PythonBot : MonoBehaviour
 
     public class SIMbotSpeedEvent : SIMbotEvent
     {
+        public int Speed
+        {
+            get;
+            set;
+        }
+
+        public Motor WheelMotor
+        {
+            get;
+            set;
+        }
+
         public SIMbotSpeedEvent()
         {
             Action = "speed";
+        }
+
+        public override string ToString()
+        {
+            return "Action: " + Action + "\nSpeed: " + Speed + "\nMotor ID: " + WheelMotor.Id;
         }
     }
 
@@ -207,7 +224,8 @@ public class PythonBot : MonoBehaviour
     //might cause some issues. Investigating...
     public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
-        var newEvent = new SIMbotEvent("speed");
+        //var newEvent = new SIMbotEvent("speed");
+        var newEvent = new SIMbotSpeedEvent();
         var temp = new ArrayList
         {
             motor,
