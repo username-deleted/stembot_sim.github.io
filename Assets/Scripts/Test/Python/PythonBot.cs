@@ -7,49 +7,160 @@ using UnityEngine;
 
 public class PythonBot : MonoBehaviour
 {
+    /// <summary>
+    /// Field <c>motors</c> holds a list of Motor objects, this should be the two motors on the SIMbot.
+    /// </summary>
     private List<Motor> motors = new List<Motor>();
+    /// <summary>
+    /// Field <c>_events</c> is a queue in which events are loaded into and pulled off from in Update
+    /// </summary>
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
-    public event Action<int, float> OnSpeedChange; 
+    /// <summary>
+    /// Property <c>OnSpeedChange</c> is a C# event that is invoked on speed changes
+    /// </summary>
+    public event Action<int, float> OnSpeedChange;
+    /// <summary>
+    /// Property <c>OnTimeSleep</c> is a C# event that is invoked on time.sleep calls
+    /// </summary>
+    public event Action<float> OnTimeSleep; 
 
+    /// <summary>
+    /// Field <c>_waiting</c> is whether or not the events are being process. If true, no events will be processed.
+    /// </summary>
+    private bool _waiting = false;
+
+    /// <summary>
+    /// Property <c>EventTypes</c> is an enum that holds all possible events for the SIMbot.
+    /// </summary>
+    public enum EventTypes
+    {
+        Speed,
+        TimeSleep,
+        MotorSleep,
+        Distance,
+        Null
+    }
+
+    /// <summary>
+    /// Class <c>SIMbotEvent</c> is the main class that all event types will inherit. It describes what a SIMbot event is.
+    /// </summary>
     public class SIMbotEvent
     {
-        public string Action
+        /// <summary>
+        /// Property <c>Action</c> is the action type of the event.
+        /// </summary>
+        public EventTypes Action
         {
             get;
             set;
         }
 
-        public ArrayList Variables
+        /// <summary>
+        /// The Constructor, defaults to <c>EventTypes.Null</c>.
+        /// </summary>
+        public SIMbotEvent()
         {
-            get;
-            set;
+            Action = EventTypes.Null;
         }
 
-        public SIMbotEvent(string action)
-        {
-            Action = action;
-        }
-
-        public void SetupVariables(ArrayList variables)
-        {
-            Variables = variables;
-        }
-
+        /// <summary>
+        /// Returns a string representation of the event
+        /// </summary>
+        /// <returns>A string representation of the event</returns>
         public override string ToString()
         {
-            return "Action: " + Action + "\nVariables Length: " + Variables.Count;
+            return "Action: " + Action;
         }
     }
 
+    /// <summary>
+    /// Class <c>SIMbotSpeedEvent</c> inherits <c>SIMbotEvent</c> and describes a speed event.
+    /// </summary>
+    public class SIMbotSpeedEvent : SIMbotEvent
+    {
+        /// <summary>
+        /// Property <c>Speed</c> is the speed the motor should be set to.
+        /// </summary>
+        public float Speed
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Property <c>WheelMotor</c> is the motor to apply the speed to.
+        /// </summary>
+        public Motor WheelMotor
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The Constructor sets the <c>Action</c> to <c>EventTypes.Speed</c>.
+        /// </summary>
+        public SIMbotSpeedEvent()
+        {
+            Action = EventTypes.Speed;
+        }
+
+        /// <summary>
+        /// Returns a string representation of the event
+        /// </summary>
+        /// <returns>A string representation of the event</returns>
+        public override string ToString()
+        {
+            return "Action: " + Action + "\nSpeed: " + Speed + "\nMotor ID: " + WheelMotor.Id;
+        }
+    }
+
+    public class SIMbotTimeSleepEvent : SIMbotEvent
+    {
+
+        /// <summary>
+        /// Property <c>Duration</c> is the amount of time to wait before invoking the next event
+        /// </summary>
+        public float Duration
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// The Constructor sets the <c>Action</c> to <c>EventTypes.TimeSleep</c>.
+        /// </summary>
+        public SIMbotTimeSleepEvent()
+        {
+            Action = EventTypes.TimeSleep;
+        }
+    }
+
+    /// <summary>
+    /// Class <c>Motor</c> represents a SIMbot motor.
+    /// </summary>
     public class Motor
     {
+        /// <summary>
+        /// Property <c>Id</c> is the motor Id.
+        /// </summary>
         public int Id;
+        /// <summary>
+        /// Field <c>_sleeping</c> is whether the motor is sleeping.
+        /// </summary>
         private bool _sleeping;
+        /// <summary>
+        /// Field <c>_brakeMode</c> is the brake mode of the motor.
+        /// </summary>
         private bool _brakeMode;
+        /// <summary>
+        /// Field <c>_motorSpeed</c> is the speed of the motor.
+        /// </summary>
         private float _motorSpeed;
+        /// <summary>
+        /// field <c>_motor</c> is the GameObject within the scene that represents the motor.
+        /// </summary>
         private GameObject _motor;
-        private ArrayList _eventList;
 
         public Motor(int id)
         {
@@ -87,23 +198,38 @@ public class PythonBot : MonoBehaviour
     private void Start()
     { 
         RunPythonScript();
-
-        //process events
-        InvokeRepeating("ProcessNextSIMbotEvent", 1, 2);
+        OnTimeSleep += SetWaitingTrue;
     }
 
     private void Update()
-    { 
-        /*if (!hasRan)
+    {
+        if (!_waiting && _events.Count > 0)
         {
-            Debug.Log("Run it.");
-            hasRan = true;
-            Invoke("RunPythonScript", 5);
-            
-        }*/
-
+            Invoke("ProcessNextSIMbotEvent", 0);
+        }
     }
 
+    /// <summary>
+    /// Method <c>SetWaitingTrue</c> sets <c>_waiting</c> to true for a set duration, invokes SetWaitingFalse after <c>duration</c>.
+    /// </summary>
+    /// <param name="duration">Parameter <c>duration</c> is the time to wait</param>
+    private void SetWaitingTrue(float duration)
+    {
+        _waiting = true;
+        Invoke("SetWaitingFalse", duration);
+    }
+
+    /// <summary>
+    /// Method <c>SetWaitingFalse</c> sets <c>_waiting</c> to false.
+    /// </summary>
+    private void SetWaitingFalse()
+    {
+        _waiting = false;
+    }
+
+    /// <summary>
+    /// Method <c>ProcessNextSIMbotEvent</c> processes the next SIMbot event in the queue.
+    /// </summary>
     private void ProcessNextSIMbotEvent()
     {
         //break out if no events to process
@@ -120,23 +246,34 @@ public class PythonBot : MonoBehaviour
         switch (nextEvent.Action)
         {
             //in the case of speed, variable 0 is the motor(Motor), variable 1 is the speed(float)
-            case "speed":
+            case EventTypes.Speed:
+                var speedEvent = (SIMbotSpeedEvent)nextEvent;
                 Debug.Log("-- Speed Event --");
-                Debug.Log("Motor ID: " + ((Motor) nextEvent.Variables[0]).Id);
-                Debug.Log("Speed: " + nextEvent.Variables[1]);
+                Debug.Log("Motor ID: " + speedEvent.WheelMotor.Id);
+                Debug.Log("Speed: " + speedEvent.Speed);
 
                 //get the motor's id
-                var motorId = ((Motor)nextEvent.Variables[0]).Id;
+                var motorId = speedEvent.WheelMotor.Id;
 
                 //change the motor's speed
-                motors[motorId - 1].speed((float)nextEvent.Variables[1]);
+                motors[motorId - 1].speed(speedEvent.Speed);
 
                 //throw the event to notify relevant scripts (car controller)
-                OnSpeedChange?.Invoke(motorId ,(float)nextEvent.Variables[1]);
+                OnSpeedChange?.Invoke(motorId, speedEvent.Speed);
+                break;
+            case EventTypes.TimeSleep:
+                var timeSleepEvent = (SIMbotTimeSleepEvent) nextEvent;
+                Debug.Log("-- Time Sleep Event --");
+                Debug.Log("Duration: " + timeSleepEvent.Duration);
+
+                OnTimeSleep?.Invoke(timeSleepEvent.Duration);
                 break;
         }
     }
 
+    /// <summary>
+    /// Method <c>RunPythonScript</c> sets up the Python environment and runs the user Python script.
+    /// </summary>
     private void RunPythonScript()
     {
         var engine = global::UnityPython.CreateEngine();
@@ -156,27 +293,35 @@ public class PythonBot : MonoBehaviour
         //Execute sb python module.
         dynamic sbLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/sb.py");
 
-        //Initialize sb python module.
+        //Initialize sb python module with this script.
         dynamic sb = sbLib.SB(this);
         //Set it in the scope.
         scope.SetVariable("sb", sb);
+
+        //same as before but with time module
+        dynamic timeLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/time.py");
+        dynamic time = timeLib.Time(this);
+        scope.SetVariable("time", time);
 
         //Create a runnable script source from user script file.
         var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/User/bot_test.py");
         //Execute said file.
         ScriptSource.Execute(scope);
-
-
-        //dynamic leftMotor = scope.GetVariable("motor_1");
-        //Debug.Log(leftMotor);
     }
 
+    /// <summary>
+    /// Method <c>HelloPython</c> logs a test string to the console.
+    /// </summary>
     public void HelloPython()
     {
         Debug.Log("This method was called from python!");
     }
 
-    //this should be called from python script to create the motors
+    /// <summary>
+    /// Method <c>CreateMotor</c> is called from the Python script <c>sb</c> module. 
+    /// </summary>
+    /// <param name="id">Parameter <c>id</c> is the motor id.</param>
+    /// <returns>a new <c>Motor</c> with the given <c>id</c></returns>
     public Motor CreateMotor(int id)
     {
         var newMotor = new Motor(id);
@@ -184,47 +329,45 @@ public class PythonBot : MonoBehaviour
         return newMotor;
     }
 
-    public SIMbotEvent CreateSIMbotEvent(string action)
-    {
-        return new SIMbotEvent(action);
-    }
-
-    //Due to the communication between c sharp and python, generic methods could not be made. One reason for this is
-    //the fact that each method generates an event with varying amount of variables. Passing an array from python to c#
-    //might cause some issues. Investigating...
+    /// <summary>
+    /// Method <c>GenerateSpeedEvent</c> creates a new <c>SIMbotSpeedEvent</c> with the given <c>motor</c> and <c>speed</c> parameters.
+    /// </summary>
+    /// <param name="motor"><c>motor</c> is the given motor of the SIMbot.</param>
+    /// <param name="speed"><c>speed</c> is the given speed of the motor.</param>
+    /// <returns>a new <c>SIMbotSpeedEvent</c></returns>
     public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
-        var newEvent = new SIMbotEvent("speed");
-        var temp = new ArrayList
+        var newEvent = new SIMbotSpeedEvent
         {
-            motor,
-            speed
+            Speed = speed,
+            WheelMotor = motor
         };
-        SetupVariablesAndAddToEventList(newEvent, temp);
+        AddEventToEventList(newEvent);
         return newEvent;
     }
 
-    public SIMbotEvent GenerateSleepEvent(Motor motor, float duration)
+    /// <summary>
+    /// Method <c>GenerateTimeSleepEvent</c> creates a new <c>SIMbotTimeSleepEvent</c> with the given <c>duration</c> parameter.
+    /// </summary>
+    /// <param name="duration"><c>duration</c> is the duration of time to sleep.</param>
+    /// <returns>a new <c>SIMbotTimeSleepEvent</c></returns>
+    public SIMbotEvent GenerateTimeSleepEvent(float duration)
     {
-        var newEvent = new SIMbotEvent("sleep");
-        var temp = new ArrayList
+        var newEvent = new SIMbotTimeSleepEvent
         {
-            motor,
-            duration
+            Duration = duration
         };
-        SetupVariablesAndAddToEventList(newEvent, temp);
+        AddEventToEventList(newEvent);
         return newEvent;
     }
 
+    /// <summary>
+    /// Method <c>AddEventToEventList</c> adds the <c>newEvent</c> to the <c>_events</c> queue.
+    /// </summary>
+    /// <param name="newEvent"><c>newEvent</c> is the new event.</param>
     private void AddEventToEventList(SIMbotEvent newEvent)
     {
         _events.Add(newEvent);
-    }
-
-    private void SetupVariablesAndAddToEventList(SIMbotEvent newEvent, ArrayList temp)
-    {
-        newEvent.SetupVariables(temp);
-        AddEventToEventList(newEvent);
     }
 }
 

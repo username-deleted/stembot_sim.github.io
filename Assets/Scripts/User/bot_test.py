@@ -1,5 +1,5 @@
 # import sb
-import time
+# import time
 import UnityEngine
 from UnityEngine import *
 
@@ -15,12 +15,12 @@ motor_2 = sb.Motor(2)
 
 # sleep two seconds
 #UnityEngine.Debug.Log("sleeping")
-#time.sleep(1)
+time.sleep(10)
 
 motor_1.speed(100)
 
 #UnityEngine.Debug.Log("sleeping")
-#time.sleep(1)
+time.sleep(10)
 
 motor_2.speed(100)
 
