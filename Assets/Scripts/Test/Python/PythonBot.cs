@@ -10,7 +10,7 @@ public class PythonBot : MonoBehaviour
     private List<Motor> motors = new List<Motor>();
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
-    public event Action<int, float> OnSpeedChange; 
+    public event Action<int, float> OnSpeedChange;
 
     public class SIMbotEvent
     {
@@ -49,7 +49,7 @@ public class PythonBot : MonoBehaviour
 
     public class SIMbotSpeedEvent : SIMbotEvent
     {
-        public int Speed
+        public float Speed
         {
             get;
             set;
@@ -123,14 +123,7 @@ public class PythonBot : MonoBehaviour
     }
 
     private void Update()
-    { 
-        /*if (!hasRan)
-        {
-            Debug.Log("Run it.");
-            hasRan = true;
-            Invoke("RunPythonScript", 5);
-            
-        }*/
+    {
 
     }
 
@@ -151,18 +144,19 @@ public class PythonBot : MonoBehaviour
         {
             //in the case of speed, variable 0 is the motor(Motor), variable 1 is the speed(float)
             case "speed":
+                var speedEvent = (SIMbotSpeedEvent)nextEvent;
                 Debug.Log("-- Speed Event --");
-                Debug.Log("Motor ID: " + ((Motor) nextEvent.Variables[0]).Id);
-                Debug.Log("Speed: " + nextEvent.Variables[1]);
+                Debug.Log("Motor ID: " + speedEvent.WheelMotor.Id);
+                Debug.Log("Speed: " + speedEvent.Speed);
 
                 //get the motor's id
-                var motorId = ((Motor)nextEvent.Variables[0]).Id;
+                var motorId = speedEvent.WheelMotor.Id;
 
                 //change the motor's speed
-                motors[motorId - 1].speed((float)nextEvent.Variables[1]);
+                motors[motorId - 1].speed(speedEvent.Speed);
 
                 //throw the event to notify relevant scripts (car controller)
-                OnSpeedChange?.Invoke(motorId ,(float)nextEvent.Variables[1]);
+                OnSpeedChange?.Invoke(motorId, speedEvent.Speed);
                 break;
         }
     }
@@ -219,19 +213,18 @@ public class PythonBot : MonoBehaviour
         return new SIMbotEvent(action);
     }
 
-    //Due to the communication between c sharp and python, generic methods could not be made. One reason for this is
-    //the fact that each method generates an event with varying amount of variables. Passing an array from python to c#
-    //might cause some issues. Investigating...
+    /// <summary>
+    /// Method <c>GenerateSpeedEvent</c> creates a new SIMbotSpeedEvent with the given <c>motor</c> and <c>speed</c> parameters.
+    /// </summary>
+    /// <param name="motor"><c>motor</c> is the given motor of the SIMbot</param>
+    /// <param name="speed"><c>speed</c> is the given speed of the motor</param>
+    /// <returns>a new <c>SIMbotSpeedEvent</c></returns>
     public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
-        //var newEvent = new SIMbotEvent("speed");
         var newEvent = new SIMbotSpeedEvent();
-        var temp = new ArrayList
-        {
-            motor,
-            speed
-        };
-        SetupVariablesAndAddToEventList(newEvent, temp);
+        newEvent.Speed = speed;
+        newEvent.WheelMotor = motor;
+        AddEventToEventList(newEvent);
         return newEvent;
     }
 
