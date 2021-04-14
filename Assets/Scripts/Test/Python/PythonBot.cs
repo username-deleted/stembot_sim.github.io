@@ -11,6 +11,9 @@ public class PythonBot : MonoBehaviour
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
     public event Action<int, float> OnSpeedChange;
+    public event Action<float> OnTimeSleep; 
+
+    private bool _waiting = false;
 
     public enum EventTypes
     {
@@ -128,14 +131,26 @@ public class PythonBot : MonoBehaviour
     private void Start()
     { 
         RunPythonScript();
+        OnTimeSleep += SetWaitingTrue;
+    }
 
-        //process events
-        InvokeRepeating("ProcessNextSIMbotEvent", 1, 2);
+    private void SetWaitingTrue(float duration)
+    {
+        _waiting = true;
+        Invoke("SetWaitingFalse", duration);
+    }
+
+    private void SetWaitingFalse()
+    {
+        _waiting = false;
     }
 
     private void Update()
     {
-
+        if (!_waiting && _events.Count > 0)
+        {
+            Invoke("ProcessNextSIMbotEvent", 0);
+        }
     }
 
     private void ProcessNextSIMbotEvent()
@@ -169,6 +184,13 @@ public class PythonBot : MonoBehaviour
                 //throw the event to notify relevant scripts (car controller)
                 OnSpeedChange?.Invoke(motorId, speedEvent.Speed);
                 break;
+            case EventTypes.TimeSleep:
+                var timeSleepEvent = (SIMbotTimeSleepEvent) nextEvent;
+                Debug.Log("-- Time Sleep Event --");
+                Debug.Log("Duration: " + timeSleepEvent.Duration);
+
+                OnTimeSleep?.Invoke(timeSleepEvent.Duration);
+                break;
         }
     }
 
@@ -191,10 +213,15 @@ public class PythonBot : MonoBehaviour
         //Execute sb python module.
         dynamic sbLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/sb.py");
 
-        //Initialize sb python module.
+        //Initialize sb python module with this script.
         dynamic sb = sbLib.SB(this);
         //Set it in the scope.
         scope.SetVariable("sb", sb);
+
+        //same as before but with time module
+        dynamic timeLib = engine.ExecuteFile(Application.dataPath + "/Scripts/Test/Python/time.py");
+        dynamic time = timeLib.Time(this);
+        scope.SetVariable("time", time);
 
         //Create a runnable script source from user script file.
         var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/User/bot_test.py");
