@@ -12,9 +12,18 @@ public class PythonBot : MonoBehaviour
 
     public event Action<int, float> OnSpeedChange;
 
+    public enum EventTypes
+    {
+        Speed,
+        TimeSleep,
+        MotorSleep,
+        Distance,
+        Null
+    }
+
     public class SIMbotEvent
     {
-        public string Action
+        public EventTypes Action
         {
             get;
             set;
@@ -22,12 +31,7 @@ public class PythonBot : MonoBehaviour
 
         public SIMbotEvent()
         {
-            Action = null;
-        }
-
-        public SIMbotEvent(string action)
-        {
-            Action = action;
+            Action = EventTypes.Null;
         }
 
         public override string ToString()
@@ -52,7 +56,7 @@ public class PythonBot : MonoBehaviour
 
         public SIMbotSpeedEvent()
         {
-            Action = "speed";
+            Action = EventTypes.Speed;
         }
 
         public override string ToString()
@@ -75,7 +79,7 @@ public class PythonBot : MonoBehaviour
 
         public SIMbotTimeSleepEvent()
         {
-            Action = "timeSleep";
+            Action = EventTypes.TimeSleep;
         }
     }
 
@@ -150,7 +154,7 @@ public class PythonBot : MonoBehaviour
         switch (nextEvent.Action)
         {
             //in the case of speed, variable 0 is the motor(Motor), variable 1 is the speed(float)
-            case "speed":
+            case EventTypes.Speed:
                 var speedEvent = (SIMbotSpeedEvent)nextEvent;
                 Debug.Log("-- Speed Event --");
                 Debug.Log("Motor ID: " + speedEvent.WheelMotor.Id);
@@ -213,11 +217,6 @@ public class PythonBot : MonoBehaviour
         var newMotor = new Motor(id);
         motors.Add(newMotor);
         return newMotor;
-    }
-
-    public SIMbotEvent CreateSIMbotEvent(string action)
-    {
-        return new SIMbotEvent(action);
     }
 
     /// <summary>
