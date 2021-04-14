@@ -26,6 +26,11 @@ public class PythonBot : MonoBehaviour
             set;
         }
 
+        public SIMbotEvent()
+        {
+            Action = null;
+        }
+
         public SIMbotEvent(string action)
         {
             Action = action;
@@ -39,6 +44,14 @@ public class PythonBot : MonoBehaviour
         public override string ToString()
         {
             return "Action: " + Action + "\nVariables Length: " + Variables.Count;
+        }
+    }
+
+    public class SIMbotSpeedEvent : SIMbotEvent
+    {
+        public SIMbotSpeedEvent()
+        {
+            Action = "speed";
         }
     }
 
@@ -221,6 +234,12 @@ public class PythonBot : MonoBehaviour
         _events.Add(newEvent);
     }
 
+    /// <summary>
+    /// The <c>SetupVariablesAndAddToEventList</c> makes sure all the variables get added to the SIMbotEvent object
+    /// and then added to the event queue. The reason it is done this way is because we do not know 
+    /// </summary>
+    /// <param name="newEvent"></param>
+    /// <param name="temp"></param>
     private void SetupVariablesAndAddToEventList(SIMbotEvent newEvent, ArrayList temp)
     {
         newEvent.SetupVariables(temp);
