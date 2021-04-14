@@ -20,12 +20,6 @@ public class PythonBot : MonoBehaviour
             set;
         }
 
-        public ArrayList Variables
-        {
-            get;
-            set;
-        }
-
         public SIMbotEvent()
         {
             Action = null;
@@ -36,14 +30,9 @@ public class PythonBot : MonoBehaviour
             Action = action;
         }
 
-        public void SetupVariables(ArrayList variables)
-        {
-            Variables = variables;
-        }
-
         public override string ToString()
         {
-            return "Action: " + Action + "\nVariables Length: " + Variables.Count;
+            return "Action: " + Action;
         }
     }
 
@@ -69,6 +58,24 @@ public class PythonBot : MonoBehaviour
         public override string ToString()
         {
             return "Action: " + Action + "\nSpeed: " + Speed + "\nMotor ID: " + WheelMotor.Id;
+        }
+    }
+
+    public class SIMbotTimeSleepEvent : SIMbotEvent
+    {
+
+        /// <summary>
+        /// Property <c>Duration</c> is the amount of time to wait before invoking the next event
+        /// </summary>
+        public float Duration
+        {
+            get;
+            set;
+        }
+
+        public SIMbotTimeSleepEvent()
+        {
+            Action = "timeSleep";
         }
     }
 
@@ -221,22 +228,22 @@ public class PythonBot : MonoBehaviour
     /// <returns>a new <c>SIMbotSpeedEvent</c></returns>
     public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
-        var newEvent = new SIMbotSpeedEvent();
-        newEvent.Speed = speed;
-        newEvent.WheelMotor = motor;
+        var newEvent = new SIMbotSpeedEvent
+        {
+            Speed = speed,
+            WheelMotor = motor
+        };
         AddEventToEventList(newEvent);
         return newEvent;
     }
 
-    public SIMbotEvent GenerateSleepEvent(Motor motor, float duration)
+    public SIMbotEvent GenerateTimeSleepEvent(float duration)
     {
-        var newEvent = new SIMbotEvent("sleep");
-        var temp = new ArrayList
+        var newEvent = new SIMbotTimeSleepEvent
         {
-            motor,
-            duration
+            Duration = duration
         };
-        SetupVariablesAndAddToEventList(newEvent, temp);
+        AddEventToEventList(newEvent);
         return newEvent;
     }
 
@@ -244,7 +251,7 @@ public class PythonBot : MonoBehaviour
     {
         _events.Add(newEvent);
     }
-
+/*
     /// <summary>
     /// The <c>SetupVariablesAndAddToEventList</c> makes sure all the variables get added to the SIMbotEvent object
     /// and then added to the event queue. The reason it is done this way is because we do not know 
@@ -255,6 +262,6 @@ public class PythonBot : MonoBehaviour
     {
         newEvent.SetupVariables(temp);
         AddEventToEventList(newEvent);
-    }
+    }*/
 }
 
