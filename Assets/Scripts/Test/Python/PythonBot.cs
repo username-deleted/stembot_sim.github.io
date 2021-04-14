@@ -209,17 +209,27 @@ public class PythonBot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method <c>SetWaitingTrue</c> sets <c>_waiting</c> to true for a set duration, invokes SetWaitingFalse after <c>duration</c>.
+    /// </summary>
+    /// <param name="duration">Parameter <c>duration</c> is the time to wait</param>
     private void SetWaitingTrue(float duration)
     {
         _waiting = true;
         Invoke("SetWaitingFalse", duration);
     }
 
+    /// <summary>
+    /// Method <c>SetWaitingFalse</c> sets <c>_waiting</c> to false.
+    /// </summary>
     private void SetWaitingFalse()
     {
         _waiting = false;
     }
 
+    /// <summary>
+    /// Method <c>ProcessNextSIMbotEvent</c> processes the next SIMbot event in the queue.
+    /// </summary>
     private void ProcessNextSIMbotEvent()
     {
         //break out if no events to process
@@ -261,6 +271,9 @@ public class PythonBot : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method <c>RunPythonScript</c> sets up the Python environment and runs the user Python script.
+    /// </summary>
     private void RunPythonScript()
     {
         var engine = global::UnityPython.CreateEngine();
@@ -296,12 +309,19 @@ public class PythonBot : MonoBehaviour
         ScriptSource.Execute(scope);
     }
 
+    /// <summary>
+    /// Method <c>HelloPython</c> logs a test string to the console.
+    /// </summary>
     public void HelloPython()
     {
         Debug.Log("This method was called from python!");
     }
 
-    //this should be called from python script to create the motors
+    /// <summary>
+    /// Method <c>CreateMotor</c> is called from the Python script <c>sb</c> module. 
+    /// </summary>
+    /// <param name="id">Parameter <c>id</c> is the motor id.</param>
+    /// <returns>a new <c>Motor</c> with the given <c>id</c></returns>
     public Motor CreateMotor(int id)
     {
         var newMotor = new Motor(id);
@@ -310,10 +330,10 @@ public class PythonBot : MonoBehaviour
     }
 
     /// <summary>
-    /// Method <c>GenerateSpeedEvent</c> creates a new SIMbotSpeedEvent with the given <c>motor</c> and <c>speed</c> parameters.
+    /// Method <c>GenerateSpeedEvent</c> creates a new <c>SIMbotSpeedEvent</c> with the given <c>motor</c> and <c>speed</c> parameters.
     /// </summary>
-    /// <param name="motor"><c>motor</c> is the given motor of the SIMbot</param>
-    /// <param name="speed"><c>speed</c> is the given speed of the motor</param>
+    /// <param name="motor"><c>motor</c> is the given motor of the SIMbot.</param>
+    /// <param name="speed"><c>speed</c> is the given speed of the motor.</param>
     /// <returns>a new <c>SIMbotSpeedEvent</c></returns>
     public SIMbotEvent GenerateSpeedEvent(Motor motor, float speed)
     {
@@ -326,6 +346,11 @@ public class PythonBot : MonoBehaviour
         return newEvent;
     }
 
+    /// <summary>
+    /// Method <c>GenerateTimeSleepEvent</c> creates a new <c>SIMbotTimeSleepEvent</c> with the given <c>duration</c> parameter.
+    /// </summary>
+    /// <param name="duration"><c>duration</c> is the duration of time to sleep.</param>
+    /// <returns>a new <c>SIMbotTimeSleepEvent</c></returns>
     public SIMbotEvent GenerateTimeSleepEvent(float duration)
     {
         var newEvent = new SIMbotTimeSleepEvent
@@ -336,6 +361,10 @@ public class PythonBot : MonoBehaviour
         return newEvent;
     }
 
+    /// <summary>
+    /// Method <c>AddEventToEventList</c> adds the <c>newEvent</c> to the <c>_events</c> queue.
+    /// </summary>
+    /// <param name="newEvent"><c>newEvent</c> is the new event.</param>
     private void AddEventToEventList(SIMbotEvent newEvent)
     {
         _events.Add(newEvent);
