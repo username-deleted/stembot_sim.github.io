@@ -7,14 +7,32 @@ using UnityEngine;
 
 public class PythonBot : MonoBehaviour
 {
+    /// <summary>
+    /// Field <c>motors</c> holds a list of Motor objects, this should be the two motors on the SIMbot.
+    /// </summary>
     private List<Motor> motors = new List<Motor>();
+    /// <summary>
+    /// Field <c>_events</c> is a queue in which events are loaded into and pulled off from in Update
+    /// </summary>
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
+    /// <summary>
+    /// Property <c>OnSpeedChange</c> is a C# event that is invoked on speed changes
+    /// </summary>
     public event Action<int, float> OnSpeedChange;
+    /// <summary>
+    /// Property <c>OnTimeSleep</c> is a C# event that is invoked on time.sleep calls
+    /// </summary>
     public event Action<float> OnTimeSleep; 
 
+    /// <summary>
+    /// Field <c>_waiting</c> is whether or not the events are being process. If true, no events will be processed.
+    /// </summary>
     private bool _waiting = false;
 
+    /// <summary>
+    /// Property <c>EventTypes</c> is an enum that holds all possible events for the SIMbot.
+    /// </summary>
     public enum EventTypes
     {
         Speed,
@@ -24,44 +42,73 @@ public class PythonBot : MonoBehaviour
         Null
     }
 
+    /// <summary>
+    /// Class <c>SIMbotEvent</c> is the main class that all event types will inherit. It describes what a SIMbot event is.
+    /// </summary>
     public class SIMbotEvent
     {
+        /// <summary>
+        /// Property <c>Action</c> is the action type of the event.
+        /// </summary>
         public EventTypes Action
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The Constructor, defaults to <c>EventTypes.Null</c>.
+        /// </summary>
         public SIMbotEvent()
         {
             Action = EventTypes.Null;
         }
 
+        /// <summary>
+        /// Returns a string representation of the event
+        /// </summary>
+        /// <returns>A string representation of the event</returns>
         public override string ToString()
         {
             return "Action: " + Action;
         }
     }
 
+    /// <summary>
+    /// Class <c>SIMbotSpeedEvent</c> inherits <c>SIMbotEvent</c> and describes a speed event.
+    /// </summary>
     public class SIMbotSpeedEvent : SIMbotEvent
     {
+        /// <summary>
+        /// Property <c>Speed</c> is the speed the motor should be set to.
+        /// </summary>
         public float Speed
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Property <c>WheelMotor</c> is the motor to apply the speed to.
+        /// </summary>
         public Motor WheelMotor
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The Constructor sets the <c>Action</c> to <c>EventTypes.Speed</c>.
+        /// </summary>
         public SIMbotSpeedEvent()
         {
             Action = EventTypes.Speed;
         }
 
+        /// <summary>
+        /// Returns a string representation of the event
+        /// </summary>
+        /// <returns>A string representation of the event</returns>
         public override string ToString()
         {
             return "Action: " + Action + "\nSpeed: " + Speed + "\nMotor ID: " + WheelMotor.Id;
@@ -80,20 +127,40 @@ public class PythonBot : MonoBehaviour
             set;
         }
 
+        /// <summary>
+        /// The Constructor sets the <c>Action</c> to <c>EventTypes.TimeSleep</c>.
+        /// </summary>
         public SIMbotTimeSleepEvent()
         {
             Action = EventTypes.TimeSleep;
         }
     }
 
+    /// <summary>
+    /// Class <c>Motor</c> represents a SIMbot motor.
+    /// </summary>
     public class Motor
     {
+        /// <summary>
+        /// Property <c>Id</c> is the motor Id.
+        /// </summary>
         public int Id;
+        /// <summary>
+        /// Field <c>_sleeping</c> is whether the motor is sleeping.
+        /// </summary>
         private bool _sleeping;
+        /// <summary>
+        /// Field <c>_brakeMode</c> is the brake mode of the motor.
+        /// </summary>
         private bool _brakeMode;
+        /// <summary>
+        /// Field <c>_motorSpeed</c> is the speed of the motor.
+        /// </summary>
         private float _motorSpeed;
+        /// <summary>
+        /// field <c>_motor</c> is the GameObject within the scene that represents the motor.
+        /// </summary>
         private GameObject _motor;
-        private ArrayList _eventList;
 
         public Motor(int id)
         {
