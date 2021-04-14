@@ -134,6 +134,14 @@ public class PythonBot : MonoBehaviour
         OnTimeSleep += SetWaitingTrue;
     }
 
+    private void Update()
+    {
+        if (!_waiting && _events.Count > 0)
+        {
+            Invoke("ProcessNextSIMbotEvent", 0);
+        }
+    }
+
     private void SetWaitingTrue(float duration)
     {
         _waiting = true;
@@ -143,14 +151,6 @@ public class PythonBot : MonoBehaviour
     private void SetWaitingFalse()
     {
         _waiting = false;
-    }
-
-    private void Update()
-    {
-        if (!_waiting && _events.Count > 0)
-        {
-            Invoke("ProcessNextSIMbotEvent", 0);
-        }
     }
 
     private void ProcessNextSIMbotEvent()
@@ -227,10 +227,6 @@ public class PythonBot : MonoBehaviour
         var ScriptSource = engine.CreateScriptSourceFromFile(Application.dataPath + "/Scripts/User/bot_test.py");
         //Execute said file.
         ScriptSource.Execute(scope);
-
-
-        //dynamic leftMotor = scope.GetVariable("motor_1");
-        //Debug.Log(leftMotor);
     }
 
     public void HelloPython()
@@ -277,17 +273,5 @@ public class PythonBot : MonoBehaviour
     {
         _events.Add(newEvent);
     }
-/*
-    /// <summary>
-    /// The <c>SetupVariablesAndAddToEventList</c> makes sure all the variables get added to the SIMbotEvent object
-    /// and then added to the event queue. The reason it is done this way is because we do not know 
-    /// </summary>
-    /// <param name="newEvent"></param>
-    /// <param name="temp"></param>
-    private void SetupVariablesAndAddToEventList(SIMbotEvent newEvent, ArrayList temp)
-    {
-        newEvent.SetupVariables(temp);
-        AddEventToEventList(newEvent);
-    }*/
 }
 
