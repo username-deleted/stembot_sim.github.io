@@ -50,7 +50,7 @@ Controls:
 - More camera tweaks.
 
 - Level 1 will now end when all 12 coins are collected, displaying the user's time taken and giving the user an option to go back to the main menu, restart the level, or quit.
-- Level 4 will now end when the user reaches the finish line of the parkour course.
+- Level 5 will now end when the user reaches the finish line of the parkour course.
 - SIMbot is now responding to events thrown by PythonBot in a test level, this is not publicly available yet.
 
 
