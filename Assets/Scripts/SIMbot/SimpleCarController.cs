@@ -101,10 +101,11 @@ public class SimpleCarController : MonoBehaviour {
         //user input controls
         else
         {
+            var leftWheel = axleInfos[0].leftWheel;
+            var rightWheel = axleInfos[0].rightWheel;
             if (tankControls)
             {
-                var leftWheel = axleInfos[0].leftWheel;
-                var rightWheel = axleInfos[0].rightWheel;
+                
                 //Get Left Wheel Input W/S
                 if (Input.GetKey("w"))
                 {
@@ -144,17 +145,6 @@ public class SimpleCarController : MonoBehaviour {
                     axleInfos[0].rightWheel.motorTorque = 0;
                     axleInfos[0].rightWheel.brakeTorque = speed;
                 }
-
-                if (Mathf.Abs(rightWheel.rpm)> 40)
-                {
-                    rightWheel.motorTorque = 0;
-                }
-
-                if (Mathf.Abs(leftWheel.rpm) > 40)
-                {
-                    leftWheel.motorTorque = 0;
-                }
-
                 //Arrow & WASD Controls
             }
             else
@@ -202,6 +192,15 @@ public class SimpleCarController : MonoBehaviour {
                     axleInfos[0].rightWheel.motorTorque = speed;
                     axleInfos[0].rightWheel.brakeTorque = 0;
                 }
+            }
+            if (Mathf.Abs(rightWheel.rpm) > 480)
+            {
+                rightWheel.motorTorque = 0;
+            }
+
+            if (Mathf.Abs(leftWheel.rpm) > 480)
+            {
+                leftWheel.motorTorque = 0;
             }
         }
         
