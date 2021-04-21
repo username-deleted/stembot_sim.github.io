@@ -12,18 +12,23 @@ public class PythonBot : MonoBehaviour
     /// </summary>
     private List<Motor> motors = new List<Motor>();
     /// <summary>
-    /// Field <c>_events</c> is a queue in which events are loaded into and pulled off from in Update
+    /// Field <c>_events</c> is a queue in which events are loaded into and pulled off from in Update.
     /// </summary>
     private List<SIMbotEvent> _events = new List<SIMbotEvent>();
 
     /// <summary>
-    /// Property <c>OnSpeedChange</c> is a C# event that is invoked on speed changes
+    /// Property <c>OnSpeedChange</c> is a C# event that is invoked on speed changes.
     /// </summary>
     public event Action<int, float> OnSpeedChange;
     /// <summary>
-    /// Property <c>OnTimeSleep</c> is a C# event that is invoked on time.sleep calls
+    /// Property <c>OnTimeSleep</c> is a C# event that is invoked on time.sleep calls.
     /// </summary>
-    public event Action<float> OnTimeSleep; 
+    public event Action<float> OnTimeSleep;
+
+    /// <summary>
+    /// Property <c>OnDistanceEvent</c> is a C# event that is invoked on distance calls.
+    /// </summary>
+    public event Action<float, float, float, bool> OnDistanceEvent; 
 
     /// <summary>
     /// Field <c>_waiting</c> is whether or not the events are being process. If true, no events will be processed.
@@ -134,6 +139,39 @@ public class PythonBot : MonoBehaviour
         {
             Action = EventTypes.TimeSleep;
         }
+    }
+
+    public class SIMbotDistanceEvent : SIMbotEvent
+    {
+        public float Steps
+        {
+            get;
+            set;
+        }
+
+        public float Speed
+        {
+            get;
+            set;
+        }
+
+        public float Acceleration
+        {
+            get;
+            set;
+        }
+
+        public bool Blocking
+        {
+            get;
+            set;
+        }
+
+        public SIMbotDistanceEvent()
+        {
+            Action = EventTypes.Distance;
+        }
+
     }
 
     /// <summary>
@@ -268,6 +306,11 @@ public class PythonBot : MonoBehaviour
 
                 OnTimeSleep?.Invoke(timeSleepEvent.Duration);
                 break;
+            case EventTypes.Distance:
+                var distanceEvent = (SIMbotDistanceEvent) nextEvent;
+                Debug.Log("-- Distance Event --");
+                Debug.Log("Steps: " + distanceEvent.Steps);
+                break;
         }
     }
 
@@ -360,6 +403,8 @@ public class PythonBot : MonoBehaviour
         AddEventToEventList(newEvent);
         return newEvent;
     }
+
+
 
     /// <summary>
     /// Method <c>AddEventToEventList</c> adds the <c>newEvent</c> to the <c>_events</c> queue.
