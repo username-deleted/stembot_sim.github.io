@@ -369,5 +369,10 @@ public class PythonBot : MonoBehaviour
     {
         _events.Add(newEvent);
     }
+
+    public Motor GetMotor(int id)
+    {
+        return motors[id - 1];
+    }
 }
 

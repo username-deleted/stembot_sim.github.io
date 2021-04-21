@@ -35,6 +35,8 @@ public class SimpleCarController : MonoBehaviour {
 
     private Rigidbody rb;
 
+    private int _maxRpm = 480;
+
     private void Awake()
     {
         //get the rigidbody
@@ -87,128 +89,149 @@ public class SimpleCarController : MonoBehaviour {
 
 
         var currentSpeed = rb.velocity.magnitude;
+
+        var leftWheel = axleInfos[0].leftWheel;
+        var rightWheel = axleInfos[0].rightWheel;
         //If using python controls, look for python events, ignore input
         if (_pythonControls)
         {
-            if (currentSpeed > 5)
-            {
-            }
-            else
-            {
-
-            }
+            //clamp RPM for python
+            ClampMotorRpm(rightWheel, 2);
+            ClampMotorRpm(leftWheel, 1);
         }
         //user input controls
         else
         {
-            var leftWheel = axleInfos[0].leftWheel;
-            var rightWheel = axleInfos[0].rightWheel;
+            //tank controls
             if (tankControls)
             {
+                HandleTankControlInput(speed);
                 
-                //Get Left Wheel Input W/S
-                if (Input.GetKey("w"))
-                {
-                    //Spins Forward
-                    axleInfos[0].leftWheel.motorTorque = speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                }
-                else if (Input.GetKey("s"))
-                {
-                    //Spins Backward
-                    axleInfos[0].leftWheel.motorTorque = -speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                }
-                else
-                {
-                    //Stops Motor if no input
-                    axleInfos[0].leftWheel.motorTorque = 0;
-                    axleInfos[0].leftWheel.brakeTorque = speed;
-                }
-
-                //Get Right Wheel Input I/K
-                if (Input.GetKey("i"))
-                {
-                    //Spins Forward
-                    axleInfos[0].rightWheel.motorTorque = speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
-                else if (Input.GetKey("k"))
-                {
-                    //Spins Backward
-                    axleInfos[0].rightWheel.motorTorque = -speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
-                else
-                {
-                    //Stops Motor if no input
-                    axleInfos[0].rightWheel.motorTorque = 0;
-                    axleInfos[0].rightWheel.brakeTorque = speed;
-                }
-                //Arrow & WASD Controls
             }
-            else
+            else //Arrow & WASD Controls
             {
-                float motor = maxMotorTorque * Input.GetAxis("Vertical");
-                float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
-                if (motor > 0)
-                {
-                    //Front Wheels spin forward
-                    axleInfos[0].leftWheel.motorTorque = speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                    axleInfos[0].rightWheel.motorTorque = speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
-                else if (motor < 0)
-                {
-                    //Front Wheels spin backwards
-                    axleInfos[0].leftWheel.motorTorque = -speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                    axleInfos[0].rightWheel.motorTorque = -speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
-                else
-                {
-                    //Stops Motor if no input
-                    axleInfos[0].leftWheel.motorTorque = 0;
-                    axleInfos[0].leftWheel.brakeTorque = speed;
-                    axleInfos[0].rightWheel.motorTorque = 0;
-                    axleInfos[0].rightWheel.brakeTorque = speed;
-                }
-
-                if (steering > 0)
-                {
-                    //Turn Right
-                    axleInfos[0].leftWheel.motorTorque = speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                    axleInfos[0].rightWheel.motorTorque = -speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
-                else if (steering < 0)
-                {
-                    //Turn Left
-                    axleInfos[0].leftWheel.motorTorque = -speed;
-                    axleInfos[0].leftWheel.brakeTorque = 0;
-                    axleInfos[0].rightWheel.motorTorque = speed;
-                    axleInfos[0].rightWheel.brakeTorque = 0;
-                }
+                HandleWasdInput(speed);
             }
-            if (Mathf.Abs(rightWheel.rpm) > 480)
+
+            //clamp RPM
+            if (Mathf.Abs(rightWheel.rpm) > _maxRpm)
             {
                 rightWheel.motorTorque = 0;
             }
 
-            if (Mathf.Abs(leftWheel.rpm) > 480)
+            if (Mathf.Abs(leftWheel.rpm) > _maxRpm)
             {
                 leftWheel.motorTorque = 0;
             }
         }
         
-
+        //update the visuals
         foreach (AxleInfo axleInfo in axleInfos)
         {
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
+        }
+
+        void ClampMotorRpm(WheelCollider wC, int motorId)
+        {
+            if (wC.rpm > _maxRpm)
+            {
+                wC.motorTorque = 0;
+            }
+            else
+            {
+                wC.motorTorque = _pythonBotScript.GetMotor(motorId).speed();
+            }
+        }
+
+        void HandleTankControlInput(float f)
+        {
+            //Get Left Wheel Input W/S
+            if (Input.GetKey("w"))
+            {
+                //Spins Forward
+                axleInfos[0].leftWheel.motorTorque = f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+            }
+            else if (Input.GetKey("s"))
+            {
+                //Spins Backward
+                axleInfos[0].leftWheel.motorTorque = -f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+            }
+            else
+            {
+                //Stops Motor if no input
+                axleInfos[0].leftWheel.motorTorque = 0;
+                axleInfos[0].leftWheel.brakeTorque = f;
+            }
+
+            //Get Right Wheel Input I/K
+            if (Input.GetKey("i"))
+            {
+                //Spins Forward
+                axleInfos[0].rightWheel.motorTorque = f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+            else if (Input.GetKey("k"))
+            {
+                //Spins Backward
+                axleInfos[0].rightWheel.motorTorque = -f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+            else
+            {
+                //Stops Motor if no input
+                axleInfos[0].rightWheel.motorTorque = 0;
+                axleInfos[0].rightWheel.brakeTorque = f;
+            }
+        }
+
+        void HandleWasdInput(float f)
+        {
+            float motor = maxMotorTorque * Input.GetAxis("Vertical");
+            float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+            if (motor > 0)
+            {
+                //Front Wheels spin forward
+                axleInfos[0].leftWheel.motorTorque = f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+                axleInfos[0].rightWheel.motorTorque = f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+            else if (motor < 0)
+            {
+                //Front Wheels spin backwards
+                axleInfos[0].leftWheel.motorTorque = -f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+                axleInfos[0].rightWheel.motorTorque = -f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+            else
+            {
+                //Stops Motor if no input
+                axleInfos[0].leftWheel.motorTorque = 0;
+                axleInfos[0].leftWheel.brakeTorque = f;
+                axleInfos[0].rightWheel.motorTorque = 0;
+                axleInfos[0].rightWheel.brakeTorque = f;
+            }
+
+            if (steering > 0)
+            {
+                //Turn Right
+                axleInfos[0].leftWheel.motorTorque = f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+                axleInfos[0].rightWheel.motorTorque = -f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
+            else if (steering < 0)
+            {
+                //Turn Left
+                axleInfos[0].leftWheel.motorTorque = -f;
+                axleInfos[0].leftWheel.brakeTorque = 0;
+                axleInfos[0].rightWheel.motorTorque = f;
+                axleInfos[0].rightWheel.brakeTorque = 0;
+            }
         }
     }
 
