@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 //Wheel Collider Reference: https://docs.unity3d.com/Manual/class-WheelCollider.html
 //WHeel Collider Tutorial Reference: https://docs.unity3d.com/Manual/WheelColliderTutorial.html
@@ -32,8 +33,13 @@ public class SimpleCarController : MonoBehaviour {
 
     private PythonBot _pythonBotScript;
 
+    private Rigidbody rb;
+
     private void Awake()
     {
+        //get the rigidbody
+        rb = gameObject.GetComponent<Rigidbody>();
+
         //get the PythonBot script
         _pythonBotScript = gameObject.GetComponent<PythonBot>();
 
@@ -59,23 +65,15 @@ public class SimpleCarController : MonoBehaviour {
     /// <param name="speed"><c>speed</c> is the speed to set the motor to</param>
     private void HandleSpeedChange(int id, float speed)
     {
-        //go forward
-        if (speed > 0)
+        if (id == 1)
         {
-            if (id == 1)
-            {
                 axleInfos[0].leftWheel.motorTorque = speed;
                 axleInfos[0].leftWheel.brakeTorque = 0;
-            }
-            else
-            {
-                axleInfos[0].rightWheel.motorTorque = speed;
-                axleInfos[0].rightWheel.brakeTorque = 0;
-            }
         }
         else
         {
-
+                axleInfos[0].rightWheel.motorTorque = speed;
+                axleInfos[0].rightWheel.brakeTorque = 0;
         }
     }
 
@@ -87,15 +85,26 @@ public class SimpleCarController : MonoBehaviour {
         //Break Speed
         float maxBreakTorque = speed;
 
+
+        var currentSpeed = rb.velocity.magnitude;
         //If using python controls, look for python events, ignore input
         if (_pythonControls)
         {
+            if (currentSpeed > 5)
+            {
+            }
+            else
+            {
+
+            }
         }
         //user input controls
         else
         {
             if (tankControls)
             {
+                var leftWheel = axleInfos[0].leftWheel;
+                var rightWheel = axleInfos[0].rightWheel;
                 //Get Left Wheel Input W/S
                 if (Input.GetKey("w"))
                 {
@@ -134,6 +143,16 @@ public class SimpleCarController : MonoBehaviour {
                     //Stops Motor if no input
                     axleInfos[0].rightWheel.motorTorque = 0;
                     axleInfos[0].rightWheel.brakeTorque = speed;
+                }
+
+                if (Mathf.Abs(rightWheel.rpm)> 40)
+                {
+                    rightWheel.motorTorque = 0;
+                }
+
+                if (Mathf.Abs(leftWheel.rpm) > 40)
+                {
+                    leftWheel.motorTorque = 0;
                 }
 
                 //Arrow & WASD Controls
